@@ -256,6 +256,7 @@ $(eval $(call module,admin-full,LuCI Administration - full-featured for full con
 $(eval $(call module,rpc,LuCI RPC - JSON-RPC API,+luci-lib-json))
 $(eval $(call module,freifunk,LuCI Freifunk module,+luci-mod-admin-full +luci-lib-json +PACKAGE_luci-mod-freifunk:freifunk-firewall))
 $(eval $(call module,niu,NIU - Next Generation Interface,+luci-mod-admin-core @BROKEN))
+$(eval $(call module,flexibity,LuCI Flexibity module,+luci-mod-flexibity))
 
 
 ### Applications ###
@@ -476,6 +477,9 @@ $(eval $(call theme,freifunk-hannover,Freifunk Hannover Theme,\
 $(eval $(call theme,freifunk-generic,Freifunk Generic Theme,\
         Manuel Munz <freifunk-at-somakoma-dot-de>))
 
+$(eval $(call theme,flexibity,Flexibity Theme,\
+	Maxim Osipov <maxim.osipov@gmail.com>))
+
 ### Translations ###
 define translation
   define Package/luci-i18n-$(1)
@@ -551,6 +555,23 @@ $(eval $(call collection,light,\
 	Minimum package set using only admin mini and the standard theme,\
 	+uhttpd +luci-mod-admin-mini +luci-theme-openwrt @BROKEN))
 
+$(eval $(call collection,flexibity,\
+	Flexibity OpenWrt set with lighttpd,\
+	+lighttpd-flexibity \
+	+lighttpd-flexibity-mod-cgi \
+	+lighttpd-flexibity-mod-redirect \
+	+lighttpd-flexibity-mod-rewrite \
+	+lighttpd-flexibity-mod-fastcgi \
+	+lighttpd-flexibity-mod-alias \
+	+luci-mod-admin-full \
+	+luci-mod-flexibity\
+	+luci-theme-flexibity \
+	+transmission-web \
+	+motion-flexibity \
+	+px5g \
+	+libiwinfo \
+	+flexibity-connect \
+	+flexibity-sensors))
 
 ### Compile ###
 PKG_CONFIG_DEPENDS=$(patsubst %,CONFIG_PACKAGE_%,$(LUCI_BUILD_PACKAGES))
