@@ -86,28 +86,44 @@ end
 function snapshot_update()
 	local fs = require "luci.fs"
 
-	local image_curr = luci.http.formvalue("image")
 	local image_direction = luci.http.formvalue("dir")
-
         local image_dir = "/www/cam1"
         local image_prefix = "/cam1"
 	local image_files = luci.fs.dir(image_dir)
+	local image_dates = { }
 	local rv = { }
-
-	--[[ Find next (last) image  ]]--
-	local last_image = ""
-	local last_time = 0
-	if image_curr and image_curr ~= "" then
-		last_image = luci.fs.basename(image_curr)
-		last_time = luci.fs.mtime(image_dir.."/"..last_image)
+--[[
+	luci.http.prepare_content("text/plain")
+]]--
+	for idx,image_file in ipairs(image_files) do
+		image_dates[idx] = luci.fs.mtime(image_dir.."/"..image_file)
+--[[
+        	luci.http.write("image_file = "..image_file.." image_date = "..image_dates[idx].."\n")
+]]--
 	end
 
-	if last_image == "" or image_direction == "next" then
+	local curr_image = luci.http.formvalue("image")
+	if curr_image and curr_image ~= "" then
+		curr_image = luci.fs.basename(curr_image)
+		curr_time = luci.fs.mtime(image_dir.."/"..curr_image)
+	else
+		curr_image = ""
+		curr_time = 0
+	end
+--[[
+        luci.http.write("curr_image = "..curr_image.." curr_time = "..curr_time.."\n")
+]]--
+	--[[ search for last image ]]--
+	local last_image = ""
+	local last_time = luci.fs.mtime(image_dir)
+	if curr_image == "" then
+		last_image = ""
+		last_time = 0
 		if image_files then
 			local image_file
 			for idx,image_file in ipairs(image_files) do
 				if image_file:match("jpg$") then
-					local tmp_time = luci.fs.mtime(image_dir.."/"..image_file)
+					local tmp_time = image_dates[idx]
 					if tmp_time > last_time then
 						last_time = tmp_time
 						last_image = image_file
@@ -115,13 +131,34 @@ function snapshot_update()
 				end
 			end
 		end
+	--[[ search for next image ]]--
+	else
+		last_image = ""
+		last_time = luci.fs.mtime(image_dir)
+		if image_direction == "next" then
+			if image_files then
+				local image_file
+				for idx,image_file in ipairs(image_files) do
+					if image_file:match("jpg$") then
+						local tmp_time = image_dates[idx]
+						if tmp_time > curr_time and tmp_time <= last_time then
+							last_time = tmp_time
+							last_image = image_file
+						end
+					end
+				end
+			end
+		end
+		if last_image == "" then
+			last_image = curr_image
+			last_time = curr_time
+		end
 	end
 	if last_image ~= "" then
 		rv[#rv+1] = image_prefix.."/"..last_image
 	end
 --[[
-	luci.http.prepare_content("text/plain")
-        luci.http.write("last_image = "..last_image.." last_time = "..last_time.." image_curr = "..image_curr.." dir = "..image_direction.."\n")
+        luci.http.write("last_image = "..last_image.." last_time = "..last_time.."\n")
 ]]--
 	--[[ Find previous image  ]]--
 	local prev_image = ""
@@ -130,13 +167,17 @@ function snapshot_update()
 		local image_file
 		for idx,image_file in ipairs(image_files) do
 			if image_file:match("jpg$") then
-				local tmp_time = luci.fs.mtime(image_dir.."/"..image_file)
+				local tmp_time = image_dates[idx]
 				if tmp_time < last_time and tmp_time > prev_time then
 					prev_time = tmp_time
 					prev_image = image_file
 				end
 			end
 		end
+	end
+	if prev_image == "" then
+		prev_image = last_image
+		prev_time = last_time
 	end
 	if prev_image ~= "" then
 		rv[#rv+1] = image_prefix.."/"..prev_image

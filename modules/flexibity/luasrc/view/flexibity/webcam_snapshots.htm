@@ -41,9 +41,9 @@ $Id: wifi_overview.htm 7010 2011-04-30 16:13:30Z jow $
 			'image='+image_file+';dir='+direction,
                         function(x, st)
                         {
+                                var images = document.getElementById('snapshot_frame');
                                 if (st)
                                 {
-                                        var images = document.getElementById('snapshot_frame');
                                         if (images)
                                         {
                                                 images.innerHTML = '';
@@ -56,7 +56,9 @@ $Id: wifi_overview.htm 7010 2011-04-30 16:13:30Z jow $
                                                         images.innerHTML += str;
                                                 }
                                         }
-                                }
+                                } else {
+					images.innerHTML = x.responseText;
+				}
                         	window.setTimeout(update_scroll, 250);
                         }
                 )
