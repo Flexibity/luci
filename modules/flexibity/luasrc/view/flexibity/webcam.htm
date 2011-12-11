@@ -16,10 +16,12 @@ $Id: index.htm 5453 2009-10-31 17:02:21Z jow $
 <%+header%>
 <h2><%:Webcam%></h2>
 <div class="cbi-map">
-	<table width="100%" height="100%"><tr><td width="50%" height="100%">
+	<table width="100%" height="100%"><tr>
+	<td width="100%" height="100%">
         <fieldset class="cbi-section">
                 <legend><%:Webcam live stream%></legend>
-		<table width="100%" height="100%">
+		<center>
+		<table width="640px" height="480px">
 		        <tr class="cbi-section-table" style="margin:10px">
 		                <td class="cbi-value-field">
 					<center>
@@ -30,8 +32,11 @@ $Id: index.htm 5453 2009-10-31 17:02:21Z jow $
 				</td>
 		        </tr>
 		</table>
+		</center>
         </fieldset>
-	</td><td width="50%" height="100%">
+	</td>
+<!--
+	<td width="50%" height="100%">
         <fieldset class="cbi-section">
                 <legend><%:Motion snapshots%></legend>
 		<table width="100%" height="100%">
@@ -44,7 +49,9 @@ $Id: index.htm 5453 2009-10-31 17:02:21Z jow $
 		        </tr>
 		</table>
         </fieldset>
-	</td></tr></table>
+	</td>
+-->
+	</tr></table>
 </div>
 
 <%+footer%>
