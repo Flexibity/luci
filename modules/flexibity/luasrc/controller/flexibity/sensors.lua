@@ -22,7 +22,7 @@ function index()
 
 	entry({"flexibity", "sensors"}, alias("flexibity", "sensors", "index"), i18n("Sensors"), 20).index = true
         entry({"flexibity", "sensors", "index"}, cbi("flexibity/sensors_overview"), i18n("Overview"), 1).leaf = true
-	entry({"flexibity", "sensors", "health"}, template("flexibity/health"), i18n("Health"), 10).leaf = true
+	entry({"flexibity", "sensors", "health"}, form("flexibity/health"), i18n("Health"), 10).leaf = true
 	entry({"flexibity", "sensors", "safety"}, form("flexibity/safety"), i18n("Safety"), 20).leaf = true
         entry({"flexibity", "sensors", "environment"}, template("flexibity/environment"), i18n("Environment"), 30).leaf = true
         entry({"flexibity", "senosrs", "environment_status"}, call("action_environment")).leaf = true

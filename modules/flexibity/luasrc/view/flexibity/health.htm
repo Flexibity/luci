@@ -1,9 +1,7 @@
 <%#
 LuCI - Lua Configuration Interface
-
-Copyright 2011 Maxim Osipov <maxim.osipov@gmail.org>
-Copyright 2008 Steven Barth <steven@midlink.org>
-Copyright 2008 Jo-Philipp Wich <xm@leipzig.freifunk.net>
+Copyright 2011 Maxim Osipov <maxim.osipov@gmail.com>
+Copyright 2010 Jo-Philipp Wich <xm@subsignal.org>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -11,31 +9,24 @@ You may obtain a copy of the License at
 
 	http://www.apache.org/licenses/LICENSE-2.0
 
-$Id: reboot.htm 5448 2009-10-31 15:54:11Z jow $
+$Id: load.htm 6583 2010-11-28 18:01:07Z jow $
 
 -%>
-<%+header%>
+
 <h2><a id="content" name="content"><%:Health%></a></h2>
 <div class="cbi-map">
-  <fieldset class="cbi-section">
-    <legend><%:Sensors Overview%></legend>
-    <table width="100%" height="100%">
-      <tr class="cbi-section-table" style="margin:10px">
-        <td class="cbi-value-field" width="25%">
-          <img src="<%=media%>/girlwithheadphone4.svg"></img>
-        </td>
-        <td class="cbi-value-field" width="25%">
-          <img src="<%=media%>/sport_man.svg"></img>
-        </td>
-        <td class="cbi-value-field" width="25%">
-          <img src="<%=media%>/curius_face.svg"></img>
-        </td>
-        <td class="cbi-value-field" width="25%">
-          <img src="<%=media%>/teacher.svg"></img>
-        </td>
-      </tr>
-    </table>
-  </fieldset>
+        <fieldset class="cbi-section">
+                <legend><%:Sensors Overview%></legend>
+                <table width="100%" height="100%">
+                        <tr class="cbi-section-table" style="margin:10px">
+                                <td class="cbi-value-field">
+				<div align="center">
+					<script type="text/javascript" src="<%=resource%>/processing-1.2.3.js"></script>
+					<canvas data-processing-sources="<%=resource%>/health.pde"></canvas>
+				</div>
+                                </td>
+                        </tr>
+                </table>
+        </fieldset>
 </div>
 
-<%+footer%>
