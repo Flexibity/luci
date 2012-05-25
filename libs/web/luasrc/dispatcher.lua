@@ -73,6 +73,43 @@ function build_url(...)
 	return table.concat(url, "")
 end
 
+--- Check whether a dispatch node shall be visible
+-- @param node	Dispatch node
+-- @return		Boolean indicating whether the node should be visible
+function node_visible(node)
+   if node then
+	  return not (
+		 (not node.title or #node.title == 0) or
+		 (not node.target or node.hidden == true) or
+		 (type(node.target) == "table" and node.target.type == "firstchild" and
+		  (type(node.nodes) ~= "table" or not next(node.nodes)))
+	  )
+   end
+   return false
+end
+
+--- Return a sorted table of visible childs within a given node
+-- @param node	Dispatch node
+-- @return		Ordered table of child node names
+function node_childs(node)
+	local rv = { }
+	if node then
+		local k, v
+		for k, v in util.spairs(node.nodes,
+			function(a, b)
+				return (node.nodes[a].order or 100)
+				     < (node.nodes[b].order or 100)
+			end)
+		do
+			if node_visible(v) then
+				rv[#rv+1] = k
+			end
+		end
+	end
+	return rv
+end
+
+
 --- Send a 404 error code and render the "error404" template if available.
 -- @param message	Custom error message (optional)
 -- @return			false
@@ -131,7 +168,7 @@ function httpdispatch(request, prefix)
 	local r = {}
 	context.request = r
 	context.urltoken = {}
-	
+
 	local pathinfo = http.urldecode(request:getenv("PATH_INFO") or "", true)
 
 	if prefix then
@@ -247,6 +284,22 @@ function dispatch(request)
 			assert(media, "No valid theme found")
 		end
 
+		local function _ifattr(cond, key, val)
+			if cond then
+				local env = getfenv(3)
+				local scope = (type(env.self) == "table") and env.self
+				return string.format(
+					' %s="%s"', tostring(key),
+					luci.util.pcdata(tostring( val
+					 or (type(env[key]) ~= "function" and env[key])
+					 or (scope and type(scope[key]) ~= "function" and scope[key])
+					 or "" ))
+				)
+			else
+				return ''
+			end
+		end
+
 		tpl.context.viewns = setmetatable({
 		   write       = luci.http.write;
 		   include     = function(name) tpl.Template(name):render(getfenv(2)) end;
@@ -256,7 +309,9 @@ function dispatch(request)
 		   pcdata      = util.pcdata;
 		   media       = media;
 		   theme       = fs.basename(media);
-		   resource    = luci.config.main.resourcebase
+		   resource    = luci.config.main.resourcebase;
+		   ifattr      = function(...) return _ifattr(...) end;
+		   attr        = function(...) return _ifattr(true, ...) end;
 		}, {__index=function(table, key)
 			if key == "controller" then
 				return build_url()
@@ -399,7 +454,7 @@ function dispatch(request)
 		local root = node()
 		if not root or not root.target then
 			error404("No root node was registered, this usually happens if no module was installed.\n" ..
-			         "Install luci-admin-full and retry. " ..
+			         "Install luci-mod-admin-full and retry. " ..
 			         "If the module is already installed, try removing the /tmp/luci-indexcache file.")
 		else
 			error404("No page is registered at '/" .. table.concat(request, "/") .. "'.\n" ..
@@ -487,7 +542,7 @@ function createindex_plain(path, suffixes)
 		       "The file '" .. c .. "' contains an invalid module line.\n" ..
 		       "Please verify whether the module name is set to '" .. modname ..
 		       "' - It must correspond to the file path!")
-		
+
 		local idx = mod.index
 		assert(type(idx) == "function",
 		       "Invalid controller file found\n" ..
@@ -638,6 +693,35 @@ end
 
 -- Subdispatchers --
 
+function _firstchild()
+   local path = { unpack(context.path) }
+   local name = table.concat(path, ".")
+   local node = context.treecache[name]
+
+   local lowest
+   if node and node.nodes and next(node.nodes) then
+	  local k, v
+	  for k, v in pairs(node.nodes) do
+		 if not lowest or
+			(v.order or 100) < (node.nodes[lowest].order or 100)
+		 then
+			lowest = k
+		 end
+	  end
+   end
+
+   assert(lowest ~= nil,
+		  "The requested node contains no childs, unable to redispatch")
+
+   path[#path+1] = lowest
+   dispatch(path)
+end
+
+--- Alias the first (lowest order) page automatically
+function firstchild()
+   return { type = "firstchild", target = _firstchild }
+end
+
 --- Create a redirect to another dispatching node.
 -- @param	...		Virtual path destination
 function alias(...)
@@ -677,10 +761,18 @@ end
 
 
 local function _call(self, ...)
+	local func = getfenv()[self.name]
+	assert(func ~= nil,
+	       'Cannot resolve function "' .. self.name .. '". Is it misspelled or local?')
+
+	assert(type(func) == "function",
+	       'The symbol "' .. self.name .. '" does not refer to a function but data ' ..
+	       'of type "' .. type(func) .. '".')
+
 	if #self.argv > 0 then
-		return getfenv()[self.name](unpack(self.argv), ...)
+		return func(unpack(self.argv), ...)
 	else
-		return getfenv()[self.name](...)
+		return func(...)
 	end
 end
 

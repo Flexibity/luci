@@ -1,51 +1,52 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-19 19:36+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-01-08 13:20+0200\n"
+"Last-Translator: Kentaro <kentaro.matsuyama@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.4\n"
 
 #. Asterisk General Options
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:1
 msgid "Asterisk General Options"
-msgstr ""
+msgstr "Asterisk の全般オプション"
 
 #. AGI directory
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:2
 msgid "AGI directory"
-msgstr ""
+msgstr "AGI ディレクトリ"
 
 #. Cache recorded sound files during recording
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:3
 msgid "Cache recorded sound files during recording"
-msgstr ""
+msgstr "録音されたサウンドを録音中にキャッシュ"
 
 #. Debug Level
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:4
 msgid "Debug Level"
-msgstr ""
+msgstr "デバッグレベル"
 
 #. Disable some warnings
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:5
 msgid "Disable some warnings"
-msgstr ""
+msgstr "いくつかの警告を無効にする"
 
 #. Dump core on crash
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:6
 msgid "Dump core on crash"
-msgstr ""
+msgstr "クラッシュ時にコアダンプを出力する"
 
 #. High Priority
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:7
 msgid "High Priority"
-msgstr ""
+msgstr "高優先度"
 
 #. Initialise Crypto
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:8
@@ -60,7 +61,7 @@ msgstr ""
 #. Log directory
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:10
 msgid "Log directory"
-msgstr ""
+msgstr "ログ ディレクトリ"
 
 #. Maximum number of calls allowed
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:11
@@ -140,12 +141,12 @@ msgstr ""
 #. Allow transfer
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:27
 msgid "Allow transfer"
-msgstr ""
+msgstr "転送を許可"
 
 #. Clear global vars
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:29
 msgid "Clear global vars"
-msgstr ""
+msgstr "グローバル変数を消去"
 
 #. Dialplan Goto
 #: applications/luci-asterisk/luasrc/i18n/asterisk.en.lua:30

@@ -23,7 +23,7 @@ local pairs = pairs
 local error = error
 local table = table
 
-local ipkg = "opkg --force-removal-of-dependent-packages --force-overwrite --autoremove"
+local ipkg = "opkg --force-removal-of-dependent-packages --force-overwrite"
 local icfg = "/etc/opkg.conf"
 
 --- LuCI OPKG call abstraction library
@@ -158,7 +158,9 @@ end
 
 -- List helper
 function _list(action, pat, cb)
-	local fd = io.popen(ipkg .. " " .. action .. (pat and " '*" .. pat:gsub("'", "") .. "*'" or ""))
+	local fd = io.popen(ipkg .. " " .. action ..
+		(pat and (" '%s'" % pat:gsub("'", "")) or "")) -- .. " | grep -vE '^ '")
+
 	if fd then
 		local name, version, desc
 		while true do
@@ -229,4 +231,3 @@ function overlay_root()
 
 	return od
 end
-

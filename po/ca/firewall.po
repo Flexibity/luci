@@ -13,30 +13,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-msgid "(optional)"
+msgid "%s%s with %s"
+msgstr ""
+
+msgid "(Unnamed Entry)"
+msgstr ""
+
+msgid "(Unnamed Rule)"
+msgstr ""
+
+msgid "(Unnamed SNAT)"
+msgstr ""
+
+msgid "-- Please choose --"
+msgstr ""
+
+msgid "-- custom --"
+msgstr ""
+
+msgid "<var>%d</var> pkts. per <var>%s</var>"
+msgstr ""
+
+msgid "<var>%d</var> pkts. per <var>%s</var>, burst <var>%d</var> pkts."
+msgstr ""
+
+msgid "<var>%s</var> and limit to %s"
+msgstr ""
+
+msgid "Accept forward"
+msgstr ""
+
+msgid "Accept input"
 msgstr ""
 
 msgid "Action"
 msgstr "Acció"
 
-msgid "Advanced Options"
+msgid "Add"
 msgstr ""
 
-msgid "Advanced Rules"
-msgstr "Regles avançades"
+msgid "Add and edit..."
+msgstr ""
 
 msgid "Advanced Settings"
 msgstr ""
-
-msgid ""
-"Advanced rules let you customize the firewall to your needs. Only new "
-"connections will be matched. Packets belonging to already open connections "
-"are automatically allowed to pass the firewall."
-msgstr ""
-"Les regles avançades et deixen personalitzar el teu tallafocs per les teves "
-"necessitats. Només s'hi correspondran les connexions noves. Als paquets que "
-"pertanyen una connexió oberta se'ls permet passar el tallafocs "
-"automàticament."
 
 msgid "Allow forward from <em>source zones</em>:"
 msgstr ""
@@ -53,11 +73,17 @@ msgstr ""
 msgid "Custom Rules"
 msgstr ""
 
-msgid "Custom Rules (/etc/firewall.user)"
+msgid ""
+"Custom rules allow you to execute arbritary iptables commands which are not "
+"otherwise covered by the firewall framework. The commands are executed after "
+"each firewall restart, right after the default ruleset has been loaded."
 msgstr ""
 
 msgid "Destination"
 msgstr "Destí"
+
+msgid "Destination IP address"
+msgstr ""
 
 msgid "Destination address"
 msgstr "Adreça destí"
@@ -69,11 +95,29 @@ msgstr "Port de destí"
 msgid "Destination zone"
 msgstr "Destí"
 
-msgid "Device"
+msgid "Disable"
+msgstr ""
+
+msgid "Discard forward"
+msgstr ""
+
+msgid "Discard input"
+msgstr ""
+
+msgid "Do not rewrite"
+msgstr ""
+
+msgid "Do not track forward"
+msgstr ""
+
+msgid "Do not track input"
 msgstr ""
 
 msgid "Drop invalid packets"
 msgstr "Descarta els paquets invàlids"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable NAT Loopback"
 msgstr ""
@@ -85,8 +129,14 @@ msgstr "Protecció SYN-flood"
 msgid "Enable logging on this zone"
 msgstr ""
 
+msgid "External IP address"
+msgstr ""
+
 msgid "External port"
 msgstr "Port extern"
+
+msgid "Extra arguments"
+msgstr ""
 
 msgid "Family"
 msgstr ""
@@ -94,12 +144,16 @@ msgstr ""
 msgid "Firewall"
 msgstr "Tallafocs"
 
-msgid "Firewall - Zone Settings"
+msgid "Firewall - Custom Rules"
 msgstr ""
 
-msgid ""
-"For DNAT, match incoming traffic directed at the given destination ip "
-"address. For SNAT rewrite the source address to the given address."
+msgid "Firewall - Port Forwards"
+msgstr ""
+
+msgid "Firewall - Traffic Rules"
+msgstr ""
+
+msgid "Firewall - Zone Settings"
 msgstr ""
 
 msgid "Force connection tracking"
@@ -108,7 +162,34 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
+msgid "Forward to %s in %s"
+msgstr ""
+
+msgid "Forward to %s, %s in %s"
+msgstr ""
+
+msgid "From %s in %s"
+msgstr ""
+
+msgid "From %s in %s with source %s"
+msgstr ""
+
+msgid "From %s in %s with source %s and %s"
+msgstr ""
+
 msgid "General Settings"
+msgstr ""
+
+msgid "IP"
+msgstr ""
+
+msgid "IP range"
+msgstr ""
+
+msgid "IPs"
+msgstr ""
+
+msgid "IPv4"
 msgstr ""
 
 msgid "IPv4 and IPv6"
@@ -117,14 +198,14 @@ msgstr ""
 msgid "IPv4 only"
 msgstr ""
 
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 only"
 msgstr ""
 
 msgid "Input"
 msgstr "Entrada"
-
-msgid "Intended destination address"
-msgstr ""
 
 msgid "Inter-Zone Forwarding"
 msgstr ""
@@ -137,10 +218,16 @@ msgstr "Adreça interna"
 msgid "Internal port"
 msgstr "Port extern"
 
-msgid "Internal port (optional)"
-msgstr "Port intern (opcional)"
+msgid "Internal zone"
+msgstr ""
 
 msgid "Limit log messages"
+msgstr ""
+
+msgid "MAC"
+msgstr ""
+
+msgid "MACs"
 msgstr ""
 
 #, fuzzy
@@ -153,6 +240,9 @@ msgstr ""
 msgid "Match ICMP type"
 msgstr ""
 
+msgid "Match forwarded traffic to the given destination port or port range."
+msgstr ""
+
 msgid ""
 "Match incoming traffic directed at the given destination port or port range "
 "on this host"
@@ -160,27 +250,60 @@ msgstr ""
 
 msgid ""
 "Match incoming traffic originating from the given source port or port range "
-"on the client host"
+"on the client host."
 msgstr ""
 
 msgid "Name"
 msgstr ""
 
+msgid "New SNAT rule"
+msgstr ""
+
+msgid "New forward rule"
+msgstr ""
+
+msgid "New input rule"
+msgstr ""
+
+msgid "New port forward"
+msgstr ""
+
+msgid "New source NAT"
+msgstr ""
+
+msgid "Only match incoming traffic directed at the given IP address."
+msgstr ""
+
+msgid "Only match incoming traffic from these MACs."
+msgstr ""
+
+msgid "Only match incoming traffic from this IP or range."
+msgstr ""
+
+msgid ""
+"Only match incoming traffic originating from the given source port or port "
+"range on the client host"
+msgstr ""
+
+msgid "Open ports on router"
+msgstr ""
+
+msgid "Other..."
+msgstr ""
+
 msgid "Output"
 msgstr "Sortida"
 
-msgid "Overview"
+msgid "Passes additional arguments to iptables. Use with care!"
 msgstr ""
 
-msgid "Port forwarding"
-msgstr "Readreçament de port"
+msgid "Port Forwards"
+msgstr ""
 
 msgid ""
-"Port forwarding allows to provide network services in the internal network "
-"to an external network."
+"Port forwarding allows remote computers on the Internet to connect to a "
+"specific computer or service within the private LAN."
 msgstr ""
-"El readreçament de ports permet proveir serveis de la xarxa interna a una "
-"xarxa externa."
 
 msgid "Protocol"
 msgstr ""
@@ -192,10 +315,10 @@ msgstr ""
 msgid "Redirect matched incoming traffic to the specified internal host"
 msgstr ""
 
-msgid "Redirection type"
+msgid "Refuse forward"
 msgstr ""
 
-msgid "Redirections"
+msgid "Refuse input"
 msgstr ""
 
 msgid "Restrict Masquerading to given destination subnets"
@@ -207,7 +330,33 @@ msgstr ""
 msgid "Restrict to address family"
 msgstr ""
 
-msgid "Rules"
+msgid "Rewrite matched traffic to the given address."
+msgstr ""
+
+msgid ""
+"Rewrite matched traffic to the given source port. May be left empty to only "
+"rewrite the IP address."
+msgstr ""
+
+msgid "Rewrite to source %s"
+msgstr ""
+
+msgid "Rewrite to source %s, %s"
+msgstr ""
+
+msgid "Rule is disabled"
+msgstr ""
+
+msgid "Rule is enabled"
+msgstr ""
+
+msgid "SNAT"
+msgstr ""
+
+msgid "SNAT IP address"
+msgstr ""
+
+msgid "SNAT port"
 msgstr ""
 
 msgid "Source"
@@ -218,6 +367,15 @@ msgid "Source IP address"
 msgstr "Adreça MAC d'origen"
 
 msgid "Source MAC address"
+msgstr ""
+
+msgid "Source NAT"
+msgstr ""
+
+msgid ""
+"Source NAT is a specific form of masquerading which allows fine grained "
+"control over the source IP used for outgoing traffic, for example to map "
+"multiple WAN addresses to internal subnets."
 msgstr ""
 
 #, fuzzy
@@ -248,6 +406,16 @@ msgid ""
 msgstr ""
 
 msgid ""
+"This page allows you to change advanced properties of the port forwarding "
+"entry. In most cases there is no need to modify those settings."
+msgstr ""
+
+msgid ""
+"This page allows you to change advanced properties of the traffic rule "
+"entry, such as matched source and destination hosts."
+msgstr ""
+
+msgid ""
 "This section defines common properties of %q. The <em>input</em> and "
 "<em>output</em> options set the default policies for traffic entering and "
 "leaving this zone while the <em>forward</em> option describes the policy for "
@@ -255,17 +423,45 @@ msgid ""
 "networks</em> specifies which available networks are member of this zone."
 msgstr ""
 
-msgid "Traffic Redirection"
-msgstr "Readreçament de tràfic"
+msgid "To %s"
+msgstr ""
+
+msgid "To %s at %s"
+msgstr ""
+
+msgid "To %s at %s on <var>this device</var>"
+msgstr ""
+
+msgid "To %s in %s"
+msgstr ""
+
+msgid "To %s on <var>this device</var>"
+msgstr ""
+
+msgid "To %s, %s in %s"
+msgstr ""
+
+msgid "To source IP"
+msgstr ""
+
+msgid "To source port"
+msgstr ""
+
+msgid "Traffic Rules"
+msgstr ""
 
 msgid ""
-"Traffic redirection allows you to change the destination address of "
-"forwarded packets."
+"Traffic rules define policies for packets traveling between different zones, "
+"for example to reject traffic between certain hosts or to open WAN ports on "
+"the router."
 msgstr ""
-"El readreçament de tràfic et permet canviar l'adreça destí dels paquets "
-"reenviats."
 
 msgid "Via"
+msgstr ""
+
+msgid ""
+"You may specify multiple by selecting \"-- custom --\" and then entering "
+"protocols separated by space."
 msgstr ""
 
 msgid "Zone %q"
@@ -283,11 +479,86 @@ msgstr "accepta"
 msgid "any"
 msgstr ""
 
+msgid "any host"
+msgstr ""
+
+msgid "any router IP"
+msgstr ""
+
+msgid "any zone"
+msgstr ""
+
+msgid "day"
+msgstr ""
+
+msgid "don't track"
+msgstr ""
+
 msgid "drop"
 msgstr "descarta"
 
+msgid "hour"
+msgstr ""
+
+msgid "minute"
+msgstr ""
+
+msgid "not"
+msgstr ""
+
+msgid "port"
+msgstr ""
+
+msgid "ports"
+msgstr ""
+
 msgid "reject"
 msgstr "rebutja"
+
+msgid "second"
+msgstr ""
+
+msgid "type"
+msgstr ""
+
+msgid "types"
+msgstr ""
+
+#~ msgid "Internal port (optional)"
+#~ msgstr "Port intern (opcional)"
+
+#~ msgid "Advanced Rules"
+#~ msgstr "Regles avançades"
+
+#~ msgid ""
+#~ "Advanced rules let you customize the firewall to your needs. Only new "
+#~ "connections will be matched. Packets belonging to already open "
+#~ "connections are automatically allowed to pass the firewall."
+#~ msgstr ""
+#~ "Les regles avançades et deixen personalitzar el teu tallafocs per les "
+#~ "teves necessitats. Només s'hi correspondran les connexions noves. Als "
+#~ "paquets que pertanyen una connexió oberta se'ls permet passar el "
+#~ "tallafocs automàticament."
+
+#~ msgid "Port forwarding"
+#~ msgstr "Readreçament de port"
+
+#~ msgid ""
+#~ "Port forwarding allows to provide network services in the internal "
+#~ "network to an external network."
+#~ msgstr ""
+#~ "El readreçament de ports permet proveir serveis de la xarxa interna a una "
+#~ "xarxa externa."
+
+#~ msgid "Traffic Redirection"
+#~ msgstr "Readreçament de tràfic"
+
+#~ msgid ""
+#~ "Traffic redirection allows you to change the destination address of "
+#~ "forwarded packets."
+#~ msgstr ""
+#~ "El readreçament de tràfic et permet canviar l'adreça destí dels paquets "
+#~ "reenviats."
 
 #, fuzzy
 #~ msgid "Network"

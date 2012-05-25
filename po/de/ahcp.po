@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2011-06-10 20:32+0200\n"
+"PO-Revision-Date: 2012-04-22 15:40+0200\n"
 "Last-Translator: Jo-Philipp <xm@subsignal.org>\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -100,6 +100,12 @@ msgid "Specifies the announced IPv4 and IPv6 network prefixes in CIDR notation"
 msgstr ""
 "Konfiguriert die anzukündigenden IPv4- und IPv6-Netzwerkprefixe. Angabe in "
 "CIDR Notation."
+
+msgid "The AHCP Service is not running."
+msgstr "Der AHCP-Dienst läuft nicht."
+
+msgid "The AHCP Service is running with ID %s."
+msgstr "Der AHCP-Dienst läuft mit ID %s."
 
 msgid "There are no active leases."
 msgstr "Es gibt keine aktiven Leases"

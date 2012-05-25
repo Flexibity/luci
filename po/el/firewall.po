@@ -3,38 +3,60 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-30 17:00+0200\n"
-"PO-Revision-Date: 2010-01-08 14:13+0100\n"
-"Last-Translator: Vasilis Tsiligiannis <b_tsiligiannis@silverton.gr>\n"
+"PO-Revision-Date: 2012-03-31 15:40+0200\n"
+"Last-Translator: Vasilis <acinonyx@openwrt.gr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.4\n"
 
-msgid "(optional)"
+msgid "%s%s with %s"
+msgstr "%s%s με %s"
+
+msgid "(Unnamed Entry)"
 msgstr ""
+
+msgid "(Unnamed Rule)"
+msgstr ""
+
+msgid "(Unnamed SNAT)"
+msgstr ""
+
+msgid "-- Please choose --"
+msgstr "-- Παρακαλώ επιλέξτε --"
+
+msgid "-- custom --"
+msgstr "-- προσαρμοσμένο --"
+
+msgid "<var>%d</var> pkts. per <var>%s</var>"
+msgstr "<var>%d</var> πκτ. ανά <var>%s</var>"
+
+msgid "<var>%d</var> pkts. per <var>%s</var>, burst <var>%d</var> pkts."
+msgstr ""
+
+msgid "<var>%s</var> and limit to %s"
+msgstr ""
+
+msgid "Accept forward"
+msgstr "Αποδοχή προώθησης"
+
+msgid "Accept input"
+msgstr "Αποδοχή εισόδου"
 
 msgid "Action"
 msgstr "Ενέργεια"
 
-msgid "Advanced Options"
-msgstr ""
+msgid "Add"
+msgstr "Προσθήκη"
 
-msgid "Advanced Rules"
-msgstr "Προχωρημένοι Κανόνες"
+msgid "Add and edit..."
+msgstr "Προσθήκη και επεξεργασία..."
 
 msgid "Advanced Settings"
-msgstr ""
-
-msgid ""
-"Advanced rules let you customize the firewall to your needs. Only new "
-"connections will be matched. Packets belonging to already open connections "
-"are automatically allowed to pass the firewall."
-msgstr ""
-"Οι προχωρημένοι κανόνες σας επιτρέπουν να προσαρμόσετε το τείχος προστασίας "
-"στις δικές σας ανάγκες. Οι κανόνες θα εφαρμόζονται μόνο στις νέες συνδέσεις. "
-"Πακέτα που ανήκουν σε ήδη ανοιχτές συνδέσεις, θα περνάνε αυτόματα το τείχος "
-"προστασίας."
+msgstr "Ρυθμίσεις για προχωρημένους"
 
 msgid "Allow forward from <em>source zones</em>:"
 msgstr ""
@@ -43,19 +65,25 @@ msgid "Allow forward to <em>destination zones</em>:"
 msgstr ""
 
 msgid "Any"
-msgstr ""
+msgstr "Οποιοδήποτε"
 
 msgid "Covered networks"
 msgstr ""
 
 msgid "Custom Rules"
-msgstr ""
+msgstr "Προσαρμοσμένοι Κανόνες"
 
-msgid "Custom Rules (/etc/firewall.user)"
+msgid ""
+"Custom rules allow you to execute arbritary iptables commands which are not "
+"otherwise covered by the firewall framework. The commands are executed after "
+"each firewall restart, right after the default ruleset has been loaded."
 msgstr ""
 
 msgid "Destination"
 msgstr "Προορισμός"
+
+msgid "Destination IP address"
+msgstr "Διεύθυνση IP προορισμού"
 
 msgid "Destination address"
 msgstr "Διεύθυνση προορισμού"
@@ -65,13 +93,31 @@ msgstr "Θύρα προορισμού"
 
 #, fuzzy
 msgid "Destination zone"
-msgstr "Προορισμός"
+msgstr "Ζώνη προορισμού"
 
-msgid "Device"
+msgid "Disable"
+msgstr "Απενεργοποίηση"
+
+msgid "Discard forward"
+msgstr ""
+
+msgid "Discard input"
+msgstr ""
+
+msgid "Do not rewrite"
+msgstr ""
+
+msgid "Do not track forward"
+msgstr ""
+
+msgid "Do not track input"
 msgstr ""
 
 msgid "Drop invalid packets"
 msgstr "Αγνόηση μη-έγκυρων πακετών"
+
+msgid "Enable"
+msgstr "Ενεργοποίηση"
 
 msgid "Enable NAT Loopback"
 msgstr ""
@@ -83,46 +129,83 @@ msgstr "Προστασία SYN-flood"
 msgid "Enable logging on this zone"
 msgstr ""
 
+msgid "External IP address"
+msgstr "Εξωτερική διεύθυνση IP"
+
 msgid "External port"
 msgstr "Εξωτερική θύρα"
 
+msgid "Extra arguments"
+msgstr "Επιπλέον παράμετροι"
+
 msgid "Family"
-msgstr ""
+msgstr "Οικογένεια"
 
 msgid "Firewall"
 msgstr "Τείχος προστασίας"
 
-msgid "Firewall - Zone Settings"
-msgstr ""
+msgid "Firewall - Custom Rules"
+msgstr "Τείχος προστασίας - Προσαρμοσμένοι Κανόνες"
 
-msgid ""
-"For DNAT, match incoming traffic directed at the given destination ip "
-"address. For SNAT rewrite the source address to the given address."
-msgstr ""
+msgid "Firewall - Port Forwards"
+msgstr "Τείχος προστασίας - Προώθηση Θυρών"
+
+msgid "Firewall - Traffic Rules"
+msgstr "Τείχος προστασίας - Κανόνες Κίνησεις"
+
+msgid "Firewall - Zone Settings"
+msgstr "Τείχος προστασίας - Ρυθμίσεις Ζώνης"
 
 msgid "Force connection tracking"
-msgstr ""
+msgstr "Επιβολή παρακολούθησης σύνδεσης"
 
 msgid "Forward"
+msgstr "Προώθηση"
+
+msgid "Forward to %s in %s"
+msgstr "Προώθηση του %s στο %s"
+
+msgid "Forward to %s, %s in %s"
+msgstr "Προώθηση στο %s, %s στο %s"
+
+msgid "From %s in %s"
+msgstr "Απο %s στο %s"
+
+msgid "From %s in %s with source %s"
+msgstr ""
+
+msgid "From %s in %s with source %s and %s"
 msgstr ""
 
 msgid "General Settings"
-msgstr ""
+msgstr "Γενικές Ρυθμίσεις"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "IP range"
+msgstr "Εύρος IP"
+
+msgid "IPs"
+msgstr "IPs"
+
+msgid "IPv4"
+msgstr "IPv4"
 
 msgid "IPv4 and IPv6"
-msgstr ""
+msgstr "IPv4 και IPv6"
 
 msgid "IPv4 only"
-msgstr ""
+msgstr "Μόνο IPv4"
+
+msgid "IPv6"
+msgstr "IPv6"
 
 msgid "IPv6 only"
-msgstr ""
+msgstr "Μόνο IPv6"
 
 msgid "Input"
 msgstr "Είσοδος"
-
-msgid "Intended destination address"
-msgstr ""
 
 msgid "Inter-Zone Forwarding"
 msgstr ""
@@ -135,11 +218,17 @@ msgstr "Εσωτερική διεύθυνση"
 msgid "Internal port"
 msgstr "Εξωτερική θύρα"
 
-msgid "Internal port (optional)"
-msgstr "Εσωτερική θύρα (προαιρετικό)"
+msgid "Internal zone"
+msgstr "Εσωτερική ζώνη"
 
 msgid "Limit log messages"
-msgstr ""
+msgstr "Περιορισμός καταγραφών συστήματος"
+
+msgid "MAC"
+msgstr "MAC"
+
+msgid "MACs"
+msgstr "MACs"
 
 #, fuzzy
 msgid "MSS clamping"
@@ -151,6 +240,9 @@ msgstr ""
 msgid "Match ICMP type"
 msgstr ""
 
+msgid "Match forwarded traffic to the given destination port or port range."
+msgstr ""
+
 msgid ""
 "Match incoming traffic directed at the given destination port or port range "
 "on this host"
@@ -158,30 +250,63 @@ msgstr ""
 
 msgid ""
 "Match incoming traffic originating from the given source port or port range "
-"on the client host"
+"on the client host."
 msgstr ""
 
 msgid "Name"
+msgstr "Όνομα"
+
+msgid "New SNAT rule"
 msgstr ""
+
+msgid "New forward rule"
+msgstr ""
+
+msgid "New input rule"
+msgstr ""
+
+msgid "New port forward"
+msgstr ""
+
+msgid "New source NAT"
+msgstr ""
+
+msgid "Only match incoming traffic directed at the given IP address."
+msgstr ""
+
+msgid "Only match incoming traffic from these MACs."
+msgstr ""
+
+msgid "Only match incoming traffic from this IP or range."
+msgstr ""
+
+msgid ""
+"Only match incoming traffic originating from the given source port or port "
+"range on the client host"
+msgstr ""
+
+msgid "Open ports on router"
+msgstr ""
+
+msgid "Other..."
+msgstr "Άλλο..."
 
 msgid "Output"
 msgstr "Έξοδος"
 
-msgid "Overview"
+msgid "Passes additional arguments to iptables. Use with care!"
 msgstr ""
 
-msgid "Port forwarding"
-msgstr "Προώθηση θυρών"
+msgid "Port Forwards"
+msgstr "Προώθηση Θυρών"
 
 msgid ""
-"Port forwarding allows to provide network services in the internal network "
-"to an external network."
+"Port forwarding allows remote computers on the Internet to connect to a "
+"specific computer or service within the private LAN."
 msgstr ""
-"Η προώθηση θυρών επιτρέπει σε υπηρεσίες δικτύου που λειτουργούν μέσα σε ένα "
-"εσωτερικό δίκτυο, να γίνονται διαθέσιμες και σε ένα εξωτερικό."
 
 msgid "Protocol"
-msgstr ""
+msgstr "Πρωτόκολλο"
 
 msgid ""
 "Redirect matched incoming traffic to the given port on the internal host"
@@ -190,11 +315,11 @@ msgstr ""
 msgid "Redirect matched incoming traffic to the specified internal host"
 msgstr ""
 
-msgid "Redirection type"
-msgstr ""
+msgid "Refuse forward"
+msgstr "Άρνηση προώθησης"
 
-msgid "Redirections"
-msgstr ""
+msgid "Refuse input"
+msgstr "Άρνηση εισόδου"
 
 msgid "Restrict Masquerading to given destination subnets"
 msgstr ""
@@ -205,7 +330,33 @@ msgstr ""
 msgid "Restrict to address family"
 msgstr ""
 
-msgid "Rules"
+msgid "Rewrite matched traffic to the given address."
+msgstr ""
+
+msgid ""
+"Rewrite matched traffic to the given source port. May be left empty to only "
+"rewrite the IP address."
+msgstr ""
+
+msgid "Rewrite to source %s"
+msgstr ""
+
+msgid "Rewrite to source %s, %s"
+msgstr ""
+
+msgid "Rule is disabled"
+msgstr ""
+
+msgid "Rule is enabled"
+msgstr ""
+
+msgid "SNAT"
+msgstr "SNAT"
+
+msgid "SNAT IP address"
+msgstr ""
+
+msgid "SNAT port"
 msgstr ""
 
 msgid "Source"
@@ -216,6 +367,15 @@ msgid "Source IP address"
 msgstr "Διεύθυνση MAC πηγής"
 
 msgid "Source MAC address"
+msgstr ""
+
+msgid "Source NAT"
+msgstr ""
+
+msgid ""
+"Source NAT is a specific form of masquerading which allows fine grained "
+"control over the source IP used for outgoing traffic, for example to map "
+"multiple WAN addresses to internal subnets."
 msgstr ""
 
 #, fuzzy
@@ -246,6 +406,16 @@ msgid ""
 msgstr ""
 
 msgid ""
+"This page allows you to change advanced properties of the port forwarding "
+"entry. In most cases there is no need to modify those settings."
+msgstr ""
+
+msgid ""
+"This page allows you to change advanced properties of the traffic rule "
+"entry, such as matched source and destination hosts."
+msgstr ""
+
+msgid ""
 "This section defines common properties of %q. The <em>input</em> and "
 "<em>output</em> options set the default policies for traffic entering and "
 "leaving this zone while the <em>forward</em> option describes the policy for "
@@ -253,17 +423,45 @@ msgid ""
 "networks</em> specifies which available networks are member of this zone."
 msgstr ""
 
-msgid "Traffic Redirection"
-msgstr "Ανακατεύθυνση Κίνησης"
+msgid "To %s"
+msgstr "Προς %s"
+
+msgid "To %s at %s"
+msgstr ""
+
+msgid "To %s at %s on <var>this device</var>"
+msgstr ""
+
+msgid "To %s in %s"
+msgstr ""
+
+msgid "To %s on <var>this device</var>"
+msgstr ""
+
+msgid "To %s, %s in %s"
+msgstr ""
+
+msgid "To source IP"
+msgstr ""
+
+msgid "To source port"
+msgstr ""
+
+msgid "Traffic Rules"
+msgstr ""
 
 msgid ""
-"Traffic redirection allows you to change the destination address of "
-"forwarded packets."
+"Traffic rules define policies for packets traveling between different zones, "
+"for example to reject traffic between certain hosts or to open WAN ports on "
+"the router."
 msgstr ""
-"Η ανακατεύθυνση κίνησης σας επιτρέπει να αλλάξετε την διεύθυνση προορισμού "
-"των προωθημένων πακέτων."
 
 msgid "Via"
+msgstr ""
+
+msgid ""
+"You may specify multiple by selecting \"-- custom --\" and then entering "
+"protocols separated by space."
 msgstr ""
 
 msgid "Zone %q"
@@ -281,11 +479,86 @@ msgstr "αποδοχή"
 msgid "any"
 msgstr ""
 
+msgid "any host"
+msgstr ""
+
+msgid "any router IP"
+msgstr ""
+
+msgid "any zone"
+msgstr ""
+
+msgid "day"
+msgstr "ημέρα"
+
+msgid "don't track"
+msgstr ""
+
 msgid "drop"
 msgstr "αγνόηση"
 
+msgid "hour"
+msgstr "ώρα"
+
+msgid "minute"
+msgstr "λεπτό"
+
+msgid "not"
+msgstr ""
+
+msgid "port"
+msgstr "θύρα"
+
+msgid "ports"
+msgstr "θύρες"
+
 msgid "reject"
 msgstr "απόρριψη"
+
+msgid "second"
+msgstr "δευτερόλεπτο"
+
+msgid "type"
+msgstr "τύπος"
+
+msgid "types"
+msgstr "τύποι"
+
+#~ msgid "Internal port (optional)"
+#~ msgstr "Εσωτερική θύρα (προαιρετικό)"
+
+#~ msgid "Advanced Rules"
+#~ msgstr "Προχωρημένοι Κανόνες"
+
+#~ msgid ""
+#~ "Advanced rules let you customize the firewall to your needs. Only new "
+#~ "connections will be matched. Packets belonging to already open "
+#~ "connections are automatically allowed to pass the firewall."
+#~ msgstr ""
+#~ "Οι προχωρημένοι κανόνες σας επιτρέπουν να προσαρμόσετε το τείχος "
+#~ "προστασίας στις δικές σας ανάγκες. Οι κανόνες θα εφαρμόζονται μόνο στις "
+#~ "νέες συνδέσεις. Πακέτα που ανήκουν σε ήδη ανοιχτές συνδέσεις, θα περνάνε "
+#~ "αυτόματα το τείχος προστασίας."
+
+#~ msgid "Port forwarding"
+#~ msgstr "Προώθηση θυρών"
+
+#~ msgid ""
+#~ "Port forwarding allows to provide network services in the internal "
+#~ "network to an external network."
+#~ msgstr ""
+#~ "Η προώθηση θυρών επιτρέπει σε υπηρεσίες δικτύου που λειτουργούν μέσα σε "
+#~ "ένα εσωτερικό δίκτυο, να γίνονται διαθέσιμες και σε ένα εξωτερικό."
+
+#~ msgid "Traffic Redirection"
+#~ msgstr "Ανακατεύθυνση Κίνησης"
+
+#~ msgid ""
+#~ "Traffic redirection allows you to change the destination address of "
+#~ "forwarded packets."
+#~ msgstr ""
+#~ "Η ανακατεύθυνση κίνησης σας επιτρέπει να αλλάξετε την διεύθυνση "
+#~ "προορισμού των προωθημένων πακέτων."
 
 #, fuzzy
 #~ msgid "Network"

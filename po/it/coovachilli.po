@@ -1,46 +1,47 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-10 03:40+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-04-19 23:12+0200\n"
+"Last-Translator: claudyus <claudyus84@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.4\n"
 
 #. CoovaChilli
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:1
 msgid "CoovaChilli"
-msgstr ""
+msgstr "CoovaChilli"
 
 #. General configuration
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:2
 msgid "General configuration"
-msgstr ""
+msgstr "Configurazione generale"
 
 #. General CoovaChilli settings
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:3
 msgid "General CoovaChilli settings"
-msgstr ""
+msgstr "Impostazioni generali di CoovaChilli"
 
 #. Command socket
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:4
 msgid "Command socket"
-msgstr ""
+msgstr "Socket di comando"
 
 #. UNIX socket used for communication with chilli_query
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:5
 msgid "UNIX socket used for communication with chilli_query"
-msgstr ""
+msgstr "Socket UNIX usato per la comunicazione con chilli_query"
 
 #. Config refresh interval
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:6
 msgid "Config refresh interval"
-msgstr ""
+msgstr "Intervallo di aggiornamento configurazione"
 
 #. Re-read configuration file and do DNS lookups every interval seconds. This has the same effect as sending the HUP signal. If interval is 0 (zero) this feature is disabled. 
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:7
@@ -49,11 +50,14 @@ msgid ""
 "has the same effect as sending the HUP signal. If interval is 0 (zero) this "
 "feature is disabled. "
 msgstr ""
+"Rilegge il file di configurazione ed esegue una ricerca DNS ogni intervallo "
+"in secondi. Questo ha lo stesso risultato dell'invio del segnale HUP. Se "
+"l'intervallo è 0 (zero) questa funzionalità è disabilitata."
 
 #. Pid file
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:8
 msgid "Pid file"
-msgstr ""
+msgstr "File Pid"
 
 #. Filename to put the process id
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:9
@@ -73,12 +77,12 @@ msgstr ""
 #. TUN/TAP configuration
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:12
 msgid "TUN/TAP configuration"
-msgstr ""
+msgstr "Configurazione TUN/TAP"
 
 #. Network/Tun configuration
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:13
 msgid "Network/Tun configuration"
-msgstr ""
+msgstr "Configurazione Rete/TUN"
 
 #. Network down script
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:14
@@ -105,17 +109,17 @@ msgstr ""
 #. Primary DNS Server
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:18
 msgid "Primary DNS Server"
-msgstr ""
+msgstr "Server DNS Primario"
 
 #. Secondary DNS Server
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:20
 msgid "Secondary DNS Server"
-msgstr ""
+msgstr "Server DNS Secondario"
 
 #. Domain name
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:22
 msgid "Domain name"
-msgstr ""
+msgstr "Nome di dominio"
 
 #. Is used to inform the client about the domain name to use for DNS lookups
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:23
@@ -131,7 +135,7 @@ msgstr ""
 #. Specifies a pool of dynamic IP addresses
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:25
 msgid "Specifies a pool of dynamic IP addresses"
-msgstr ""
+msgstr "Specifica un pool di indirizzi IP dinamici"
 
 #. IP down script
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:26
@@ -161,7 +165,7 @@ msgstr ""
 #. Network address of the uplink interface (CIDR notation)
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:31
 msgid "Network address of the uplink interface (CIDR notation)"
-msgstr ""
+msgstr "Indirizzo di rete dell'interfaccia di uplink (CIDR notazione)"
 
 #. Static IP address pool
 #: applications/luci-coovachilli/luasrc/i18n/coovachilli.en.lua:32

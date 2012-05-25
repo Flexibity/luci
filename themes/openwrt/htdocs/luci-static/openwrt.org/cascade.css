@@ -166,6 +166,20 @@ div.hostinfo {
 	padding: 0.5em;
 }
 
+#xhr_poll_status {
+	cursor: pointer;
+}
+
+#xhr_poll_status #xhr_poll_status_off {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+#xhr_poll_status #xhr_poll_status_on {
+	font-weight: bold;
+	color: #00FF00;
+}
+
 #menubar {
 	position: relative;
 	width: 100%;
@@ -224,6 +238,8 @@ html #menubar a:visited.warning {
 	color: #ffffff;
 	list-style: none;
 	margin-right: 1px;
+	margin-left: 2em;
+	float: right;
 }
 
 #modemenu li {
@@ -233,7 +249,6 @@ html #menubar a:visited.warning {
 
 #savemenu {
 	float: right;
-	margin-right: 2em;
 }
 
 .lang_de #submenu_admin_uci {
@@ -342,7 +357,11 @@ input:-webkit-input-placeholder {
 	color: #AAAAAA;
 }
 
-input:-moz-input-placeholder {
+input:-moz-placeholder {
+	color: #AAAAAA;
+}
+
+input:-ms-input-placeholder {
 	color: #AAAAAA;
 }
 
@@ -403,6 +422,13 @@ input.cbi-button {
 input.cbi-button:hover {
 	border-color: #4A6B7C;
 	background-color: #FFFFFF;
+}
+
+input.cbi-button[disabled] {
+	color: #CCCCCC;
+	border-color: #CCCCCC;
+	background-color: #EEEEEE;
+	cursor: default;
 }
 
 input.cbi-input-user {
@@ -489,6 +515,46 @@ div.cbi-section-remove input {
 	padding-right: 1px;
 }
 
+input.cbi-button-up {
+	background-image: url('../resources/cbi/up.gif');
+	padding-left: 11px;
+	padding-right: 1px;
+}
+
+input.cbi-button-down {
+	background-image: url('../resources/cbi/down.gif');
+	padding-left: 11px;
+	padding-right: 1px;
+}
+
+input.cbi-button-edit {
+	background-image: url('../resources/cbi/edit.gif');
+	color: #000000;
+	padding-left: 17px;
+	padding-right: 1px;
+}
+
+input.cbi-button-reload {
+	background-image: url('../resources/cbi/reload.gif');
+	color: #000000;
+	padding-left: 17px;
+	padding-right: 1px;
+}
+
+input.cbi-button-reset {
+	background-image: url('../resources/cbi/reset.gif');
+	color: #000000;
+	padding-left: 17px;
+	padding-right: 1px;
+}
+
+input.cbi-button-remove {
+	background-image: url('../resources/cbi/remove.gif');
+	color: #000000;
+	padding-left: 17px;
+	padding-right: 1px;
+}
+
 .cbi-input-invalid {
 	background-image: url('../resources/cbi/reset.gif');
 	background-repeat: no-repeat;
@@ -556,6 +622,11 @@ table.cbi-section-table .cbi-rowstyle-1:hover,
 table.cbi-section-table .cbi-rowstyle-2:hover {
 	background-color: #b2c8d4;
 	color: #000000;
+}
+
+table.cbi-section-table .cbi-section-table-cell {
+	padding: 3px;
+	white-space: nowrap;
 }
 
 .cbi-section .cbi-rowstyle-1 h3 {
@@ -631,6 +702,10 @@ div.cbi-section-remove {
 	position: relative;
 }
 
+.cbi-section-node-tabbed {
+	border-top-left-radius: 0;
+}
+
 .cbi-section-node .cbi-value-last {
 	border-bottom: none;
 }
@@ -694,13 +769,18 @@ td.cbi-value-error {
 	padding: 3px;
 }
 
+.cbi-value-field var {
+	color: #2222FF;
+}
+
 ul.cbi-tabmenu {
 	padding: 3px 0;
 	margin-left: 0 !important;
 	list-style-type: none;
 	position: relative;
 	z-index: 10;
-	top: 1px;
+	top: 4px;
+	line-height: 20px;
 }
 
 ul.cbi-tabmenu li.cbi-tab,
@@ -745,8 +825,12 @@ div.cbi-tab-descr {
 	padding: 0.5em 0.5em 0.5em 2em;
 }
 
+.left {
+	text-align: left !important;
+}
+
 .right {
-	text-align: right;
+	text-align: right !important;
 }
 
 .luci {
@@ -783,6 +867,69 @@ div.cbi-tab-descr {
 	padding: 5px;
 	margin-bottom: 5px;
 }
+
+.errorbox a {
+	color: #000000 !important;
+}
+
+
+.ifacebox {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	margin: 0 10px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.ifacebox .ifacebox-head {
+	border-bottom: 1px solid #CCCCCC;
+	padding: 2px;
+}
+
+.ifacebox .ifacebox-body {
+	padding: 2px;
+}
+
+
+.ifacebadge {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+	margin-left: 2px;
+	display: inline-block;
+}
+
+.ifacebadge-active {
+	border-color: #000000;
+	font-weight: bold;
+}
+
+
+.zonebadge {
+	padding: 2px;
+	display: inline-block;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.zonebadge em,
+.zonebadge strong {
+	margin: 3px;
+	display: inline-block;
+}
+
+.zonebadge input {
+	width: 6em;
+	height: 1.5em;
+}
+
+.zonebadge-empty {
+	border: 1px dashed #AAAAAA;
+	color: #AAAAAA;
+	font-style: italic;
+	font-size: smaller;
+}
+
 
 .uci-change-list {
 	font-family: monospace;

@@ -91,7 +91,67 @@ a img {
 	padding: 5px;
 }
 
-#header {height: auto;
+
+.ifacebox {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	margin: 0 10px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.ifacebox .ifacebox-head {
+	border-bottom: 1px solid #CCCCCC;
+	padding: 2px;
+}
+
+.ifacebox .ifacebox-body {
+	padding: 2px;
+}
+
+
+.ifacebadge {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+	margin-left: 2px;
+	display: inline-block;
+}
+
+.ifacebadge-active {
+	border-color: #000000;
+	font-weight: bold;
+}
+
+
+.zonebadge {
+	padding: 2px;
+	display: inline-block;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.zonebadge em,
+.zonebadge strong {
+	margin: 3px;
+	display: inline-block;
+}
+
+.zonebadge input {
+	width: 6em;
+	height: 1.5em;
+}
+
+.zonebadge-empty {
+	border: 1px dashed #AAAAAA;
+	color: #AAAAAA;
+	font-style: italic;
+	font-size: smaller;
+}
+
+
+#header {
+	height: auto;
 	background: #FFF url(header.jpg) repeat-x left bottom;
 	color: #ccc;
 	font-weight: bold;
@@ -214,6 +274,20 @@ ul.dropdowns ul ul ul li.focus ul,
 ul.dropdowns ul ul ul li:hover ul {
 	left: 100%;
 }
+
+#xhr_poll_status { 
+	cursor: pointer; 
+} 
+
+#xhr_poll_status #xhr_poll_status_off { 
+	font-weight: bold; 
+	color: #FF0000; 
+} 
+
+#xhr_poll_status #xhr_poll_status_on { 
+	font-weight: bold; 
+	color: #00FF00; 
+} 
 
 #menubar {
 	position: relative;
@@ -509,7 +583,7 @@ input,
 textarea {
 	background: #fff;
 	color: #000;
-	border: 1px solid #ccc;
+	border: 1px solid #cccccc;
 }
 
 input[type=image] {
@@ -571,7 +645,6 @@ input.cbi-input-reload {
 	background-color: inherit;
 	color: #000;
 	padding-left: 17px;
-	border: none;
 }
 
 input.cbi-button{
@@ -583,8 +656,7 @@ input.cbi-button-add {
 	background: url('../resources/cbi/add.gif') no-repeat scroll 1px center;
 	background-color: inherit;
 	color: #000;
-	padding-left: 17px;
-	padding-right: 1px;
+	padding: 0 1px 0 17px;
 	border: 1px solid #FFF;	
 }
 
@@ -593,8 +665,7 @@ input.cbi-button-fieldadd {
 	background: url(../resources/cbi/fieldadd.gif) no-repeat scroll 1px center;
 	background-color: inherit;
 	color: #000;
-	padding-left: 17px;
-	padding-right: 1px;
+	padding: 0 1px 0 17px;
 }
 
 input.cbi-input-reset,
@@ -602,9 +673,10 @@ input.cbi-button-reset {
 	background: url('../resources/cbi/reset.gif') no-repeat scroll 1px center;
 	background-color: inherit;
 	color: #000;
-	padding-left: 17px;
-	padding-right: 1px;
-	border: none;
+	padding: 0 1px 0 17px;
+}
+
+
 }
 
 input.cbi-input-save,
@@ -612,9 +684,7 @@ input.cbi-button-save {
 	background: url('../resources/cbi/save.gif') no-repeat scroll 1px center;
 	background-color: inherit;
 	color: #000;
-	padding-left: 17px;
-	padding-right: 1px;
-	border: none;	
+	padding: 0 1px 0 17px;
 }
 
 input.cbi-input-apply,
@@ -622,9 +692,7 @@ input.cbi-button-apply {
 	background: url('../resources/cbi/apply.gif') no-repeat scroll 1px center;
 	background-color: inherit; 
 	color: #000; 
-	padding-left: 17px; 
-	padding-right: 1px;
-	border: none; 
+	padding: 0 1px 0 17px;
 } 
 
 input.cbi-input-link, 
@@ -632,8 +700,7 @@ input.cbi-input-link,
 	background: url('../resources/cbi/link.gif') no-repeat scroll 1px center; 
 	background-color: inherit;
 	color: #000;	
-	padding-left: 17px;
-	padding-right: 1px;
+	padding: 0 1px 0 17px;
 	border: none;	
 }
 
@@ -642,9 +709,36 @@ div.cbi-section-remove input {
 	background: url('../resources/cbi/remove.gif') no-repeat scroll 1px center;
 	background-color: inherit;
 	color: #000;
-	padding-left: 17px;
-	padding-right: 1px;
-		border: 1px solid #fff;
+	padding: 0 1px 0 17px;
+	border: 1px solid #fff;
+}
+
+input.cbi-button-up {
+	background-image: url('../resources/cbi/up.gif');
+	padding: 0 1px 0 11px;
+}
+
+input.cbi-button-down {
+	background-image: url('../resources/cbi/down.gif');
+	padding: 0 1px 0 11px;
+}
+
+input.cbi-button-edit {
+	background: url('../resources/cbi/edit.gif') no-repeat scroll 1px center;
+	color: #000000;
+	padding: 0 1px 0 17px;
+}
+
+input.cbi-button-reload {
+	background: url('../resources/cbi/reload.gif') no-repeat scroll 1px center;
+	color: #000000;
+	padding: 0 1px 0 17px;
+}
+
+input.cbi-button-remove {
+	background: url('../resources/cbi/remove.gif') no-repeat scroll 1px center;
+	color: #000000;
+	padding: 0 1px 0 17px;
 }
 
 .cbi-input-invalid {
@@ -714,6 +808,11 @@ table.cbi-section-table .cbi-rowstyle-2:hover {
 	color: #000000;
 }
 
+table.cbi-section-table .cbi-section-table-cell {
+	padding: 3px;
+	white-space: nowrap;
+}
+
 .cbi-section .cbi-rowstyle-1 h3 {
 	background-color: #f1f6fa;
 	color: #555;
@@ -768,14 +867,7 @@ div.cbi-section-create .cbi-button {
 
 input.cbi-section-create-name {
 	margin-right: -0.25em;
-	border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-top-color: #999;
-	border-right-color: #999;
-	border-bottom-color: #999;
-	border-left-color: #999;
+	border: 1px solid #999;
 }
 
 div.cbi-map-descr {
@@ -793,9 +885,7 @@ div.cbi-section-remove {
 
 .cbi-section-node {
 	clear: both;
-	border-top: 1px dotted #bbb;
-	border-left: 1px dotted #bbb;
-	border-right: 1px dotted #bbb;
+	border: 1px dotted #bbb;
 	border-bottom: none;
 	padding-bottom: 0;
 }
@@ -859,8 +949,12 @@ td.cbi-value-error {
 	padding: 3px;
 }
 
+.left {
+	text-align: left !important;
+}
+
 .right {
-	text-align: right;
+	text-align: right !important;
 }
 
 .footer, .push {

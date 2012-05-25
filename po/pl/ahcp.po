@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2011-09-18 02:19+0200\n"
-"Last-Translator: Michał <wispwind@gmail.com>\n"
+"PO-Revision-Date: 2012-04-14 16:40+0200\n"
+"Last-Translator: Tomecki <przykryweczka@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -101,8 +101,14 @@ msgstr "Określa rozgłaszane adresy IPv4/6 serwerów nazw"
 msgid "Specifies the announced IPv4 and IPv6 network prefixes in CIDR notation"
 msgstr "Określa rozgłaszane prefiksy sieciowe w notacji CIDR"
 
+msgid "The AHCP Service is not running."
+msgstr "Usługa AHCP nie jest uruchomiona."
+
+msgid "The AHCP Service is running with ID %s."
+msgstr "Usługa AHCP jest uruchomiona z ID %s."
+
 msgid "There are no active leases."
-msgstr "Nie ma aktywnych dzierżaw"
+msgstr "Nie ma aktywnych dzierżaw."
 
 msgid "Unique ID file"
 msgstr "Unikalny plik ID"

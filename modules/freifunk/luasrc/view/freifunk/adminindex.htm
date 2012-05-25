@@ -8,6 +8,15 @@ local latitude = uci:get_first ("system", "system", "latitude")
 local longitude = uci:get_first ("system", "system", "longitude")
 local location = uci:get_first ("system", "system", "location")
 local basicsurl = luci.dispatcher.build_url(luci.dispatcher.context.path[1], "freifunk", "basics")
+local nickname, name, mail
+if not contact then
+	nickname, name, mail = ""
+else
+	nickname = contact.nickname
+	name = contact.name
+	mail = contact.mail
+end
+
 luci.i18n.loadc("freifunk")
 %>
 
@@ -23,7 +32,7 @@ luci.i18n.loadc("freifunk")
 <%end%>
 <p />
 
-<% if not (contact.nickname and contact.name and contact.mail) then%>
+<% if not (nickname and name and mail) then%>
 <div class="error">
 	<%:Contact information is incomplete. Please go to%> <a href='<%=contacturl%>'><%:Contact%></a> <%:and fill out all required fields.%>
 	<p />
@@ -33,8 +42,8 @@ luci.i18n.loadc("freifunk")
 <% uci:foreach("wireless", "wifi-device", function(section)
 	local device = section[".name"]
 	local url = luci.dispatcher.build_url(luci.dispatcher.context.path[1], "network", "wireless")
-	if section.diversity ~= "0" and section.disabled ~= "1" then
-		print('<div class="error">' .. translate("Diversity is enabled for device") .. ' <b>' .. device .. '</b>. '
+	if section.diversity ~= "0" and section.disabled ~= "1" and section.type ~= "mac80211" then
+		print('<div class="error">' .. translate("Diversity is enabled for device") .. ' <b>' .. section[".name"] .. '</b>. '
 		.. translate("Go to") .. ' <a href="' .. url .. '">' .. translate("wireless settings") .. '</a> ' ..
 		translate("to disable it.") .. '</div><p />')
 	end

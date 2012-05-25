@@ -25,6 +25,7 @@ m = Map("wireless", "",
 		"like encryption or operation mode are grouped in the <em>Interface Configuration</em>."))
 
 m:chain("network")
+m:chain("firewall")
 
 local ifsection
 
@@ -48,31 +49,93 @@ if not wnet or not wdev then
 end
 
 -- wireless toggle was requested, commit and reload page
-if m:formvalue("cbid.wireless.%s.__toggle" % wdev:name()) then
-	if wdev:get("disabled") == "1" or wnet:get("disabled") == "1" then
-		wnet:set("disabled", nil)
-	else
-		wnet:set("disabled", "1")
+function m.parse(map)
+	if m:formvalue("cbid.wireless.%s.__toggle" % wdev:name()) then
+		if wdev:get("disabled") == "1" or wnet:get("disabled") == "1" then
+			wnet:set("disabled", nil)
+		else
+			wnet:set("disabled", "1")
+		end
+		wdev:set("disabled", nil)
+
+		nw:commit("wireless")
+		luci.sys.call("(env -i /sbin/wifi down; env -i /sbin/wifi up) >/dev/null 2>/dev/null")
+
+		luci.http.redirect(luci.dispatcher.build_url("admin/network/wireless", arg[1]))
+		return
 	end
-	wdev:set("disabled", nil)
-
-	nw:commit("wireless")
-	luci.sys.call("(env -i /sbin/wifi down; env -i /sbin/wifi up) >/dev/null 2>/dev/null")
-
-	luci.http.redirect(luci.dispatcher.build_url("admin/network/wireless", arg[1]))
-	return
+	Map.parse(map)
 end
 
 m.title = luci.util.pcdata(wnet:get_i18n())
 
 
+local function txpower_list(iw)
+	local list = iw.txpwrlist or { }
+	local off  = tonumber(iw.txpower_offset) or 0
+	local new  = { }
+	local prev = -1
+	local _, val
+	for _, val in ipairs(list) do
+		local dbm = val.dbm + off
+		local mw  = math.floor(10 ^ (dbm / 10))
+		if mw ~= prev then
+			prev = mw
+			new[#new+1] = {
+				display_dbm = dbm,
+				display_mw  = mw,
+				driver_dbm  = val.dbm,
+				driver_mw   = val.mw
+			}
+		end
+	end
+	return new
+end
+
+local function txpower_current(pwr, list)
+	pwr = tonumber(pwr)
+	if pwr ~= nil then
+		local _, item
+		for _, item in ipairs(list) do
+			if item.driver_dbm >= pwr then
+				return item.driver_dbm
+			end
+		end
+	end
+	return (list[#list] and list[#list].driver_dbm) or pwr or 0
+end
+
+local function arplist(opt)
+	local _, e, mac, ip, name
+	local arp = { }
+
+	for _, e in ipairs(luci.sys.net.arptable()) do
+		arp[e["HW address"]:upper()] = { e["IP address"] }
+	end
+
+	if fs.access("/etc/ethers") then
+		for e in io.lines("/etc/ethers") do
+			mac, ip = e:match("^([a-f0-9]%S+) (%S+)")
+			if mac and ip then arp[mac:upper()] = { ip } end
+		end
+	end
+
+	if fs.access("/var/dhcp.leases") then
+		for e in io.lines("/var/dhcp.leases") do
+			mac, ip, name = e:match("^%d+ (%S+) (%S+) (%S+)")
+			if mac and ip then arp[mac:upper()] = { ip, name ~= "*" and name } end
+		end
+	end
+
+	for mac, e in luci.util.kspairs(arp) do
+		opt:value(mac, "%s (%s)" %{ mac, e[2] or e[1] })
+	end
+end
+
 local iw = luci.sys.wifi.getiwinfo(arg[1])
-local hw_modes  = iw.hwmodelist or { }
-local tx_powers = iw.txpwrlist  or { }
-local tx_power  = tostring(
-	(iw.txpower and iw.txpower > 0 and iw.txpower) or
-	(#tx_powers > 0 and tx_powers[#tx_powers].dbm)
-)
+local hw_modes      = iw.hwmodelist or { }
+local tx_power_list = txpower_list(iw)
+local tx_power_cur  = txpower_current(wdev:get("txpower"), tx_power_list)
 
 s = m:section(NamedSection, wdev:name(), "wifi-device", translate("Device Configuration"))
 s.addremove = false
@@ -110,26 +173,48 @@ local htcaps = wdev:get("ht_capab") and true or false
 -- NanoFoo
 local nsantenna = wdev:get("antenna")
 
-ch = s:taboption("general", Value, "channel", translate("Channel"))
-ch:value("auto", translate("auto"))
-for _, f in ipairs(iw and iw.freqlist or luci.sys.wifi.channels()) do
-	if not f.restricted then
-		ch:value(f.channel, "%i (%.3f GHz)" %{ f.channel, f.mhz / 1000 })
+-- Check whether there is a client interface on the same radio,
+-- if yes, lock the channel choice as the station will dicatate the freq
+local has_sta = nil
+local _, net
+for _, net in ipairs(wdev:get_wifinets()) do
+	if net:mode() == "sta" and net:id() ~= wnet:id() then
+		has_sta = net
+		break
 	end
 end
 
+if has_sta then
+	ch = s:taboption("general", DummyValue, "choice", translate("Channel"))
+	ch.value = translatef("Locked to channel %d used by %s",
+		has_sta:channel(), has_sta:shortname())
+else
+	ch = s:taboption("general", Value, "channel", translate("Channel"))
+	ch:value("auto", translate("auto"))
+	for _, f in ipairs(iw and iw.freqlist or luci.sys.wifi.channels()) do
+		if not f.restricted then
+			ch:value(f.channel, "%i (%.3f GHz)" %{ f.channel, f.mhz / 1000 })
+		end
+	end
+end
 
 ------------------- MAC80211 Device ------------------
 
 if hwtype == "mac80211" then
 	tp = s:taboption("general",
-		(tx_powers and #tx_powers > 0) and ListValue or Value,
+		(#tx_power_list > 0) and ListValue or Value,
 		"txpower", translate("Transmit Power"), "dBm")
 
 	tp.rmempty = true
-	tp.default = tx_power
-	for _, p in ipairs(tx_powers or {}) do
-		tp:value(p.dbm, "%i dBm (%i mW)" %{ p.dbm, p.mw })
+	tp.default = tx_power_cur
+
+	function tp.cfgvalue(...)
+		return txpower_current(Value.cfgvalue(...), tx_power_list)
+	end
+
+	for _, p in ipairs(tx_power_list) do
+		tp:value(p.driver_dbm, "%i dBm (%i mW)"
+			%{ p.display_dbm, p.display_mw })
 	end
 
 	mode = s:taboption("advanced", ListValue, "hwmode", translate("Mode"))
@@ -167,6 +252,9 @@ if hwtype == "mac80211" then
 
 	s:taboption("advanced", Value, "distance", translate("Distance Optimization"),
 		translate("Distance to farthest network member in meters."))
+
+	s:taboption("advanced", Value, "frag", translate("Fragmentation Threshold"))
+	s:taboption("advanced", Value, "rts", translate("RTS/CTS Threshold"))
 end
 
 
@@ -174,13 +262,19 @@ end
 
 if hwtype == "atheros" then
 	tp = s:taboption("general",
-		(#tx_powers > 0) and ListValue or Value,
+		(#tx_power_list > 0) and ListValue or Value,
 		"txpower", translate("Transmit Power"), "dBm")
 
 	tp.rmempty = true
-	tp.default = tx_power
-	for _, p in ipairs(tx_powers or {}) do
-		tp:value(p.dbm, "%i dBm (%i mW)" %{ p.dbm, p.mw })
+	tp.default = tx_power_cur
+
+	function tp.cfgvalue(...)
+		return txpower_current(Value.cfgvalue(...), tx_power_list)
+	end
+
+	for _, p in ipairs(tx_power_list) do
+		tp:value(p.driver_dbm, "%i dBm (%i mW)"
+			%{ p.display_dbm, p.display_mw })
 	end
 
 	mode = s:taboption("advanced", ListValue, "hwmode", translate("Mode"))
@@ -235,13 +329,19 @@ end
 
 if hwtype == "broadcom" then
 	tp = s:taboption("general",
-		(#tx_powers > 0) and ListValue or Value,
+		(#tx_power_list > 0) and ListValue or Value,
 		"txpower", translate("Transmit Power"), "dBm")
 
 	tp.rmempty = true
-	tp.default = tx_power
-	for _, p in ipairs(tx_powers or {}) do
-		tp:value(p.dbm, "%i dBm (%i mW)" %{ p.dbm, p.mw })
+	tp.default = tx_power_cur
+
+	function tp.cfgvalue(...)
+		return txpower_current(Value.cfgvalue(...), tx_power_list)
+	end
+
+	for _, p in ipairs(tx_power_list) do
+		tp:value(p.driver_dbm, "%i dBm (%i mW)"
+			%{ p.display_dbm, p.display_mw })
 	end
 
 	mode = s:taboption("advanced", ListValue, "hwmode", translate("Mode"))
@@ -350,11 +450,12 @@ if hwtype == "mac80211" then
 	mode:value("ahdemo", translate("Pseudo Ad-Hoc (ahdemo)"))
 	mode:value("monitor", translate("Monitor"))
 	bssid:depends({mode="adhoc"})
+	bssid:depends({mode="sta"})
+	bssid:depends({mode="sta-wds"})
 
-	s:taboption("advanced", Value, "frag", translate("Fragmentation Threshold"))
-	s:taboption("advanced", Value, "rts", translate("RTS/CTS Threshold"))
-	
 	mp = s:taboption("macfilter", ListValue, "macfilter", translate("MAC-Address Filter"))
+	mp:depends({mode="ap"})
+	mp:depends({mode="ap-wds"})
 	mp:value("", translate("disable"))
 	mp:value("allow", translate("Allow listed only"))
 	mp:value("deny", translate("Allow all except listed"))
@@ -363,6 +464,7 @@ if hwtype == "mac80211" then
 	ml.datatype = "macaddr"
 	ml:depends({macfilter="allow"})
 	ml:depends({macfilter="deny"})
+	arplist(ml)
 
 	mode:value("ap-wds", "%s (%s)" % {translate("Access Point"), translate("WDS")})
 	mode:value("sta-wds", "%s (%s)" % {translate("Client"), translate("WDS")})
@@ -462,6 +564,7 @@ if hwtype == "atheros" then
 	ml.datatype = "macaddr"
 	ml:depends({macpolicy="allow"})
 	ml:depends({macpolicy="deny"})
+	arplist(ml)
 
 	s:taboption("advanced", Value, "rate", translate("Transmission Rate"))
 	s:taboption("advanced", Value, "mcast_rate", translate("Multicast Rate"))
@@ -535,6 +638,7 @@ if hwtype == "prism2" then
 	ml = s:taboption("macfilter", DynamicList, "maclist", translate("MAC-List"))
 	ml:depends({macpolicy="allow"})
 	ml:depends({macpolicy="deny"})
+	arplist(ml)
 
 	s:taboption("advanced", Value, "rate", translate("Transmission Rate"))
 	s:taboption("advanced", Value, "frag", translate("Fragmentation Threshold"))
@@ -555,26 +659,86 @@ encr:depends({mode="ap-wds"})
 encr:depends({mode="sta-wds"})
 encr:depends({mode="mesh"})
 
+cipher = s:taboption("encryption", ListValue, "cipher", translate("Cipher"))
+cipher:depends({encryption="wpa"})
+cipher:depends({encryption="wpa2"})
+cipher:depends({encryption="psk"})
+cipher:depends({encryption="psk2"})
+cipher:depends({encryption="wpa-mixed"})
+cipher:depends({encryption="psk-mixed"})
+cipher:value("auto", translate("auto"))
+cipher:value("ccmp", translate("Force CCMP (AES)"))
+cipher:value("tkip", translate("Force TKIP"))
+cipher:value("tkip+ccmp", translate("Force TKIP and CCMP (AES)"))
+
+function encr.cfgvalue(self, section)
+	local v = tostring(ListValue.cfgvalue(self, section))
+	if v == "wep" then
+		return "wep-open"
+	elseif v and v:match("%+") then
+		return (v:gsub("%+.+$", ""))
+	end
+	return v
+end
+
+function encr.write(self, section, value)
+	local e = tostring(encr:formvalue(section))
+	local c = tostring(cipher:formvalue(section))
+	if value == "wpa" or value == "wpa2"  then
+		self.map.uci:delete("wireless", section, "key")
+	end
+	if e and (c == "tkip" or c == "ccmp" or c == "tkip+ccmp") then
+		e = e .. "+" .. c
+	end
+	self.map:set(section, "encryption", e)
+end
+
+function cipher.cfgvalue(self, section)
+	local v = tostring(ListValue.cfgvalue(encr, section))
+	if v and v:match("%+") then
+		v = v:gsub("^[^%+]+%+", "")
+		if v == "aes" then v = "ccmp"
+		elseif v == "tkip+aes" then v = "tkip+ccmp"
+		elseif v == "aes+tkip" then v = "tkip+ccmp"
+		elseif v == "ccmp+tkip" then v = "tkip+ccmp"
+		end
+	end
+	return v
+end
+
+function cipher.write(self, section)
+	return encr:write(section)
+end
+
+
 encr:value("none", "No Encryption")
-encr:value("wep-open",   translate("WEP Open System"), {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
-encr:value("wep-shared", translate("WEP Shared Key"),  {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+encr:value("wep-open",   translate("WEP Open System"), {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"}, {mode="ahdemo"}, {mode="wds"})
+encr:value("wep-shared", translate("WEP Shared Key"),  {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"}, {mode="ahdemo"}, {mode="wds"})
 
 if hwtype == "atheros" or hwtype == "mac80211" or hwtype == "prism2" then
 	local supplicant = fs.access("/usr/sbin/wpa_supplicant")
 	local hostapd = fs.access("/usr/sbin/hostapd")
 
+	-- Probe EAP support                                                                                                
+	local has_ap_eap  = (os.execute("hostapd -veap >/dev/null 2>/dev/null") == 0)                                                        
+	local has_sta_eap = (os.execute("wpa_supplicant -veap >/dev/null 2>/dev/null") == 0)
+
 	if hostapd and supplicant then
-		encr:value("psk", "WPA-PSK")
-		encr:value("psk2", "WPA2-PSK")
-		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode")
-		encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
-		encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+		encr:value("psk", "WPA-PSK", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+		encr:value("psk2", "WPA2-PSK", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+		if has_ap_eap and has_sta_eap then
+			encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+			encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
+		end
 	elseif hostapd and not supplicant then
-		encr:value("psk", "WPA-PSK", {mode="ap"}, {mode="ap-wds"}, {mode="adhoc"}, {mode="ahdemo"})
-		encr:value("psk2", "WPA2-PSK", {mode="ap"}, {mode="ap-wds"}, {mode="adhoc"}, {mode="ahdemo"})
-		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="ap"}, {mode="ap-wds"}, {mode="adhoc"}, {mode="ahdemo"})
-		encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="ap-wds"})
-		encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="ap-wds"})
+		encr:value("psk", "WPA-PSK", {mode="ap"}, {mode="ap-wds"})
+		encr:value("psk2", "WPA2-PSK", {mode="ap"}, {mode="ap-wds"})
+		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="ap"}, {mode="ap-wds"})
+		if has_ap_eap then
+			encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="ap-wds"})
+			encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="ap-wds"})
+		end
 		encr.description = translate(
 			"WPA-Encryption requires wpa_supplicant (for client mode) or hostapd (for AP " ..
 			"and ad-hoc mode) to be installed."
@@ -583,8 +747,10 @@ if hwtype == "atheros" or hwtype == "mac80211" or hwtype == "prism2" then
 		encr:value("psk", "WPA-PSK", {mode="sta"}, {mode="sta-wds"})
 		encr:value("psk2", "WPA2-PSK", {mode="sta"}, {mode="sta-wds"})
 		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="sta"}, {mode="sta-wds"})
-		encr:value("wpa", "WPA-EAP", {mode="sta"}, {mode="sta-wds"})
-		encr:value("wpa2", "WPA2-EAP", {mode="sta"}, {mode="sta-wds"})
+		if has_sta_eap then
+			encr:value("wpa", "WPA-EAP", {mode="sta"}, {mode="sta-wds"})
+			encr:value("wpa2", "WPA2-EAP", {mode="sta"}, {mode="sta-wds"})
+		end
 		encr.description = translate(
 			"WPA-Encryption requires wpa_supplicant (for client mode) or hostapd (for AP " ..
 			"and ad-hoc mode) to be installed."
@@ -601,35 +767,59 @@ elseif hwtype == "broadcom" then
 	encr:value("psk+psk2", "WPA-PSK/WPA2-PSK Mixed Mode")
 end
 
-encr:depends("mode", "ap")
-encr:depends("mode", "sta")
-encr:depends("mode", "ap-wds")
-encr:depends("mode", "sta-wds")
-encr:depends("mode", "wds")
+auth_server = s:taboption("encryption", Value, "auth_server", translate("Radius-Authentication-Server"))
+auth_server:depends({mode="ap", encryption="wpa"})
+auth_server:depends({mode="ap", encryption="wpa2"})
+auth_server:depends({mode="ap-wds", encryption="wpa"})
+auth_server:depends({mode="ap-wds", encryption="wpa2"})
+auth_server.rmempty = true
+auth_server.datatype = "host"
 
-server = s:taboption("encryption", Value, "server", translate("Radius-Server"))
-server:depends({mode="ap", encryption="wpa"})
-server:depends({mode="ap", encryption="wpa2"})
-server:depends({mode="ap-wds", encryption="wpa"})
-server:depends({mode="ap-wds", encryption="wpa2"})
-server.rmempty = true
+auth_port = s:taboption("encryption", Value, "auth_port", translate("Radius-Authentication-Port"), translatef("Default %d", 1812))
+auth_port:depends({mode="ap", encryption="wpa"})
+auth_port:depends({mode="ap", encryption="wpa2"})
+auth_port:depends({mode="ap-wds", encryption="wpa"})
+auth_port:depends({mode="ap-wds", encryption="wpa2"})
+auth_port.rmempty = true
+auth_port.datatype = "port"
 
-port = s:taboption("encryption", Value, "port", translate("Radius-Port"))
-port:depends({mode="ap", encryption="wpa"})
-port:depends({mode="ap", encryption="wpa2"})
-port:depends({mode="ap-wds", encryption="wpa"})
-port:depends({mode="ap-wds", encryption="wpa2"})
-port.rmempty = true
+auth_secret = s:taboption("encryption", Value, "auth_secret", translate("Radius-Authentication-Secret"))
+auth_secret:depends({mode="ap", encryption="wpa"})
+auth_secret:depends({mode="ap", encryption="wpa2"})
+auth_secret:depends({mode="ap-wds", encryption="wpa"})
+auth_secret:depends({mode="ap-wds", encryption="wpa2"})
+auth_secret.rmempty = true
+auth_secret.password = true
+
+acct_server = s:taboption("encryption", Value, "acct_server", translate("Radius-Accounting-Server"))
+acct_server:depends({mode="ap", encryption="wpa"})
+acct_server:depends({mode="ap", encryption="wpa2"})
+acct_server:depends({mode="ap-wds", encryption="wpa"})
+acct_server:depends({mode="ap-wds", encryption="wpa2"})
+acct_server.rmempty = true
+acct_server.datatype = "host"
+
+acct_port = s:taboption("encryption", Value, "acct_port", translate("Radius-Accounting-Port"), translatef("Default %d", 1813))
+acct_port:depends({mode="ap", encryption="wpa"})
+acct_port:depends({mode="ap", encryption="wpa2"})
+acct_port:depends({mode="ap-wds", encryption="wpa"})
+acct_port:depends({mode="ap-wds", encryption="wpa2"})
+acct_port.rmempty = true
+acct_port.datatype = "port"
+
+acct_secret = s:taboption("encryption", Value, "acct_secret", translate("Radius-Accounting-Secret"))
+acct_secret:depends({mode="ap", encryption="wpa"})
+acct_secret:depends({mode="ap", encryption="wpa2"})
+acct_secret:depends({mode="ap-wds", encryption="wpa"})
+acct_secret:depends({mode="ap-wds", encryption="wpa2"})
+acct_secret.rmempty = true
+acct_secret.password = true
 
 wpakey = s:taboption("encryption", Value, "_wpa_key", translate("Key"))
 wpakey:depends("encryption", "psk")
 wpakey:depends("encryption", "psk2")
 wpakey:depends("encryption", "psk+psk2")
 wpakey:depends("encryption", "psk-mixed")
-wpakey:depends({mode="ap", encryption="wpa"})
-wpakey:depends({mode="ap", encryption="wpa2"})
-wpakey:depends({mode="ap-wds", encryption="wpa"})
-wpakey:depends({mode="ap-wds", encryption="wpa2"})
 wpakey.datatype = "wpakey"
 wpakey.rmempty = true
 wpakey.password = true
@@ -708,6 +898,12 @@ if hwtype == "atheros" or hwtype == "mac80211" or hwtype == "prism2" then
 	cacert:depends({mode="sta", encryption="wpa2"})
 	cacert:depends({mode="sta-wds", encryption="wpa"})
 	cacert:depends({mode="sta-wds", encryption="wpa2"})
+
+	clientcert = s:taboption("encryption", FileUpload, "client_cert", translate("Path to Client-Certificate"))
+	clientcert:depends({mode="sta", encryption="wpa"})
+	clientcert:depends({mode="sta", encryption="wpa2"})
+	clientcert:depends({mode="sta-wds", encryption="wpa"})
+	clientcert:depends({mode="sta-wds", encryption="wpa2"})
 
 	privkey = s:taboption("encryption", FileUpload, "priv_key", translate("Path to Private Key"))
 	privkey:depends({mode="sta", eap_type="tls", encryption="wpa2"})

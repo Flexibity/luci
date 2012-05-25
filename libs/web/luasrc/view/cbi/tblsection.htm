@@ -85,24 +85,24 @@ end
 				-%>
 
 				<%- if self.sortable then -%>
-					<td class="cbi-section-table-cell" style="width:50px">
-						<a href="#" onclick="return cbi_row_swap(this, true,  'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" title="<%:Move up%>"><img src="<%=resource%>/cbi/up.gif" alt="<%:Move up%>" /></a>
-						<a href="#" onclick="return cbi_row_swap(this, false, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" title="<%:Move down%>"><img src="<%=resource%>/cbi/down.gif" alt="<%:Move down%>" /></a>
+					<td class="cbi-section-table-cell">
+						<input class="cbi-button cbi-button-up" type="button" value=""  onclick="return cbi_row_swap(this, true, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" alt="<%:Move up%>" title="<%:Move up%>" />
+						<input class="cbi-button cbi-button-down" type="button" value=""  onclick="return cbi_row_swap(this, false, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" alt="<%:Move down%>" title="<%:Move down%>" />
 					</td>
 				<%- end -%>
 
 				<%- if self.extedit or self.addremove then -%>
-					<td class="cbi-section-table-cell" style="width:50px">
+					<td class="cbi-section-table-cell">
 						<%- if self.extedit then -%>
-							<a href="
-							<%- if type(self.extedit) == "string" then -%>
-								<%=self.extedit:format(section)%>
-							<%- elseif type(self.extedit) == "function" then -%>
-								<%=self:extedit(section)%>
-							<%- end -%>
-							" title="<%:Edit%>"><img style="border: none" src="<%=resource%>/cbi/edit.gif" alt="<%:Edit%>" /></a>
+							<input class="cbi-button cbi-button-edit" type="button" value="<%:Edit%>"
+							<%- if type(self.extedit) == "string" then
+							%> onclick="location.href='<%=self.extedit:format(section)%>'"
+							<%- elseif type(self.extedit) == "function" then
+							%> onclick="location.href='<%=self:extedit(section)%>'"
+							<%- end 
+							%> alt="<%:Edit%>" title="<%:Edit%>" />
 						<%- end; if self.addremove then %>
-							<input type="image" value="<%:Delete%>" onclick="this.form.cbi_state='del-section'; return true" name="cbi.rts.<%=self.config%>.<%=k%>" alt="<%:Delete%>" title="<%:Delete%>" src="<%=resource%>/cbi/remove.gif" />
+							<input class="cbi-button cbi-button-remove" type="submit" value="<%:Delete%>"  onclick="this.form.cbi_state='del-section'; return true" name="cbi.rts.<%=self.config%>.<%=k%>" alt="<%:Delete%>" title="<%:Delete%>" />
 						<%- end -%>
 					</td>
 				<%- end -%>
@@ -128,11 +128,11 @@ end
 			<% if self.template_addremove then include(self.template_addremove) else -%>
 			<div class="cbi-section-create cbi-tblsection-create">
 				<% if self.anonymous then %>
-					<input class="cbi-button cbi-button-add" type="submit" value="<%:Add%>" name="cbi.cts.<%=self.config%>.<%=self.sectiontype%>" title="<%:Add%>" />
+					<input class="cbi-button cbi-button-add" type="submit" value="<%:Add%>" name="cbi.cts.<%=self.config%>.<%=self.sectiontype%>.<%=section%>" title="<%:Add%>" />
 				<% else %>
 					<% if self.invalid_cts then -%><div class="cbi-section-error"><% end %>
-					<input type="text" class="cbi-section-create-name" id="cbi.cts.<%=self.config%>.<%=self.sectiontype%>" name="cbi.cts.<%=self.config%>.<%=self.sectiontype%>" />
-					<script type="text/javascript">cbi_validate_field('cbi.cts.<%=self.config%>.<%=self.sectiontype%>', true, 'uciname');</script>
+					<input type="text" class="cbi-section-create-name" id="cbi.cts.<%=self.config%>.<%=self.sectiontype%>.<%=section%>" name="cbi.cts.<%=self.config%>.<%=self.sectiontype%>.<%=section%>" />
+					<script type="text/javascript">cbi_validate_field('cbi.cts.<%=self.config%>.<%=self.sectiontype%>.<%=section%>', true, 'uciname');</script>
 					<input class="cbi-button cbi-button-add" type="submit" onclick="this.form.cbi_state='add-section'; return true" value="<%:Add%>" title="<%:Add%>" />
 					<% if self.invalid_cts then -%>
 						<br /><%:Invalid%></div>

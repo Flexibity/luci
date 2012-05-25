@@ -21,9 +21,6 @@ function index()
 	require("luci.util")
 	require("luci.statistics.datatree")
 
-	-- get rrd data tree
-	local tree = luci.statistics.datatree.Instance()
-
 	-- override entry(): check for existance <plugin>.so where <plugin> is derived from the called path
 	function _entry( path, ... )
 		local file = path[5] or path[4]
@@ -37,36 +34,39 @@ function index()
 		s_system	= _("System plugins"),
 		s_network	= _("Network plugins"),
 
-		rrdtool		= _("RRDTool"),
-		network		= _("Network"),
-		unixsock	= _("UnixSock"),
-		csv			= _("CSV Output"),
-		exec		= _("Exec"),
-		email		= _("Email"),
+		conntrack	= _("Conntrack"),
 		cpu			= _("Processor"),
+		csv			= _("CSV Output"),
 		df			= _("Disk Space Usage"),
 		disk		= _("Disk Usage"),
-		irq			= _("Interrupts"),
-		processes	= _("Processes"),
-		load		= _("System Load"),
-		interface	= _("Interfaces"),
-		netlink		= _("Netlink"),
-		iptables	= _("Firewall"),
-		tcpconns	= _("TCP Connections"),
-		ping		= _("Ping"),
 		dns			= _("DNS"),
-		wireless	= _("Wireless")
+		email		= _("Email"),
+		exec		= _("Exec"),
+		interface	= _("Interfaces"),
+		iptables	= _("Firewall"),
+		irq			= _("Interrupts"),
+		iwinfo		= _("Wireless"),
+		load		= _("System Load"),
+		memory		= _("Memory"),
+		netlink		= _("Netlink"),
+		network		= _("Network"),
+		olsrd		= _("OLSRd"),
+		ping		= _("Ping"),
+		processes	= _("Processes"),
+		rrdtool		= _("RRDTool"),
+		tcpconns	= _("TCP Connections"),
+		unixsock	= _("UnixSock")
 	}
 
 	-- our collectd menu
 	local collectd_menu = {
-		output  = { "rrdtool", "network", "unixsock", "csv" },
-		system  = { "exec", "email", "cpu", "df", "disk", "irq", "processes", "load" },
-		network = { "interface", "netlink", "iptables", "tcpconns", "ping", "dns", "wireless" }
+		output  = { "csv", "network", "rrdtool", "unixsock" },
+		system  = { "cpu", "df", "disk", "email", "exec", "irq", "load", "memory", "processes" },
+		network = { "conntrack", "dns", "interface", "iptables", "netlink", "olsrd", "ping", "tcpconns", "iwinfo" }
 	}
 
 	-- create toplevel menu nodes
-	local st = entry({"admin", "statistics"}, call("statistics_index"), _("Statistics"), 80)
+	local st = entry({"admin", "statistics"}, template("admin_statistics/index"), _("Statistics"), 80)
 	st.i18n = "statistics"
 	st.index = true
 	
@@ -78,8 +78,7 @@ function index()
 	for section, plugins in luci.util.kspairs( collectd_menu ) do
 		local e = entry(
 			{ "admin", "statistics", "collectd", section },
-			call( "statistics_" .. section .. "plugins" ),
-			labels["s_"..section], index * 10
+			firstchild(), labels["s_"..section], index * 10
 		)
 
 		e.index = true
@@ -97,13 +96,17 @@ function index()
 	end
 
 	-- output views
-	local page = entry( { "admin", "statistics", "graph" }, call("statistics_index"), _("Graphs"), 80)
+	local page = entry( { "admin", "statistics", "graph" }, template("admin_statistics/index"), _("Graphs"), 80)
 	      page.i18n     = "statistics"
 	      page.setuser  = "nobody"
 	      page.setgroup = "nogroup"
 
 	local vars = luci.http.formvalue(nil, true)
 	local span = vars.timespan or nil
+	local host = vars.host or nil
+
+	-- get rrd data tree
+	local tree = luci.statistics.datatree.Instance(host)
 
 	for i, plugin in luci.util.vspairs( tree:plugins() ) do
 
@@ -114,7 +117,7 @@ function index()
 		entry(
 			{ "admin", "statistics", "graph", plugin },
 			call("statistics_render"), labels[plugin], i
-		).query = { timespan = span }
+		).query = { timespan = span , host = host }
 
 		-- if more then one instance is found then generate submenu
 		if #instances > 1 then
@@ -123,59 +126,11 @@ function index()
 				entry(
 					{ "admin", "statistics", "graph", plugin, inst },
 					call("statistics_render"), inst, j
-				).query = { timespan = span }
+				).query = { timespan = span , host = host }
 			end
 		end
 	end
 end
-
-function statistics_index()
-	luci.template.render("admin_statistics/index")
-end
-
-function statistics_outputplugins()
-	local translate = luci.i18n.translate
-	local plugins = {
-		rrdtool		= translate("RRDTool"),
-		network		= translate("Network"),
-		unixsock	= translate("UnixSock"),
-		csv			= translate("CSV Output")
-	}
-
-	luci.template.render("admin_statistics/outputplugins", {plugins=plugins})
-end
-
-function statistics_systemplugins()
-	local translate = luci.i18n.translate
-	local plugins = {
-		exec		= translate("Exec"),
-		email		= translate("Email"),
-		cpu			= translate("Processor"),
-		df			= translate("Disk Space Usage"),
-		disk		= translate("Disk Usage"),
-		irq			= translate("Interrupts"),
-		processes	= translate("Processes"),
-		load		= translate("System Load"),
-	}
-
-	luci.template.render("admin_statistics/systemplugins", {plugins=plugins})
-end
-
-function statistics_networkplugins()
-	local translate = luci.i18n.translate
-	local plugins = {
-		interface	= translate("Interfaces"),
-		netlink		= translate("Netlink"),
-		iptables	= translate("Firewall"),
-		tcpconns	= translate("TCP Connections"),
-		ping		= translate("Ping"),
-		dns			= translate("DNS"),
-		wireless	= translate("Wireless")
-	}
-
-	luci.template.render("admin_statistics/networkplugins", {plugins=plugins})
-end
-
 
 function statistics_render()
 
@@ -189,7 +144,12 @@ function statistics_render()
 	local uci   = luci.model.uci.cursor()
 	local spans = luci.util.split( uci:get( "luci_statistics", "collectd_rrdtool", "RRATimespans" ), "%s+", nil, true )
 	local span  = vars.timespan or uci:get( "luci_statistics", "rrdtool", "default_timespan" ) or spans[1]
-	local graph = luci.statistics.rrdtool.Graph( luci.util.parse_units( span ) )
+	local host  = vars.host     or uci:get( "luci_statistics", "collectd", "Hostname" ) or luci.sys.hostname()
+	local opts = { host = vars.host }
+	local graph = luci.statistics.rrdtool.Graph( luci.util.parse_units( span ), opts )
+	local hosts = graph.tree:host_instances()
+
+	local is_index = false
 
 	-- deliver image
 	if vars.img then
@@ -216,18 +176,22 @@ function statistics_render()
 
 	-- no instance requested, find all instances
 	if #instances == 0 then
-		instances = { graph.tree:plugin_instances( plugin )[1] }
+		--instances = { graph.tree:plugin_instances( plugin )[1] }
+		instances = graph.tree:plugin_instances( plugin )
+		is_index = true
 
 	-- index instance requested
 	elseif instances[1] == "-" then
 		instances[1] = ""
+		is_index = true
 	end
 
 
 	-- render graphs
 	for i, inst in ipairs( instances ) do
-		for i, img in ipairs( graph:render( plugin, inst ) ) do
+		for i, img in ipairs( graph:render( plugin, inst, is_index ) ) do
 			table.insert( images, graph:strippngpath( img ) )
+			images[images[#images]] = inst
 		end
 	end
 
@@ -235,6 +199,9 @@ function statistics_render()
 		images           = images,
 		plugin           = plugin,
 		timespans        = spans,
-		current_timespan = span
+		current_timespan = span,
+		hosts            = hosts,
+		current_host     = host,
+		is_index         = is_index
 	} )
 end

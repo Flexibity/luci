@@ -40,10 +40,10 @@ function index()
 	page.order    = 10
 	page.indexignore = true
 
-	page          = node("freifunk", "index", "contact")
+	page          = node("freifunk", "contact")
 	page.target   = template("freifunk/contact")
 	page.title    = _("Contact")
-	page.order    = 10
+	page.order    = 15
 
 	page          = node("freifunk", "status")
 	page.target   = template("freifunk/public_status")
@@ -51,11 +51,15 @@ function index()
 	page.order    = 20
 	page.i18n     = "base"
 	page.setuser  = false
-    page.setgroup = false
+	page.setgroup = false
 
 	entry({"freifunk", "status.json"}, call("jsonstatus"))
 	entry({"freifunk", "status", "zeroes"}, call("zeroes"), "Testdownload")
 	entry({"freifunk", "status", "public_status_json"}, call("public_status_json")).leaf = true
+
+	if nixio.fs.access("/usr/sbin/luci-splash") then
+		assign({"freifunk", "status", "splash"}, {"splash", "publicstatus"}, _("Splash"), 40)
+	end
 
 	assign({"freifunk", "olsr"}, {"admin", "status", "olsr"}, _("OLSR"), 30)
 
@@ -292,7 +296,18 @@ function public_status_json()
 		dest = dr4.dest:string(),
 		dev = dr4.device,
 		metr = dr4.metric }
-	end
+	else
+		local dr = sys.exec("ip r s t olsr-default")
+		if dr then
+			local dest, gateway, dev, metr = dr:match("^(%w+) via (%d+.%d+.%d+.%d+) dev (%w+) +metric (%d+)")
+			def4 = {
+				dest = dest,
+				gateway = gateway,
+				dev = dev,
+				metr = metr
+			}
+		end
+        end
 	
 	rv[#rv+1] = {
 		time = os.date("%a, %d %b %Y, %H:%M:%S"),

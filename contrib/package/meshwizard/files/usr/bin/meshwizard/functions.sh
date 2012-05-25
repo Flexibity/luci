@@ -24,28 +24,18 @@ uci_commitverbose() {
 }
 
 set_defaults() {
-	for def in $(env |grep "^$1"); do
-		option=${def/$1/}
-		uci set $2.$option
+	for def in $(env |grep "^$1" | sed 's/ /_/g'); do
+		option="${def/$1/}"
+		a="$(echo $option |cut -d '=' -f1)"
+		b="$(echo $option |cut -d '=' -f2)"
+		b="${b//_/ }"
+		uci set $2.$a="$b"
 	done
-}
-
-# 1 argument: section to remove
-section_cleanup() {
-	uci -q delete $1 && msg_cleanup $1 || msg_cleanup_error $1
 }
 
 # 3 arguements: 1=config name 2=oldname 3=newname
 section_rename() {
 	uci -q rename $1.$2=$3 && msg_rename $1.$2 $1.$3 || msg_rename_error $1.2 $1.$3
-}
-
-msg_cleanup() {
-	echo "    Cleanup: Removed section $1."
-}
-
-msg_cleanup_error() {
-	echo -e "    \033[1mWarning:\033[0m Cleanup of $1 failed."
 }
 
 msg_missing_value() {

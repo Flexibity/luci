@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-19 19:36+0200\n"
-"PO-Revision-Date: 2011-07-06 16:35+0200\n"
-"Last-Translator: stanislav.fomichev <s@fomichev.me>\n"
+"PO-Revision-Date: 2012-04-02 16:27+0200\n"
+"Last-Translator: Kamal <kamal.aliev@epscom.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -14,13 +14,12 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.4\n"
 
-#. p910nd - Printer server
-#: applications/luci-p910nd/luasrc/i18n/p910nd.en.lua:1
-msgid "p910nd - Printer server"
-msgstr "p910nd - Принт сервер"
+msgid "Bidirectional mode"
+msgstr "Двунаправленный режим"
 
-#. First you have to install the packages to get support for USB (kmod-usb-printer) or parallel port (kmod-lp).
-#: applications/luci-p910nd/luasrc/i18n/p910nd.en.lua:2
+msgid "Device"
+msgstr "Устройство"
+
 msgid ""
 "First you have to install the packages to get support for USB (kmod-usb-"
 "printer) or parallel port (kmod-lp)."
@@ -28,12 +27,24 @@ msgstr ""
 "Для начала вам необходимо установить пакеты для поддержки USB (kmod-usb-"
 "printer) или параллельного порта (kmod-lp)."
 
-#. Bidirectional mode
-#: applications/luci-p910nd/luasrc/i18n/p910nd.en.lua:3
-msgid "Bidirectional mode"
-msgstr "Двунаправленный режим"
+msgid "Port"
+msgstr "Порт"
 
-#. p910nd listens on port 910+N. E.g. 9100 for the first printer.
-#: applications/luci-p910nd/luasrc/i18n/p910nd.en.lua:4
-msgid "p910nd listens on port 910+N. E.g. 9100 for the first printer."
-msgstr "p910nd прослушивает порт 910+N. То есть 9100 - номер первого принтера."
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "TCP listener port."
+msgstr ""
+
+msgid "enable"
+msgstr "включить"
+
+msgid "p910nd - Printer server"
+msgstr "p910nd - Принт сервер"
+
+msgid "port_help"
+msgstr "Помощь по портам"
+
+#~ msgid "p910nd listens on port 910+N. E.g. 9100 for the first printer."
+#~ msgstr ""
+#~ "p910nd прослушивает порт 910+N. То есть 9100 - номер первого принтера."

@@ -3,46 +3,50 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-10 03:40+0200\n"
-"PO-Revision-Date: 2009-05-26 20:13+0200\n"
-"Last-Translator: Eduard Duran <iopahopa@gmail.com>\n"
+"PO-Revision-Date: 2012-04-05 19:30+0200\n"
+"Last-Translator: Roger <roger.baig@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.4\n"
 
 msgid "(%d minute window, %d second interval)"
-msgstr ""
+msgstr "(finestra de %d minut, interval de %d segon)"
 
 msgid "(%s available)"
 msgstr "(%s disponible)"
 
 msgid "(empty)"
-msgstr ""
+msgstr "(buit)"
 
 msgid "(no interfaces attached)"
-msgstr ""
+msgstr "(sense interfícies adjuntes)"
 
 msgid "-- Additional Field --"
 msgstr "-- Camp addicional --"
 
 msgid "-- Please choose --"
-msgstr "-- Escull --"
+msgstr "-- Escull, si et plau --"
 
 msgid "-- custom --"
 msgstr "-- personalitzat --"
 
 msgid "1 Minute Load:"
-msgstr ""
+msgstr "Càrrega d'1 minut:"
 
 msgid "15 Minute Load:"
-msgstr ""
+msgstr "Càrrega de 15 minuts:"
 
+#, fuzzy
 msgid "40MHz 2nd channel above"
-msgstr ""
+msgstr "Canal 2on 40MHz per sobre"
 
+#, fuzzy
 msgid "40MHz 2nd channel below"
-msgstr ""
+msgstr "Canal 2on 40MHz per sota"
 
 msgid "5 Minute Load:"
 msgstr ""
@@ -58,15 +62,17 @@ msgstr ""
 "prefix"
 
 msgid "<abbr title=\"Domain Name System\">DNS</abbr> query port"
-msgstr ""
+msgstr "<abbr title=\"Domain Name System\">DNS</abbr> port de consulta"
 
 msgid "<abbr title=\"Domain Name System\">DNS</abbr> server port"
-msgstr ""
+msgstr "<abbr title=\"Domain Name System\">DNS</abbr> port del servidor"
 
 msgid ""
 "<abbr title=\"Domain Name System\">DNS</abbr> servers will be queried in the "
 "order of the resolvfile"
 msgstr ""
+"Els servidors <abbr title=\"Domain Name System\">DNS</abbr> seran consultats "
+"per l'ordre del fitxer de resolució"
 
 msgid "<abbr title=\"Domain Name System\">DNS</abbr>-Server"
 msgstr "Servidor <abbr title=\"Domain Name System\">DNS</abbr>"
@@ -106,13 +112,10 @@ msgid "<abbr title=\"Light Emitting Diode\">LED</abbr> Configuration"
 msgstr "Configuració <abbr title=\"Light Emitting Diode\">LED</abbr>"
 
 msgid "<abbr title=\"Light Emitting Diode\">LED</abbr> Name"
-msgstr ""
+msgstr "Nom <abbr title=\"Light Emitting Diode\">LED</abbr>"
 
 msgid "<abbr title=\"Media Access Control\">MAC</abbr>-Address"
 msgstr "Adreça <abbr title=\"Media Access Control\">MAC</abbr>"
-
-msgid "<abbr title=\"Point-to-Point Tunneling Protocol\">PPTP</abbr>-Server"
-msgstr "Servidor <abbr title=\"Point-to-Point Tunneling Protocol\">PPTP</abbr>"
 
 msgid "<abbr title=\"Wireless Local Area Network\">WLAN</abbr>-Scan"
 msgstr "Escaneig <abbr title=\"Xarxa sense fils d&#39;àrea local\">WLAN</abbr>"
@@ -121,28 +124,29 @@ msgid ""
 "<abbr title=\"maximal\">Max.</abbr> <abbr title=\"Dynamic Host Configuration "
 "Protocol\">DHCP</abbr> leases"
 msgstr ""
+"Leases de <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr> "
+"<abbr title=\"maximal\">Max.</abbr>"
 
 msgid ""
 "<abbr title=\"maximal\">Max.</abbr> <abbr title=\"Extension Mechanisms for "
 "Domain Name System\">EDNS0</abbr> paket size"
 msgstr ""
+"Grandària de paquet <abbr title=\"Extension Mechanisms for Domain Name System"
+"\">EDNS0</abbr> <abbr title=\"maximal\">Max.</abbr>"
 
 msgid "<abbr title=\"maximal\">Max.</abbr> concurrent queries"
-msgstr ""
+msgstr "Consultes concurrents <abbr title=\"maximal\">Max.</abbr>"
 
-msgid "AHCP Settings"
-msgstr ""
+msgid "APN"
+msgstr "APN"
 
 msgid "AR Support"
 msgstr "Suport AR"
 
-msgid "ARP ping retries"
-msgstr ""
+msgid "ARP retry threshold"
+msgstr "Llindar de reintent ARP"
 
 msgid "ATM Bridges"
-msgstr ""
-
-msgid "ATM Settings"
 msgstr ""
 
 msgid "ATM Virtual Channel Identifier (VCI)"
@@ -160,14 +164,14 @@ msgstr ""
 msgid "ATM device number"
 msgstr ""
 
-msgid "Accept Router Advertisements"
+msgid "Accept router advertisements"
+msgstr ""
+
+msgid "Access Concentrator"
 msgstr ""
 
 msgid "Access Point"
 msgstr "Punt d'accés"
-
-msgid "Access point (APN)"
-msgstr "Punt d'accés (APN)"
 
 msgid "Action"
 msgstr "Acció"
@@ -176,7 +180,7 @@ msgid "Actions"
 msgstr "Accions"
 
 msgid "Activate this network"
-msgstr ""
+msgstr "Activa aquesta xarxa"
 
 msgid "Active <abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Routes"
 msgstr "Rutes <abbr title=\"Internet Protocol Version 4\">IPv4</abbr> actives"
@@ -198,33 +202,34 @@ msgstr "Afegeix"
 
 msgid "Add local domain suffix to names served from hosts files"
 msgstr ""
+"Afegeix el sufix de domini local als noms servits des dels fitxers de hosts"
 
 msgid "Add new interface..."
-msgstr ""
+msgstr "Afegeix una interfície nova..."
 
 msgid "Additional Hosts files"
-msgstr ""
-
-msgid "Additional pppd options"
-msgstr "Opcions pppd addicionals"
+msgstr "Fitxers de Hosts addicionals"
 
 msgid "Address"
-msgstr ""
+msgstr "Adreça"
+
+msgid "Address to access local relay bridge"
+msgstr "Adreça per accedir al relay bridge local"
 
 msgid "Administration"
 msgstr "Administració"
 
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Paràmetres avançats"
 
 msgid "Advertise IPv6 on network"
-msgstr ""
+msgstr "Anuncia IPv6 a la xarxa"
 
 msgid "Advertised network ID"
-msgstr ""
+msgstr "ID de xarxa anunciat"
 
 msgid "Alert"
-msgstr ""
+msgstr "Alerta"
 
 msgid "Allow <abbr title=\"Secure Shell\">SSH</abbr> password authentication"
 msgstr ""
@@ -237,32 +242,36 @@ msgid "Allow listed only"
 msgstr "Permet només les llistades"
 
 msgid "Allow localhost"
-msgstr ""
+msgstr "Permetre el localhost"
 
 msgid "Allow remote hosts to connect to local SSH forwarded ports"
 msgstr ""
+"Permetre a màquines remotes de connectar als ports reenviats de l'SSH local"
 
 msgid "Allow root logins with password"
-msgstr ""
+msgstr "Permetre l'accés del l'administrador amb paraula clau"
 
 msgid "Allow the <em>root</em> user to login with password"
-msgstr ""
+msgstr "Permetre l'accés de l'usurari <em>root</em> amb paraula clau"
 
 msgid ""
 "Allow upstream responses in the 127.0.0.0/8 range, e.g. for RBL services"
 msgstr ""
 
-msgid "Allowed range is 1 to FFFF"
-msgstr ""
+msgid "Allowed range is 1 to 65535"
+msgstr "El rang permès és entre 1 i 65535"
 
 msgid "An additional network will be created if you leave this unchecked."
-msgstr ""
+msgstr "Es crearà una xarxa addicional si deixes això sense marcar."
 
 msgid "Antenna 1"
-msgstr ""
+msgstr "Antena 1"
 
 msgid "Antenna 2"
-msgstr ""
+msgstr "Antena 2"
+
+msgid "Any zone"
+msgstr "Qualsevol zona"
 
 msgid "Apply"
 msgstr "Aplica"
@@ -270,11 +279,14 @@ msgstr "Aplica"
 msgid "Applying changes"
 msgstr "Aplicant els canvis"
 
-msgid "Associated Stations"
+msgid "Assign interfaces..."
 msgstr ""
 
+msgid "Associated Stations"
+msgstr "Estacions associades"
+
 msgid "Authentication"
-msgstr "Autenticació PEAP"
+msgstr "Autenticació"
 
 msgid "Authoritative"
 msgstr "Autoritzada"
@@ -282,49 +294,65 @@ msgstr "Autoritzada"
 msgid "Authorization Required"
 msgstr "Es requereix autenticació"
 
-msgid "Automatic Disconnect"
-msgstr "Desconnexió Automàtica"
+msgid "Auto Refresh"
+msgstr "Refresc automàtic"
 
 msgid "Available"
 msgstr "Disponible"
 
 msgid "Available packages"
-msgstr ""
+msgstr "Paquets disponibles"
 
 msgid "Average:"
-msgstr ""
+msgstr "Mitjana:"
 
 msgid "BSSID"
-msgstr ""
+msgstr "BSSID"
 
 msgid "Back"
-msgstr ""
+msgstr "Endarrere"
 
 msgid "Back to Overview"
-msgstr ""
+msgstr "Endarrere cap a Resum"
+
+msgid "Back to configuration"
+msgstr "Endarrere cap a configuració"
 
 msgid "Back to overview"
-msgstr ""
+msgstr "Endarrere cap a resum"
 
+# Endarrere cap a resultats d'escaneig
 msgid "Back to scan results"
 msgstr ""
 
 msgid "Background Scan"
 msgstr "Escaneig de fons"
 
-msgid "Backup / Restore"
-msgstr "Fes còpia de seguretat / Restaura"
+msgid "Backup / Flash Firmware"
+msgstr "Còpia de seguretat / Recàrrega de programari"
 
-msgid "Backup Archive"
-msgstr "Arxiu de seguretat"
+msgid "Backup / Restore"
+msgstr "Còpia de seguretat / Restauració"
+
+msgid "Backup file list"
+msgstr "Llista de fitxer de recuperació"
 
 msgid "Bad address specified!"
+msgstr "Adreça mal especificada!"
+
+msgid ""
+"Below is the determined list of files to backup. It consists of changed "
+"configuration files marked by opkg, essential base files and the user "
+"defined backup patterns."
 msgstr ""
 
 msgid "Bit Rate"
 msgstr ""
 
 msgid "Bitrate"
+msgstr ""
+
+msgid "Bogus NX Domain Override"
 msgstr ""
 
 msgid "Bridge"
@@ -334,19 +362,19 @@ msgid "Bridge interfaces"
 msgstr "Interfície pont"
 
 msgid "Bridge unit number"
-msgstr ""
+msgstr "Nombre d'unitat de pont"
 
 msgid "Bring up on boot"
-msgstr ""
+msgstr "Aixecar a l'engegada"
 
 msgid "Buffered"
 msgstr ""
 
 msgid "Buttons"
-msgstr ""
+msgstr "Botons"
 
 msgid "CPU"
-msgstr ""
+msgstr "CPU"
 
 msgid "CPU usage (%)"
 msgstr "Ús de CPU (%)"
@@ -367,13 +395,13 @@ msgid "Changes applied."
 msgstr "Canvis aplicats."
 
 msgid "Changes the administrator password for accessing the device"
-msgstr ""
+msgstr "Canvia la paraula clau de l'administrador per accedir al dispositiu"
 
 msgid "Channel"
 msgstr "Canal"
 
 msgid "Check"
-msgstr ""
+msgstr "Comprovació"
 
 msgid "Checksum"
 msgstr "Suma de verificació"
@@ -383,7 +411,7 @@ msgid ""
 "<em>unspecified</em> to remove the interface from the associated zone or "
 "fill out the <em>create</em> field to define a new zone and attach the "
 "interface to it."
-msgstr "Aquesta interfície no pertany a cap zona de tallafocs encara."
+msgstr ""
 
 msgid ""
 "Choose the network you want to attach to this wireless interface. Select "
@@ -391,8 +419,28 @@ msgid ""
 "em> field to define a new network."
 msgstr ""
 
+msgid "Cipher"
+msgstr "Xifra"
+
+msgid ""
+"Click \"Generate archive\" to download a tar archive of the current "
+"configuration files. To reset the firmware to its initial state, click "
+"\"Perform reset\" (only possible with squashfs images)."
+msgstr ""
+
 msgid "Client"
 msgstr "Client"
+
+msgid "Client ID to send when requesting DHCP"
+msgstr ""
+
+msgid ""
+"Close inactive connection after the given amount of seconds, use 0 to "
+"persist connection"
+msgstr ""
+
+msgid "Close list..."
+msgstr ""
 
 msgid "Collecting data..."
 msgstr ""
@@ -424,13 +472,6 @@ msgstr ""
 msgid "Configuration files will be kept."
 msgstr ""
 
-msgid ""
-"Configure the local DNS server to use the name servers adverticed by the PPP "
-"peer"
-msgstr ""
-"Configura el servidor DNS local per fer servir els servidors anunciats pel "
-"peer PPP"
-
 msgid "Configures this mount as overlay storage for block-extroot"
 msgstr ""
 
@@ -440,14 +481,14 @@ msgstr "Confirmació"
 msgid "Connect"
 msgstr ""
 
-msgid "Connect script"
-msgstr "Script de connexió"
-
 msgid "Connected"
 msgstr ""
 
 msgid "Connection Limit"
 msgstr "Límit de connexió"
+
+msgid "Connections"
+msgstr ""
 
 msgid "Country"
 msgstr ""
@@ -473,22 +514,13 @@ msgstr "Crea Xarxa"
 msgid "Create a bridge over multiple interfaces"
 msgstr ""
 
-msgid "Create backup"
-msgstr "Crea còpia de seguretat"
-
 msgid "Critical"
 msgstr ""
 
 msgid "Cron Log Level"
 msgstr ""
 
-msgid "Custom Files"
-msgstr ""
-
 msgid "Custom Interface"
-msgstr ""
-
-msgid "Custom files"
 msgstr ""
 
 msgid ""
@@ -507,6 +539,9 @@ msgstr ""
 msgid "DHCP and DNS"
 msgstr ""
 
+msgid "DHCP client"
+msgstr ""
+
 msgid "DHCP-Options"
 msgstr "Opcions de DHCP"
 
@@ -519,7 +554,10 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
-msgid "Default"
+msgid "Default %d"
+msgstr ""
+
+msgid "Default gateway"
 msgstr ""
 
 msgid "Default state"
@@ -551,12 +589,6 @@ msgstr "Disseny"
 
 msgid "Destination"
 msgstr "Destí"
-
-msgid "Detected Files"
-msgstr ""
-
-msgid "Detected files"
-msgstr ""
 
 msgid "Device"
 msgstr "Dispositiu"
@@ -590,8 +622,8 @@ msgstr ""
 msgid "Discard upstream RFC1918 responses"
 msgstr ""
 
-msgid "Disconnect script"
-msgstr "Script de desconnexió"
+msgid "Displaying only packages containing"
+msgstr ""
 
 msgid "Distance Optimization"
 msgstr "Optimització de distància"
@@ -641,6 +673,9 @@ msgstr ""
 msgid "Download and install package"
 msgstr "Descarrega i instal·la el paquet"
 
+msgid "Download backup"
+msgstr ""
+
 msgid "Dropbear Instance"
 msgstr ""
 
@@ -655,6 +690,9 @@ msgid "Dynamic <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr>"
 msgstr ""
 "<abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr> dinàmic"
 
+msgid "Dynamic tunnel"
+msgstr ""
+
 msgid ""
 "Dynamically allocate DHCP addresses for clients. If disabled, only clients "
 "having static leases will be served."
@@ -665,9 +703,6 @@ msgstr "Mètode EAP"
 
 msgid "Edit"
 msgstr "Edita"
-
-msgid "Edit package lists and installation targets"
-msgstr "Edita llistes de paquets i destins d&#39;instal·lació"
 
 msgid "Edit this interface"
 msgstr ""
@@ -681,14 +716,14 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-msgid "Enable 4K VLANs"
-msgstr ""
-
 msgid "Enable <abbr title=\"Spanning Tree Protocol\">STP</abbr>"
 msgstr "Habilita l'<abbr title=\"Spanning Tree Protocol\">STP</abbr>"
 
-msgid "Enable IPv6 on PPP link"
-msgstr "Habilita IPv6 a l'enllaç PPP"
+msgid "Enable HE.net dynamic endpoint update"
+msgstr ""
+
+msgid "Enable IPv6 negotiation on the PPP link"
+msgstr ""
 
 msgid "Enable Jumbo Frame passthrough"
 msgstr ""
@@ -697,6 +732,12 @@ msgid "Enable TFTP server"
 msgstr ""
 
 msgid "Enable VLAN functionality"
+msgstr ""
+
+msgid "Enable buffering"
+msgstr ""
+
+msgid "Enable builtin NTP server"
 msgstr ""
 
 msgid "Enable learning and aging"
@@ -722,6 +763,9 @@ msgstr ""
 
 msgid "Encryption"
 msgstr "Encriptació"
+
+msgid "Erasing..."
+msgstr ""
 
 msgid "Error"
 msgstr "Error"
@@ -757,9 +801,6 @@ msgstr ""
 msgid "Filename of the boot image advertised to clients"
 msgstr ""
 
-msgid "Files to be kept when flashing a new firmware"
-msgstr "Fitxers a guardar quan s&#39;actualitzi un nou firmware"
-
 msgid "Filesystem"
 msgstr "Sistema de fitxers"
 
@@ -793,9 +834,6 @@ msgstr "Estat del tallafocs"
 msgid "Firmware Version"
 msgstr ""
 
-msgid "Firmware image"
-msgstr "Imatge de firmware"
-
 msgid "Fixed source port for outbound DNS queries"
 msgstr ""
 
@@ -805,16 +843,37 @@ msgstr "Flags"
 msgid "Flash Firmware"
 msgstr "Actualitza el firmware"
 
+msgid "Flash image..."
+msgstr ""
+
+msgid "Flash new firmware image"
+msgstr ""
+
+msgid "Flash operations"
+msgstr ""
+
+msgid "Flashing..."
+msgstr ""
+
 msgid "Force"
 msgstr "Força"
+
+msgid "Force CCMP (AES)"
+msgstr ""
 
 msgid "Force DHCP on this network even if another server is detected."
 msgstr ""
 
-msgid "Forward DHCP"
+msgid "Force TKIP"
 msgstr ""
 
-msgid "Forward broadcasts"
+msgid "Force TKIP and CCMP (AES)"
+msgstr ""
+
+msgid "Forward DHCP traffic"
+msgstr ""
+
+msgid "Forward broadcast traffic"
 msgstr ""
 
 msgid "Forwarding mode"
@@ -841,22 +900,28 @@ msgstr ""
 msgid "Gateway ports"
 msgstr ""
 
-msgid "General"
-msgstr "General"
-
 msgid "General Settings"
 msgstr ""
 
 msgid "General Setup"
 msgstr ""
 
+msgid "Generate archive"
+msgstr ""
+
 msgid "Given password confirmation did not match, password not changed!"
+msgstr ""
+
+msgid "Go to password configuration..."
 msgstr ""
 
 msgid "Go to relevant configuration page"
 msgstr "Vés a la pàgina de configuració"
 
-msgid "HE.net Tunnel ID"
+msgid "HE.net password"
+msgstr ""
+
+msgid "HE.net user ID"
 msgstr ""
 
 msgid "HT capabilities"
@@ -872,25 +937,11 @@ msgid "Hang Up"
 msgstr "Penja"
 
 msgid ""
-"Here you can backup and restore your router configuration and - if possible "
-"- reset the router to the default settings."
-msgstr ""
-"Ací pots crear una còpia de seguretat i restaurar la teva configuració del "
-"router i - si és possible - reiniciar el router als paràmetres per defecte."
-
-msgid ""
 "Here you can configure the basic aspects of your device like its hostname or "
 "the timezone."
 msgstr ""
 "Ací pots configurar els aspectes bàsics del teu dispositiu, com el nom de la "
 "màquina o el fus horari."
-
-msgid ""
-"Here you can customize the settings and the functionality of <abbr title="
-"\"Lua Configuration Interface\">LuCI</abbr>."
-msgstr ""
-"Aquí pots personalitzar la configuració i funcionalitats de <abbr title="
-"\"Interfície de configuració Lua\">LuCI</abbr>"
 
 msgid ""
 "Here you can paste public SSH-Keys (one per line) for SSH public-key "
@@ -913,6 +964,9 @@ msgstr "Xarxa o adreça <abbr title=\"Internet Protocol Address\">IP</abbr>"
 msgid "Hostname"
 msgstr "Nom de màquina"
 
+msgid "Hostname to send when requesting DHCP"
+msgstr ""
+
 msgid "Hostnames"
 msgstr "Noms de màquina"
 
@@ -931,7 +985,19 @@ msgstr ""
 msgid "IPv4 WAN Status"
 msgstr ""
 
+msgid "IPv4 address"
+msgstr ""
+
 msgid "IPv4 and IPv6"
+msgstr ""
+
+msgid "IPv4 broadcast"
+msgstr ""
+
+msgid "IPv4 gateway"
+msgstr ""
+
+msgid "IPv4 netmask"
 msgstr ""
 
 msgid "IPv4 only"
@@ -952,7 +1018,19 @@ msgstr ""
 msgid "IPv6 WAN Status"
 msgstr ""
 
+msgid "IPv6 address"
+msgstr ""
+
+msgid "IPv6 gateway"
+msgstr ""
+
 msgid "IPv6 only"
+msgstr ""
+
+msgid "IPv6-in-IPv4 (RFC4213)"
+msgstr ""
+
+msgid "IPv6-over-IPv4"
 msgstr ""
 
 msgid "Identity"
@@ -965,6 +1043,12 @@ msgstr ""
 msgid ""
 "If specified, mount the device by the partition label instead of a fixed "
 "device node"
+msgstr ""
+
+msgid "If unchecked, no default route is configured"
+msgstr ""
+
+msgid "If unchecked, the advertised DNS server addresses are ignored"
 msgstr ""
 
 msgid ""
@@ -990,8 +1074,14 @@ msgstr "Ignora la interfície"
 msgid "Ignore resolve file"
 msgstr "Ignora el fitxer de Resolució"
 
+msgid "Image"
+msgstr ""
+
 msgid "In"
 msgstr "In"
+
+msgid "Inactivity timeout"
+msgstr ""
 
 msgid "Inbound:"
 msgstr ""
@@ -1008,8 +1098,11 @@ msgstr "Scripts d'inici"
 msgid "Install"
 msgstr "Instal·la"
 
-msgid "Installation targets"
-msgstr "Objectius d'instal·lació"
+msgid "Install package %q"
+msgstr ""
+
+msgid "Install protocol extensions..."
+msgstr ""
 
 msgid "Installed packages"
 msgstr ""
@@ -1047,6 +1140,9 @@ msgstr "Valor d'entrada invàlid"
 msgid "Invalid VLAN ID given! Only IDs between %d and %d are allowed."
 msgstr ""
 
+msgid "Invalid VLAN ID given! Only unique IDs are allowed"
+msgstr ""
+
 msgid "Invalid username and/or password! Please try again."
 msgstr "Usuari i/o contrasenya invàlids! Si us plau prova-ho de nou."
 
@@ -1069,13 +1165,7 @@ msgstr ""
 msgid "Join Network: Wireless Scan"
 msgstr ""
 
-msgid "Keep configuration files"
-msgstr "Mantingues els fitxers de configuració"
-
-msgid "Keep-Alive"
-msgstr "Keep-Alive"
-
-msgid "Kernel"
+msgid "Keep settings"
 msgstr ""
 
 msgid "Kernel Log"
@@ -1092,6 +1182,12 @@ msgstr ""
 
 msgid "Kill"
 msgstr "Mata"
+
+msgid "LCP echo failure threshold"
+msgstr ""
+
+msgid "LCP echo interval"
+msgstr ""
 
 msgid "LLC"
 msgstr ""
@@ -1117,22 +1213,14 @@ msgstr "Temps del Lease"
 msgid "Leasetime remaining"
 msgstr "Temps de Lease restant"
 
+msgid "Leave empty to autodetect"
+msgstr ""
+
+msgid "Leave empty to use the current WAN address"
+msgstr ""
+
 msgid "Legend:"
 msgstr ""
-
-msgid ""
-"Let pppd replace the current default route to use the PPP interface after "
-"successful connect"
-msgstr ""
-"Permet que el pppd reemplaci la ruta per defecte actual per fer servir les "
-"interfícies PPP després de connectar-se amb èxit"
-
-msgid "Let pppd run this script after establishing the PPP link"
-msgstr "Permet que el pppd executi aquest script abans d'establir l'enllaç PPP"
-
-msgid "Let pppd run this script before tearing down the PPP link"
-msgstr ""
-"Permet que el pppd executi aquest script abans de desconnectar l'enllaç PPP"
 
 msgid "Limit"
 msgstr "Límit"
@@ -1151,6 +1239,9 @@ msgstr ""
 msgid "List of domains to allow RFC1918 responses for"
 msgstr ""
 
+msgid "List of hosts that supply bogus NX domain results"
+msgstr ""
+
 msgid "Listen only on the given interface or, if unspecified, on all"
 msgstr ""
 
@@ -1164,6 +1255,12 @@ msgid "Load Average"
 msgstr ""
 
 msgid "Loading"
+msgstr ""
+
+msgid "Local IPv4 address"
+msgstr ""
+
+msgid "Local IPv6 address"
 msgstr ""
 
 msgid "Local Startup"
@@ -1193,6 +1290,9 @@ msgstr ""
 
 msgid "Localise queries"
 msgstr "Localitza les consultes"
+
+msgid "Locked to channel %d used by %s"
+msgstr ""
 
 msgid "Log output level"
 msgstr ""
@@ -1233,13 +1333,6 @@ msgstr "Llista MAC"
 msgid "MTU"
 msgstr ""
 
-msgid ""
-"Make sure that you provide the correct pin code here or you might lock your "
-"sim card!"
-msgstr ""
-"Assegura't d'introduir el codi pin correcte o pots bloquejar la teva targeta "
-"SIM!"
-
 msgid "Maximum Rate"
 msgstr "Taxa Màxima"
 
@@ -1250,6 +1343,9 @@ msgid "Maximum allowed number of concurrent DNS queries"
 msgstr ""
 
 msgid "Maximum allowed size of EDNS.0 UDP packets"
+msgstr ""
+
+msgid "Maximum amount of seconds to wait for the modem to become ready"
 msgstr ""
 
 msgid "Maximum hold time"
@@ -1273,25 +1369,20 @@ msgstr "Taxa Mínima"
 msgid "Minimum hold time"
 msgstr ""
 
+msgid "Missing protocol extension for proto %q"
+msgstr ""
+
 msgid "Mode"
 msgstr "Mode"
 
 msgid "Modem device"
 msgstr "Dispositiu de Modem"
 
+msgid "Modem init timeout"
+msgstr ""
+
 msgid "Monitor"
 msgstr "Monitor"
-
-msgid ""
-"Most of them are network servers, that offer a certain service for your "
-"device or network like shell access, serving webpages like <abbr title=\"Lua "
-"Configuration Interface\">LuCI</abbr>, doing mesh routing, sending e-"
-"mails, ..."
-msgstr ""
-"La majoria d'ells són servidors de xarxa, que ofereixen un cert servei pel "
-"teu dispositiu o xarxa, com l'accés a consola, servir pàgines web com el "
-"<abbr title=\"Interfície de configuració Lua\">LuCI</abbr>, fer enrutament "
-"mesh, enviar e-mails, ..."
 
 msgid "Mount Entry"
 msgstr ""
@@ -1340,6 +1431,9 @@ msgstr ""
 msgid "NAS ID"
 msgstr "NAS ID"
 
+msgid "NTP server candidates"
+msgstr ""
+
 msgid "Name"
 msgstr "Nom"
 
@@ -1364,6 +1458,9 @@ msgstr ""
 msgid "Network boot image"
 msgstr ""
 
+msgid "Network without interfaces."
+msgstr ""
+
 msgid "Networks"
 msgstr "Xarxes"
 
@@ -1386,6 +1483,12 @@ msgid "No negative cache"
 msgstr ""
 
 msgid "No network configured on this device"
+msgstr ""
+
+msgid "No network name specified"
+msgstr ""
+
+msgid "No package lists available"
 msgstr ""
 
 msgid "No password set!"
@@ -1413,6 +1516,9 @@ msgstr ""
 msgid "Not associated"
 msgstr ""
 
+msgid "Not connected"
+msgstr ""
+
 msgid "Note: Configuration files will be erased."
 msgstr ""
 
@@ -1423,10 +1529,6 @@ msgstr ""
 
 msgid "Notice"
 msgstr ""
-
-msgid "Number of failed connection tests to initiate automatic reconnect"
-msgstr ""
-"Número de connexions de test fallades per iniciar reconnexió automàtica"
 
 msgid "OK"
 msgstr "D'acord"
@@ -1464,6 +1566,9 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
+msgid "Open list..."
+msgstr ""
+
 msgid "Option changed"
 msgstr ""
 
@@ -1485,12 +1590,21 @@ msgstr ""
 msgid "Outdoor Channels"
 msgstr "Canals d'exteriors"
 
-msgid "Override Gateway"
+msgid "Override MAC address"
+msgstr ""
+
+msgid "Override MTU"
+msgstr ""
+
+msgid "Override the gateway in DHCP responses"
 msgstr ""
 
 msgid ""
 "Override the netmask sent to clients. Normally it is calculated from the "
 "subnet that is served."
+msgstr ""
+
+msgid "Override the table used for internal routes"
 msgstr ""
 
 msgid "Overview"
@@ -1499,23 +1613,38 @@ msgstr "Vista general"
 msgid "Owner"
 msgstr "Propietari"
 
+msgid "PAP/CHAP password"
+msgstr ""
+
+msgid "PAP/CHAP username"
+msgstr ""
+
 msgid "PID"
 msgstr "PID"
 
-msgid "PIN code"
-msgstr "Codi PIN"
+msgid "PIN"
+msgstr ""
 
-msgid "PPP Settings"
+msgid "PPP"
 msgstr ""
 
 msgid "PPPoA Encapsulation"
 msgstr "Encapsulació PPPoA"
 
+msgid "PPPoATM"
+msgstr ""
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPtP"
+msgstr ""
+
 msgid "Package libiwinfo required!"
 msgstr ""
 
-msgid "Package lists"
-msgstr "Llistes de paquets"
+msgid "Package lists are older than 24 hours"
+msgstr ""
 
 msgid "Package name"
 msgstr "Nom del paquet"
@@ -1541,6 +1670,9 @@ msgstr ""
 msgid "Path to CA-Certificate"
 msgstr "Ruta als Certificats CA"
 
+msgid "Path to Client-Certificate"
+msgstr ""
+
 msgid "Path to Private Key"
 msgstr "Ruta a la clau privada"
 
@@ -1552,6 +1684,9 @@ msgstr ""
 
 msgid "Perform reboot"
 msgstr "Arranca de nou"
+
+msgid "Perform reset"
+msgstr ""
 
 msgid "Phy Rate:"
 msgstr ""
@@ -1580,19 +1715,13 @@ msgstr ""
 msgid "Port %d is untagged in multiple VLANs!"
 msgstr ""
 
-msgid ""
-"Port <abbr title=\"Primary VLAN IDs\">PVIDs</abbr> specify the default VLAN "
-"ID added to received untagged frames."
-msgstr ""
-
-msgid "Port PVIDs on %q"
-msgstr ""
-
-msgid "Post-commit actions"
-msgstr "Accions Post-commit"
-
 msgid "Power"
 msgstr "Potència"
+
+msgid ""
+"Presume peer to be dead after given amount of LCP echo failures, use 0 to "
+"ignore failures"
+msgstr ""
 
 #, fuzzy
 msgid "Prevents client-to-client communication"
@@ -1601,16 +1730,8 @@ msgstr "Evita la comunicació Client a Client"
 msgid "Proceed"
 msgstr "continua"
 
-msgid "Proceed reverting all settings and resetting to firmware defaults?"
-msgstr ""
-"Continua desfent tots els paràmetres i reiniciant els valors per defecte del "
-"firmware?"
-
 msgid "Processes"
 msgstr "Processos"
-
-msgid "Processor"
-msgstr "Processador"
 
 msgid "Prot."
 msgstr "Prot."
@@ -1619,6 +1740,12 @@ msgid "Protocol"
 msgstr "Protocol"
 
 msgid "Protocol family"
+msgstr ""
+
+msgid "Protocol of the new interface"
+msgstr ""
+
+msgid "Protocol support is not installed"
 msgstr ""
 
 msgid "Provide new network"
@@ -1633,12 +1760,26 @@ msgstr "Llindar RTS/CTS"
 msgid "RX"
 msgstr "RX"
 
-msgid "Radius-Port"
-msgstr "Port Radius"
+msgid "RX Rate"
+msgstr ""
 
-#, fuzzy
-msgid "Radius-Server"
-msgstr "Servidor Radius"
+msgid "Radius-Accounting-Port"
+msgstr ""
+
+msgid "Radius-Accounting-Secret"
+msgstr ""
+
+msgid "Radius-Accounting-Server"
+msgstr ""
+
+msgid "Radius-Authentication-Port"
+msgstr ""
+
+msgid "Radius-Authentication-Secret"
+msgstr ""
+
+msgid "Radius-Authentication-Server"
+msgstr ""
 
 msgid ""
 "Read <code>/etc/ethers</code> to configure the <abbr title=\"Dynamic Host "
@@ -1648,26 +1789,35 @@ msgstr ""
 "\"Dynamic Host Configuration Protocol\">DHCP</abbr>"
 
 msgid ""
-"Really delete this interface? The deletion cannot be undone!\n"
+"Really delete this interface? The deletion cannot be undone!\\n"
 "You might lose access to this router if you are connected via this interface."
 msgstr ""
 
 msgid ""
-"Really delete this wireless network? The deletion cannot be undone!\n"
+"Really delete this wireless network? The deletion cannot be undone!\\n"
 "You might lose access to this router if you are connected via this network."
 msgstr ""
 
+msgid "Really reset all changes?"
+msgstr ""
+
 msgid ""
-"Really shutdown interface \"%s\" ?\n"
+"Really shutdown interface \"%s\" ?\\n"
 "You might lose access to this router if you are connected via this interface."
 msgstr ""
 
 msgid ""
-"Really shutdown network ?\n"
+"Really shutdown network ?\\n"
 "You might lose access to this router if you are connected via this interface."
+msgstr ""
+
+msgid "Really switch protocol?"
 msgstr ""
 
 msgid "Realtime Connections"
+msgstr ""
+
+msgid "Realtime Graphs"
 msgstr ""
 
 msgid "Realtime Load"
@@ -1684,6 +1834,9 @@ msgstr ""
 
 msgid "Reboot"
 msgstr "Arranca de nou"
+
+msgid "Rebooting..."
+msgstr ""
 
 msgid "Reboots the operating system of your device"
 msgstr "Arranca de nou el sistema operatiu del teu dispositiu"
@@ -1706,10 +1859,19 @@ msgstr "Referències"
 msgid "Regulatory Domain"
 msgstr "Domini regulatori"
 
-msgid "Relay Settings"
+msgid "Relay"
+msgstr ""
+
+msgid "Relay Bridge"
 msgstr ""
 
 msgid "Relay between networks"
+msgstr ""
+
+msgid "Relay bridge"
+msgstr ""
+
+msgid "Remote IPv4 address"
 msgstr ""
 
 msgid "Remove"
@@ -1718,13 +1880,13 @@ msgstr "Esborra"
 msgid "Repeat scan"
 msgstr ""
 
-msgid "Replace default route"
-msgstr "Reemplaça la ruta per defecte"
-
 msgid "Replace entry"
 msgstr "Reemplaça entrada"
 
 msgid "Replace wireless configuration"
+msgstr ""
+
+msgid "Required for certain ISPs, e.g. Charter with DOCSIS 3"
 msgstr ""
 
 msgid "Reset"
@@ -1733,8 +1895,8 @@ msgstr "Reinicia"
 msgid "Reset Counters"
 msgstr "Reinicia Comptadors"
 
-msgid "Reset router to defaults"
-msgstr "Reinicia els valors per defecte del router"
+msgid "Reset to defaults"
+msgstr ""
 
 msgid "Resolv and Hosts Files"
 msgstr ""
@@ -1783,9 +1945,6 @@ msgstr ""
 "Les rutes especifiquen per quina interfície i passarel·la es pot arribar a "
 "un cert ordinador o xarxa."
 
-msgid "Routing table ID"
-msgstr ""
-
 msgid "Rule #"
 msgstr ""
 
@@ -1819,12 +1978,6 @@ msgstr "Escaneja"
 msgid "Scheduled Tasks"
 msgstr "Tasques programades"
 
-msgid ""
-"Seconds to wait for the modem to become ready before attempting to connect"
-msgstr ""
-"Segons a esperar per tal que el modem estigui apunt abans de provar de "
-"connectar-se"
-
 msgid "Section added"
 msgstr ""
 
@@ -1834,7 +1987,12 @@ msgstr ""
 msgid "See \"mount\" manpage for details"
 msgstr ""
 
-msgid "Send Router Solicitiations"
+msgid ""
+"Send LCP echo requests at the given interval in seconds, only effective in "
+"conjunction with failure threshold"
+msgstr ""
+
+msgid "Send router solicitations"
 msgstr ""
 
 #, fuzzy
@@ -1844,29 +2002,26 @@ msgstr "Aïlla clients"
 msgid "Separate WDS"
 msgstr "WDS Separats"
 
-msgid "Server IPv4-Address"
-msgstr ""
-
 msgid "Server Settings"
 msgstr ""
 
-msgid "Service type"
-msgstr "Tipus de servei"
+msgid "Service Name"
+msgstr ""
+
+msgid "Service Type"
+msgstr ""
 
 msgid "Services"
 msgstr "Serveis"
 
-msgid "Services and daemons perform certain tasks on your device."
-msgstr "Els serveis i dimonis realitzen certes tasques al teu dispositiu."
-
-msgid "Settings"
-msgstr "Configuració"
-
 msgid "Setup DHCP Server"
 msgstr ""
 
-msgid "Setup wait time"
-msgstr "Temps d'espera de configuració"
+msgid "Setup Time Synchronization"
+msgstr ""
+
+msgid "Show current backup file list"
+msgstr ""
 
 msgid "Shutdown this interface"
 msgstr ""
@@ -1902,17 +2057,22 @@ msgid "Some fields are invalid, cannot save values!"
 msgstr ""
 
 msgid ""
-"Sorry. OpenWrt does not support a system upgrade on this platform.<br /> You "
-"need to manually flash your device."
+"Sorry, there is no sysupgrade support present, a new firmware image must be "
+"flashed manually. Please refer to the OpenWrt wiki for device specific "
+"install instructions."
 msgstr ""
-"Ho sento, l'OpenWRT no suporta una actualització del sistema en aquesdta "
-"plataforma.<br />Has actualitzar manualment el teu dispositiu."
 
 msgid "Sort"
 msgstr ""
 
 msgid "Source"
 msgstr "Origen"
+
+msgid "Specifies the advertised preferred prefix lifetime in seconds"
+msgstr ""
+
+msgid "Specifies the advertised valid prefix lifetime in seconds"
+msgstr ""
 
 msgid "Specifies the button state to handle"
 msgstr ""
@@ -1923,8 +2083,15 @@ msgstr ""
 msgid "Specifies the listening port of this <em>Dropbear</em> instance"
 msgstr ""
 
-msgid "Specify additional command line arguments for pppd here"
-msgstr "Especifica arguments de línia de comanda addicionals pel pppd"
+msgid ""
+"Specifies the maximum amount of failed ARP requests until hosts are presumed "
+"to be dead"
+msgstr ""
+
+msgid ""
+"Specifies the maximum amount of seconds after which hosts are presumed to be "
+"dead"
+msgstr ""
 
 msgid "Specify the secret encryption key here."
 msgstr ""
@@ -1951,6 +2118,9 @@ msgid "Static Routes"
 msgstr "Rutes estàtiques"
 
 msgid "Static WDS"
+msgstr ""
+
+msgid "Static address"
 msgstr ""
 
 msgid ""
@@ -1980,6 +2150,18 @@ msgstr "Switch"
 msgid "Switch %q"
 msgstr ""
 
+msgid "Switch %q (%s)"
+msgstr ""
+
+msgid "Switch protocol"
+msgstr ""
+
+msgid "Sync with browser"
+msgstr ""
+
+msgid "Synchronizing..."
+msgstr ""
+
 msgid "System"
 msgstr "Sistema"
 
@@ -2001,11 +2183,11 @@ msgstr ""
 msgid "TFTP server root"
 msgstr ""
 
-msgid "TTL"
-msgstr ""
-
 msgid "TX"
 msgstr "TX"
+
+msgid "TX Rate"
+msgstr ""
 
 msgid "Table"
 msgstr "Taula"
@@ -2025,7 +2207,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"The <em>libiwinfo</em> package is not installed. You must install this "
+"The <em>libiwinfo-lua</em> package is not installed. You must install this "
 "component for working wireless configuration!"
 msgstr ""
 
@@ -2040,9 +2222,6 @@ msgid ""
 msgstr ""
 "El fitxer de dispositiu de la memòria o partició (<abbr title=\"per exemple"
 "\">p.e.</abbr> <code>/dev/sda1</code>)"
-
-msgid "The device node of your modem, e.g. /dev/ttyUSB0"
-msgstr "El node de dispositiu del teu modem, p.e. /dev/ttyUSB0"
 
 msgid ""
 "The filesystem that was used to format the memory (<abbr title=\"for example"
@@ -2065,12 +2244,10 @@ msgstr ""
 msgid "The following changes have been reverted"
 msgstr "S&#39;han desfet els següents canvis"
 
-msgid ""
-"The following files are detected by the system and will be kept "
-"automatically during sysupgrade"
+msgid "The following rules are currently active on this system."
 msgstr ""
 
-msgid "The following rules are currently active on this system."
+msgid "The given network name is not unique"
 msgstr ""
 
 msgid ""
@@ -2092,6 +2269,14 @@ msgstr ""
 "Network\">VLAN</abbr>s es fan servir normalment per separar segments de "
 "xarxa diferents. Normalment, hi ha un port de Pujada per defecte per la "
 "següent xarxa major, com Internet, i altres ports per una xarxa local."
+
+msgid "The selected protocol needs a device assigned"
+msgstr ""
+
+msgid ""
+"The system is erasing the configuration partition now and will reboot itself "
+"when finished."
+msgstr ""
 
 msgid ""
 "The system is flashing now.<br /> DO NOT POWER OFF THE DEVICE!<br /> Wait a "
@@ -2124,27 +2309,32 @@ msgid "There are no pending changes!"
 msgstr ""
 
 msgid ""
+"There is no device assigned yet, please attach a network device in the "
+"\"Physical Settings\" tab"
+msgstr ""
+
+msgid ""
 "There is no password set on this router. Please configure a root password to "
 "protect the web interface and enable SSH."
 msgstr ""
 
 msgid ""
-"These commands will be executed automatically when a given <abbr title="
-"\"Unified Configuration Interface\">UCI</abbr> configuration is committed "
-"allowing changes to be applied instantly."
-msgstr ""
-"Aquestes comandes s&#39;executaran automàticament quan es publiqui una "
-"configuració <abbr title=\"Configuració d&#39;Interfície Unificada\">UCI</"
-"abbr> determinada, permetent que els canvis s&#39;apliquin a l&#39;instant."
-
-msgid ""
 "This is a list of shell glob patterns for matching files and directories to "
-"include during sysupgrade"
+"include during sysupgrade. Modified files in /etc/config/ and certain other "
+"configurations are automatically preserved."
+msgstr ""
+
+msgid "This is the 32 byte hex encoded user ID, not the login name"
 msgstr ""
 
 msgid ""
 "This is the content of /etc/rc.local. Insert your own commands here (in "
 "front of 'exit 0') to execute them at the end of the boot process."
+msgstr ""
+
+msgid ""
+"This is the local endpoint address assigned by the tunnel broker, it usually "
+"ends with <code>:2</code>"
 msgstr ""
 
 msgid ""
@@ -2158,6 +2348,10 @@ msgid "This is the system crontab in which scheduled tasks can be defined."
 msgstr ""
 "Aquest és el crontab del sistema en el qual es poden definir tasques "
 "programades."
+
+msgid ""
+"This is usually the address of the nearest PoP operated by the tunnel broker"
+msgstr ""
 
 msgid ""
 "This list gives an overview over currently running system processes and "
@@ -2177,16 +2371,19 @@ msgstr ""
 msgid "This section contains no values yet"
 msgstr "Aquesta secció no conté cap valor encara"
 
-msgid "Time (in seconds) after which an unused connection will be closed"
+msgid "Time Synchronization"
 msgstr ""
-"Temps (en segons) després del qual les connexions sense fer servir es "
-"tancaran"
 
-msgid "Time Server (rdate)"
+msgid "Time Synchronization is not configured yet."
 msgstr ""
 
 msgid "Timezone"
 msgstr "Zona horària"
+
+msgid ""
+"To restore configuration files, you can upload a previously generated backup "
+"archive here."
+msgstr ""
 
 msgid "Total Available"
 msgstr ""
@@ -2216,10 +2413,10 @@ msgstr ""
 msgid "Trigger Mode"
 msgstr ""
 
-msgid "Tunnel Interface"
+msgid "Tunnel ID"
 msgstr ""
 
-msgid "Tunnel Settings"
+msgid "Tunnel Interface"
 msgstr ""
 
 msgid "Turbo Mode"
@@ -2234,26 +2431,41 @@ msgstr "Tipus"
 msgid "UDP:"
 msgstr ""
 
+msgid "UMTS/GPRS/EV-DO"
+msgstr ""
+
 msgid "USB Device"
 msgstr ""
 
 msgid "UUID"
 msgstr ""
 
+msgid "Unknown"
+msgstr ""
+
 msgid "Unknown Error, password not changed!"
+msgstr ""
+
+msgid "Unmanaged"
 msgstr ""
 
 msgid "Unsaved Changes"
 msgstr "Canvis sense desar"
 
-msgid "Update package lists"
-msgstr "Actualitza llistes de paquets"
+msgid "Unsupported protocol type."
+msgstr ""
 
-msgid "Upload an OpenWrt image file to reflash the device."
-msgstr "Penja una imatge d'OpenWRT per actualitzar el firmware del dispositiu."
+msgid "Update lists"
+msgstr ""
 
-msgid "Upload image"
-msgstr "Penja imatge"
+msgid ""
+"Upload a sysupgrade-compatible image here to replace the running firmware. "
+"Check \"Keep settings\" to retain the current configuration (requires an "
+"OpenWrt compatible firmware image)."
+msgstr ""
+
+msgid "Upload archive..."
+msgstr ""
 
 msgid "Uploaded File"
 msgstr "Fitxer pujat"
@@ -2264,20 +2476,50 @@ msgstr "Temps d'activitat"
 msgid "Use <code>/etc/ethers</code>"
 msgstr "Fes servir <code>/etc/ethers</code>"
 
+msgid "Use DHCP gateway"
+msgstr ""
+
+msgid "Use DNS servers advertised by peer"
+msgstr ""
+
 msgid "Use ISO/IEC 3166 alpha2 country codes."
+msgstr ""
+
+msgid "Use MTU on tunnel interface"
+msgstr ""
+
+msgid "Use TTL on tunnel interface"
 msgstr ""
 
 msgid "Use as root filesystem"
 msgstr ""
 
-msgid "Use peer DNS"
-msgstr "Fes servir peer DNS"
+msgid "Use broadcast flag"
+msgstr ""
+
+msgid "Use custom DNS servers"
+msgstr ""
+
+msgid "Use default gateway"
+msgstr ""
+
+msgid "Use gateway metric"
+msgstr ""
+
+msgid "Use preferred lifetime"
+msgstr ""
+
+msgid "Use routing table"
+msgstr ""
 
 msgid ""
 "Use the <em>Add</em> Button to add a new lease entry. The <em>MAC-Address</"
 "em> indentifies the host, the <em>IPv4-Address</em> specifies to the fixed "
 "address to use and the <em>Hostname</em> is assigned as symbolic name to the "
 "requesting host."
+msgstr ""
+
+msgid "Use valid lifetime"
 msgstr ""
 
 msgid "Used"
@@ -2292,13 +2534,22 @@ msgstr "Nom d'usuari"
 msgid "VC-Mux"
 msgstr ""
 
-msgid "VLAN %d"
-msgstr ""
-
 msgid "VLAN Interface"
 msgstr ""
 
 msgid "VLANs on %q"
+msgstr ""
+
+msgid "VLANs on %q (%s)"
+msgstr ""
+
+msgid "VPN Server"
+msgstr ""
+
+msgid "Vendor Class to send when requesting DHCP"
+msgstr ""
+
+msgid "Verify"
 msgstr ""
 
 msgid "Version"
@@ -2328,18 +2579,15 @@ msgid ""
 msgstr ""
 
 msgid "Waiting for router..."
-msgstr ""
+msgstr "Esperant un encaminador..."
 
 msgid "Warning"
-msgstr ""
+msgstr "Alerta"
 
 msgid "Warning: There are unsaved changes that will be lost while rebooting!"
 msgstr ""
 "Alerta: Hi ha canvis que no s'han desat i que es perdran mentre s'arranca de "
 "nou!"
-
-msgid "Web <abbr title=\"User Interface\">UI</abbr>"
-msgstr "Web <abbr title=\"Interfície d'Usuari\">UI</abbr>"
 
 msgid "Wifi"
 msgstr "Wifi"
@@ -2348,40 +2596,40 @@ msgid "Wifi networks in your local environment"
 msgstr "Xarxes sense fils del teu entorn local"
 
 msgid "Wireless"
-msgstr ""
+msgstr "Sense fils"
 
 msgid "Wireless Adapter"
 msgstr "Adaptador sense fils"
 
 msgid "Wireless Network"
-msgstr ""
+msgstr "Xarxa sense fils"
 
 msgid "Wireless Overview"
-msgstr ""
+msgstr "Resum sense fils"
 
 msgid "Wireless Security"
-msgstr ""
+msgstr "Seguretat sense fils"
 
 msgid "Wireless is disabled or not associated"
-msgstr ""
+msgstr "Sense fils està deshabilitat o sense associar"
 
 msgid "Wireless is restarting..."
-msgstr ""
+msgstr "Sense fils està reiniciant..."
 
 msgid "Wireless network is disabled"
-msgstr ""
+msgstr "La xarxa sense fils està deshabilitada"
 
 msgid "Wireless network is enabled"
-msgstr ""
+msgstr "La xarxa sense fils està habilitada"
 
 msgid "Wireless restarted"
-msgstr ""
+msgstr "Sense fils reinciat"
 
 msgid "Wireless shut down"
-msgstr ""
+msgstr "Sense fils aturat"
 
 msgid "Write received DNS requests to syslog"
-msgstr ""
+msgstr "Escriure les peticions DNS rebudes al syslog"
 
 msgid "XR Support"
 msgstr "Suport XR"
@@ -2397,38 +2645,19 @@ msgstr ""
 "dispositiu pot resultar inaccessible!</strong>"
 
 msgid ""
-"You can specify multiple DNS servers here, press enter to add a new entry. "
-"Servers entered here will override automatically assigned ones."
-msgstr ""
-
-msgid ""
 "You must enable Java Script in your browser or LuCI will not work properly."
 msgstr ""
-
-msgid ""
-"You need to install \"comgt\" for UMTS/GPRS, \"ppp-mod-pppoe\" for PPPoE, "
-"\"ppp-mod-pppoa\" for PPPoA or \"pptp\" for PPtP support"
-msgstr ""
-"Necessites instal·lar \"comgt\" per suport UMTS/GPRS, \"ppp-mod-pppoe\" per "
-"suport PPPoE, \"ppp-mod-pppoa\" per suport PPPoA o \"pptp\" per suport PPtP"
+"Has d'activar el Java Script al teu navegador o LuCI no funcionarà "
+"correctament."
 
 msgid "any"
-msgstr ""
+msgstr "qualsevol"
 
 msgid "auto"
 msgstr "auto"
 
-msgid "back"
-msgstr "enrere"
-
 msgid "bridged"
-msgstr ""
-
-msgid "buffered"
-msgstr "emmagatzemat en memòria intermèdia"
-
-msgid "cached"
-msgstr "emmagatzemat en memòria cau"
+msgstr "pontejat"
 
 msgid "creates a bridge over specified interface(s)"
 msgstr "crea un pont entre les interfícies especificades"
@@ -2437,7 +2666,7 @@ msgid "disable"
 msgstr "deshabilita"
 
 msgid "expired"
-msgstr ""
+msgstr "finalitzat"
 
 msgid ""
 "file where given <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</"
@@ -2446,53 +2675,280 @@ msgstr ""
 "fitxer on els leases de <abbr title=\"Dynamic Host Configuration Protocol"
 "\">DHCP</abbr> s'emmagatzemaran"
 
-msgid "free"
-msgstr "lliure"
+msgid "forward"
+msgstr "transemès"
 
 msgid "help"
-msgstr ""
+msgstr "ajuda"
 
 msgid "if target is a network"
 msgstr "si el destí és una xarxa"
+
+msgid "input"
+msgstr "entrada"
 
 msgid "local <abbr title=\"Domain Name System\">DNS</abbr> file"
 msgstr "fitxer <abbr title=\"Domain Name System\">DNS</abbr> local"
 
 msgid "no"
-msgstr ""
+msgstr "no"
 
 msgid "none"
 msgstr "cap"
 
 msgid "off"
-msgstr ""
+msgstr "parat"
+
+msgid "on"
+msgstr "engegat"
 
 msgid "routed"
-msgstr ""
-
-msgid "static"
-msgstr "estàtic"
+msgstr "encaminat"
 
 msgid "tagged"
-msgstr ""
+msgstr "marcat"
 
 msgid "unlimited"
-msgstr ""
+msgstr "il·limitat"
 
 msgid "unspecified"
-msgstr ""
+msgstr "sense espeficicar"
 
 msgid "unspecified -or- create:"
-msgstr ""
+msgstr "sense espeficicar -o- crear:"
 
 msgid "untagged"
-msgstr ""
+msgstr "sense marcar"
 
 msgid "yes"
-msgstr ""
+msgstr "Sí"
 
 msgid "« Back"
-msgstr ""
+msgstr "« Endarrere"
+
+#~ msgid "Files to be kept when flashing a new firmware"
+#~ msgstr "Fitxers a guardar quan s&#39;actualitzi un nou firmware"
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#~ msgid ""
+#~ "Here you can customize the settings and the functionality of <abbr title="
+#~ "\"Lua Configuration Interface\">LuCI</abbr>."
+#~ msgstr ""
+#~ "Aquí pots personalitzar la configuració i funcionalitats de <abbr title="
+#~ "\"Interfície de configuració Lua\">LuCI</abbr>"
+
+#~ msgid "Post-commit actions"
+#~ msgstr "Accions Post-commit"
+
+#~ msgid ""
+#~ "These commands will be executed automatically when a given <abbr title="
+#~ "\"Unified Configuration Interface\">UCI</abbr> configuration is committed "
+#~ "allowing changes to be applied instantly."
+#~ msgstr ""
+#~ "Aquestes comandes s&#39;executaran automàticament quan es publiqui una "
+#~ "configuració <abbr title=\"Configuració d&#39;Interfície Unificada\">UCI</"
+#~ "abbr> determinada, permetent que els canvis s&#39;apliquin a l&#39;"
+#~ "instant."
+
+#~ msgid "Web <abbr title=\"User Interface\">UI</abbr>"
+#~ msgstr "Web <abbr title=\"Interfície d'Usuari\">UI</abbr>"
+
+#~ msgid "<abbr title=\"Point-to-Point Tunneling Protocol\">PPTP</abbr>-Server"
+#~ msgstr ""
+#~ "Servidor <abbr title=\"Point-to-Point Tunneling Protocol\">PPTP</abbr>"
+
+#~ msgid "Access point (APN)"
+#~ msgstr "Punt d'accés (APN)"
+
+#~ msgid "Additional pppd options"
+#~ msgstr "Opcions pppd addicionals"
+
+#~ msgid "Automatic Disconnect"
+#~ msgstr "Desconnexió Automàtica"
+
+#~ msgid "Backup Archive"
+#~ msgstr "Arxiu de seguretat"
+
+#~ msgid ""
+#~ "Configure the local DNS server to use the name servers adverticed by the "
+#~ "PPP peer"
+#~ msgstr ""
+#~ "Configura el servidor DNS local per fer servir els servidors anunciats "
+#~ "pel peer PPP"
+
+#~ msgid "Connect script"
+#~ msgstr "Script de connexió"
+
+#~ msgid "Create backup"
+#~ msgstr "Crea còpia de seguretat"
+
+#~ msgid "Disconnect script"
+#~ msgstr "Script de desconnexió"
+
+#~ msgid "Edit package lists and installation targets"
+#~ msgstr "Edita llistes de paquets i destins d&#39;instal·lació"
+
+#~ msgid "Enable IPv6 on PPP link"
+#~ msgstr "Habilita IPv6 a l'enllaç PPP"
+
+#~ msgid "Firmware image"
+#~ msgstr "Imatge de firmware"
+
+#~ msgid ""
+#~ "Here you can backup and restore your router configuration and - if "
+#~ "possible - reset the router to the default settings."
+#~ msgstr ""
+#~ "Ací pots crear una còpia de seguretat i restaurar la teva configuració "
+#~ "del router i - si és possible - reiniciar el router als paràmetres per "
+#~ "defecte."
+
+#~ msgid "Installation targets"
+#~ msgstr "Objectius d'instal·lació"
+
+#~ msgid "Keep configuration files"
+#~ msgstr "Mantingues els fitxers de configuració"
+
+#~ msgid "Keep-Alive"
+#~ msgstr "Keep-Alive"
+
+#~ msgid ""
+#~ "Let pppd replace the current default route to use the PPP interface after "
+#~ "successful connect"
+#~ msgstr ""
+#~ "Permet que el pppd reemplaci la ruta per defecte actual per fer servir "
+#~ "les interfícies PPP després de connectar-se amb èxit"
+
+#~ msgid "Let pppd run this script after establishing the PPP link"
+#~ msgstr ""
+#~ "Permet que el pppd executi aquest script abans d'establir l'enllaç PPP"
+
+#~ msgid "Let pppd run this script before tearing down the PPP link"
+#~ msgstr ""
+#~ "Permet que el pppd executi aquest script abans de desconnectar l'enllaç "
+#~ "PPP"
+
+#~ msgid ""
+#~ "Make sure that you provide the correct pin code here or you might lock "
+#~ "your sim card!"
+#~ msgstr ""
+#~ "Assegura't d'introduir el codi pin correcte o pots bloquejar la teva "
+#~ "targeta SIM!"
+
+#~ msgid ""
+#~ "Most of them are network servers, that offer a certain service for your "
+#~ "device or network like shell access, serving webpages like <abbr title="
+#~ "\"Lua Configuration Interface\">LuCI</abbr>, doing mesh routing, sending "
+#~ "e-mails, ..."
+#~ msgstr ""
+#~ "La majoria d'ells són servidors de xarxa, que ofereixen un cert servei "
+#~ "pel teu dispositiu o xarxa, com l'accés a consola, servir pàgines web com "
+#~ "el <abbr title=\"Interfície de configuració Lua\">LuCI</abbr>, fer "
+#~ "enrutament mesh, enviar e-mails, ..."
+
+#~ msgid "Number of failed connection tests to initiate automatic reconnect"
+#~ msgstr ""
+#~ "Número de connexions de test fallades per iniciar reconnexió automàtica"
+
+#~ msgid "PIN code"
+#~ msgstr "Codi PIN"
+
+#~ msgid "Package lists"
+#~ msgstr "Llistes de paquets"
+
+#~ msgid "Proceed reverting all settings and resetting to firmware defaults?"
+#~ msgstr ""
+#~ "Continua desfent tots els paràmetres i reiniciant els valors per defecte "
+#~ "del firmware?"
+
+#~ msgid "Processor"
+#~ msgstr "Processador"
+
+#~ msgid "Radius-Port"
+#~ msgstr "Port Radius"
+
+#, fuzzy
+#~ msgid "Radius-Server"
+#~ msgstr "Servidor Radius"
+
+#~ msgid "Replace default route"
+#~ msgstr "Reemplaça la ruta per defecte"
+
+#~ msgid "Reset router to defaults"
+#~ msgstr "Reinicia els valors per defecte del router"
+
+#~ msgid ""
+#~ "Seconds to wait for the modem to become ready before attempting to connect"
+#~ msgstr ""
+#~ "Segons a esperar per tal que el modem estigui apunt abans de provar de "
+#~ "connectar-se"
+
+#~ msgid "Service type"
+#~ msgstr "Tipus de servei"
+
+#~ msgid "Services and daemons perform certain tasks on your device."
+#~ msgstr "Els serveis i dimonis realitzen certes tasques al teu dispositiu."
+
+#~ msgid "Settings"
+#~ msgstr "Configuració"
+
+#~ msgid "Setup wait time"
+#~ msgstr "Temps d'espera de configuració"
+
+#~ msgid ""
+#~ "Sorry. OpenWrt does not support a system upgrade on this platform.<br /> "
+#~ "You need to manually flash your device."
+#~ msgstr ""
+#~ "Ho sento, l'OpenWRT no suporta una actualització del sistema en aquesdta "
+#~ "plataforma.<br />Has actualitzar manualment el teu dispositiu."
+
+#~ msgid "Specify additional command line arguments for pppd here"
+#~ msgstr "Especifica arguments de línia de comanda addicionals pel pppd"
+
+#~ msgid "The device node of your modem, e.g. /dev/ttyUSB0"
+#~ msgstr "El node de dispositiu del teu modem, p.e. /dev/ttyUSB0"
+
+#~ msgid "Time (in seconds) after which an unused connection will be closed"
+#~ msgstr ""
+#~ "Temps (en segons) després del qual les connexions sense fer servir es "
+#~ "tancaran"
+
+#~ msgid "Update package lists"
+#~ msgstr "Actualitza llistes de paquets"
+
+#~ msgid "Upload an OpenWrt image file to reflash the device."
+#~ msgstr ""
+#~ "Penja una imatge d'OpenWRT per actualitzar el firmware del dispositiu."
+
+#~ msgid "Upload image"
+#~ msgstr "Penja imatge"
+
+#~ msgid "Use peer DNS"
+#~ msgstr "Fes servir peer DNS"
+
+#~ msgid ""
+#~ "You need to install \"comgt\" for UMTS/GPRS, \"ppp-mod-pppoe\" for PPPoE, "
+#~ "\"ppp-mod-pppoa\" for PPPoA or \"pptp\" for PPtP support"
+#~ msgstr ""
+#~ "Necessites instal·lar \"comgt\" per suport UMTS/GPRS, \"ppp-mod-pppoe\" "
+#~ "per suport PPPoE, \"ppp-mod-pppoa\" per suport PPPoA o \"pptp\" per "
+#~ "suport PPtP"
+
+#~ msgid "back"
+#~ msgstr "enrere"
+
+#~ msgid "buffered"
+#~ msgstr "emmagatzemat en memòria intermèdia"
+
+#~ msgid "cached"
+#~ msgstr "emmagatzemat en memòria cau"
+
+#~ msgid "free"
+#~ msgstr "lliure"
+
+#~ msgid "static"
+#~ msgstr "estàtic"
 
 #~ msgid ""
 #~ "<abbr title=\"Lua Configuration Interface\">LuCI</abbr> is a collection "

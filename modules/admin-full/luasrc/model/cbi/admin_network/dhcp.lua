@@ -79,6 +79,7 @@ s:taboption("advanced", Flag, "filterwin2k",
 	translate("Filter useless"),
 	translate("Do not forward requests that cannot be answered by public name servers"))
 
+
 s:taboption("advanced", Flag, "localise_queries",
 	translate("Localise queries"),
 	translate("Localise hostname depending on the requesting subnet if multiple IPs are available"))
@@ -103,6 +104,14 @@ s:taboption("advanced", Flag, "strictorder",
 	translate("Strict order"),
 	translate("<abbr title=\"Domain Name System\">DNS</abbr> servers will be queried in the " ..
 		"order of the resolvfile")).optional = true
+
+
+bn = s:taboption("advanced", DynamicList, "bogusnxdomain", translate("Bogus NX Domain Override"),
+	translate("List of hosts that supply bogus NX domain results"))
+
+bn.optional = true
+bn.placeholder = "67.215.65.132"
+
 
 s:taboption("general", Flag, "logqueries",
 	translate("Log queries"),
@@ -226,7 +235,7 @@ name.datatype = "hostname"
 name.rmempty  = true
 
 mac = s:option(Value, "mac", translate("<abbr title=\"Media Access Control\">MAC</abbr>-Address"))
-mac.datatype = "macaddr"
+mac.datatype = "list(macaddr)"
 
 ip = s:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
 ip.datatype = "ip4addr"

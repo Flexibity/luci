@@ -13,9 +13,9 @@ include $(INCLUDE_DIR)/package.mk
 define Package/freifunk-gwcheck
   SECTION:=luci
   CATEGORY:=LuCI
-  SUBMENU:=Freifunk
+  SUBMENU:=9. Freifunk
   TITLE:=Freifunk gateway check script
-  DEPENDS:=+firewall +ip +iptables-mod-ipopt +olsrd-mod-dyn-gw-plain
+  DEPENDS:=firewall +ip +iptables-mod-ipopt +olsrd-mod-dyn-gw-plain
 endef
 
 define Package/freifunk-gwcheck/description
@@ -34,6 +34,7 @@ endef
 
 define Package/freifunk-gwcheck/install
 	$(CP) ./files/* $(1)/
+	$(CP) ./root/* $(1)/
 endef
 
 $(eval $(call BuildPackage,freifunk-gwcheck))

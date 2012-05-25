@@ -233,8 +233,8 @@ function _string( s, n, nopad )
 	if not nopad then pad = "\t" end
 
 	if s then
-		if s:find("[^%d]") then
-			if not s:find("[^%w]") then
+		if s:find("[^%d]") or n == "Port" then
+			if not s:find("[^%w]") and n ~= "Port" then
 				str = pad .. n .. " " .. luci.util.trim(s)
 			else
 				str = pad .. n .. ' "' .. luci.util.trim(s) .. '"'
@@ -253,6 +253,12 @@ end
 plugins = {
 	collectd = {
 		{ "BaseDir", "Include", "PIDFile", "PluginDir", "TypesDB", "Interval", "ReadThreads", "Hostname" },
+		{ },
+		{ }
+	},
+
+	conntrack = {
+		{ },
 		{ },
 		{ }
 	},
@@ -309,6 +315,12 @@ plugins = {
 		{ "Irqs" }
 	},
 
+	iwinfo = {
+		{ },
+		{ "IgnoreSelected" },
+		{ "Interfaces" }
+	},
+
 	load	= {
 		{ },
 		{ },
@@ -321,6 +333,18 @@ plugins = {
 		{ }
 	},
 
+	madwifi = {
+		{ "WatchSet" },
+		{ },
+		{ "Interfaces", "WatchAdds" }
+	},
+
+	memory = { 
+		{ },
+		{ },
+		{ }
+	},
+
 	netlink	= {
 		{ },
 		{ "IgnoreSelected" },
@@ -328,6 +352,12 @@ plugins = {
 	},
 
 	network	= config_network,
+
+	olsrd = {
+		{ "Host", "Port", "CollectLinks","CollectRoutes","CollectTopology"},
+		{ },
+		{ }
+	},
 
 	ping	= {
 		{ "TTL", "Interval" },

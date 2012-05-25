@@ -2,7 +2,7 @@
 	LuCI - Lua Configuration Interface
 
 	Copyright 2008 Steven Barth <steven@midlink.org>
-	Copyright 2008-2011 Jo-Philipp Wich <xm@subsignal.org>
+	Copyright 2008-2012 Jo-Philipp Wich <xm@subsignal.org>
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -17,59 +17,52 @@ var cbi_c = [];
 
 var cbi_validators = {
 
-	'integer': function(v)
+	'integer': function()
 	{
-		return (v.match(/^-?[0-9]+$/) != null);
+		return (this.match(/^-?[0-9]+$/) != null);
 	},
 
-	'uinteger': function(v)
+	'uinteger': function()
 	{
-		return (cbi_validators.integer(v) && (v >= 0));
+		return (cbi_validators.integer.apply(this) && (this >= 0));
 	},
 
-	'float': function(v)
+	'float': function()
 	{
-		return !isNaN(parseFloat(v));
+		return !isNaN(parseFloat(this));
 	},
 
-	'ufloat': function(v)
+	'ufloat': function()
 	{
-		return (cbi_validators['float'](v) && (v >= 0));
+		return (cbi_validators['float'].apply(this) && (this >= 0));
 	},
 
-	'ipaddr': function(v)
+	'ipaddr': function()
 	{
-		return cbi_validators.ip4addr(v) || cbi_validators.ip6addr(v);
+		return cbi_validators.ip4addr.apply(this) ||
+			cbi_validators.ip6addr.apply(this);
 	},
 
-	'neg_ipaddr': function(v)
+	'ip4addr': function()
 	{
-		return cbi_validators.ip4addr(v.replace(/^\s*!/, "")) || cbi_validators.ip6addr(v.replace(/^\s*!/, ""));
-	},
-
-	'ip4addr': function(v)
-	{
-		if( v.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)(\/(\d+))?$/) )
+		if (this.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})(\/(\S+))?$/))
 		{
 			return (RegExp.$1 >= 0) && (RegExp.$1 <= 255) &&
 			       (RegExp.$2 >= 0) && (RegExp.$2 <= 255) &&
 			       (RegExp.$3 >= 0) && (RegExp.$3 <= 255) &&
 			       (RegExp.$4 >= 0) && (RegExp.$4 <= 255) &&
-			       (!RegExp.$5 || ((RegExp.$6 >= 0) && (RegExp.$6 <= 32)))
+			       ((RegExp.$6.indexOf('.') < 0)
+			          ? ((RegExp.$6 >= 0) && (RegExp.$6 <= 32))
+			          : (cbi_validators.ip4addr.apply(RegExp.$6)))
 			;
 		}
 
 		return false;
 	},
 
-	'neg_ip4addr': function(v)
+	'ip6addr': function()
 	{
-		return cbi_validators.ip4addr(v.replace(/^\s*!/, ""));
-	},
-
-	'ip6addr': function(v)
-	{
-		if( v.match(/^([a-fA-F0-9:.]+)(\/(\d+))?$/) )
+		if( this.match(/^([a-fA-F0-9:.]+)(\/(\d+))?$/) )
 		{
 			if( !RegExp.$2 || ((RegExp.$3 >= 0) && (RegExp.$3 <= 128)) )
 			{
@@ -84,7 +77,7 @@ var cbi_validators = {
 				{
 					var off = addr.lastIndexOf(':');
 
-					if( !(off && cbi_validators.ip4addr(addr.substr(off+1))) )
+					if( !(off && cbi_validators.ip4addr.apply(addr.substr(off+1))) )
 						return false;
 
 					addr = addr.substr(0, off) + ':0:0';
@@ -117,57 +110,72 @@ var cbi_validators = {
 		return false;
 	},
 
-	'port': function(v)
+	'port': function()
 	{
-		return cbi_validators.integer(v) && (v >= 0) && (v <= 65535);
+		return cbi_validators.integer.apply(this) &&
+			(this >= 0) && (this <= 65535);
 	},
 
-	'portrange': function(v)
+	'portrange': function()
 	{
-		if( v.match(/^(\d+)-(\d+)$/) )
+		if (this.match(/^(\d+)-(\d+)$/))
 		{
 			var p1 = RegExp.$1;
 			var p2 = RegExp.$2;
 
-			return cbi_validators.port(p1) &&
-			       cbi_validators.port(p2) &&
+			return cbi_validators.port.apply(p1) &&
+			       cbi_validators.port.apply(p2) &&
 			       (parseInt(p1) <= parseInt(p2))
 			;
 		}
 		else
 		{
-			return cbi_validators.port(v);
+			return cbi_validators.port.apply(this);
 		}
 	},
 
-	'macaddr': function(v)
+	'macaddr': function()
 	{
-		return (v.match(/^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$/) != null);
+		return (this.match(/^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$/) != null);
 	},
 
-	'host': function(v)
+	'host': function()
 	{
-		return cbi_validators.hostname(v) || cbi_validators.ipaddr(v);
+		return cbi_validators.hostname.apply(this) ||
+			cbi_validators.ipaddr.apply(this);
 	},
 
-	'hostname': function(v)
-	{	if ( v.length <= 253 )
-			return (v.match(/^[a-zA-Z0-9][a-zA-Z0-9\-.]*[a-zA-Z0-9]$/) != null);
+	'hostname': function()
+	{
+		if (this.length <= 253)
+			return (this.match(/^[a-zA-Z]+$/) != null ||
+			        (this.match(/^[a-zA-Z0-9][a-zA-Z0-9\-.]*[a-zA-Z0-9]$/) &&
+			         this.match(/[^0-9.]/)));
 
 		return false;
 	},
 
-	'wpakey': function(v)
+	'network': function()
 	{
+		return cbi_validators.uciname.apply(this) ||
+			cbi_validators.host.apply(this);
+	},
+
+	'wpakey': function()
+	{
+		var v = this;
+
 		if( v.length == 64 )
 			return (v.match(/^[a-fA-F0-9]{64}$/) != null);
 		else
 			return (v.length >= 8) && (v.length <= 63);
 	},
 
-	'wepkey': function(v)
+	'wepkey': function()
 	{
-		if( v.substr(0,2) == 's:' )
+		var v = this;
+
+		if ( v.substr(0,2) == 's:' )
 			v = v.substr(2);
 
 		if( (v.length == 10) || (v.length == 26) )
@@ -176,57 +184,95 @@ var cbi_validators = {
 			return (v.length == 5) || (v.length == 13);
 	},
 
-	'uciname': function(v)
+	'uciname': function()
 	{
-		return (v.match(/^[a-zA-Z0-9_]+$/) != null);
+		return (this.match(/^[a-zA-Z0-9_]+$/) != null);
 	},
 
-	'neg_network_ip4addr': function(v)
+	'range': function(min, max)
 	{
-		v = v.replace(/^\s*!/, "");
-		return cbi_validators.uciname(v) || cbi_validators.ip4addr(v);		
-	},
-
-	'range': function(v, args)
-	{
-		var min = parseInt(args[0]);
-		var max = parseInt(args[1]);
-		var val = parseInt(v);
-
+		var val = parseFloat(this);
 		if (!isNaN(min) && !isNaN(max) && !isNaN(val))
 			return ((val >= min) && (val <= max));
 
 		return false;
 	},
 
-	'min': function(v, args)
+	'min': function(min)
 	{
-		var min = parseInt(args[0]);
-		var val = parseInt(v);
-
+		var val = parseFloat(this);
 		if (!isNaN(min) && !isNaN(val))
 			return (val >= min);
 
 		return false;
 	},
 
-	'max': function(v, args)
+	'max': function(max)
 	{
-		var max = parseInt(args[0]);
-		var val = parseInt(v);
-
+		var val = parseFloat(this);
 		if (!isNaN(max) && !isNaN(val))
 			return (val <= max);
 
 		return false;
 	},
 
-	'neg': function(v, args)
+	'or': function()
 	{
-		if (args[0] && typeof cbi_validators[args[0]] == "function")
-			return cbi_validators[args[0]](v.replace(/^\s*!\s*/, ''));
-
+		for (var i = 0; i < arguments.length; i += 2)
+		{
+			if (typeof arguments[i] != 'function')
+			{
+				if (arguments[i] == this)
+					return true;
+				i--;
+			}
+			else if (arguments[i].apply(this, arguments[i+1]))
+			{
+				return true;
+			}
+		}
 		return false;
+	},
+
+	'and': function()
+	{
+		for (var i = 0; i < arguments.length; i += 2)
+		{
+			if (typeof arguments[i] != 'function')
+			{
+				if (arguments[i] != this)
+					return false;
+				i--;
+			}
+			else if (!arguments[i].apply(this, arguments[i+1]))
+			{
+				return false;
+			}
+		}
+		return true;
+	},
+
+	'neg': function()
+	{
+		return cbi_validators.or.apply(
+			this.replace(/^[ \t]*![ \t]*/, ''), arguments);
+	},
+
+	'list': function(subvalidator, subargs)
+	{
+		if (typeof subvalidator != 'function')
+			return false;
+
+		var tokens = this.match(/[^ \t]+/g);
+		for (var i = 0; i < tokens.length; i++)
+			if (!subvalidator.apply(tokens[i], subargs))
+				return false;
+
+		return true;
+	},
+	'phonedigit': function()
+	{
+		return (this.match(/^[0-9\*#]+$/) != null);
 	}
 };
 
@@ -468,26 +514,107 @@ function cbi_browser_init(id, respath, url, defpath)
 	cbi_bind(btn, 'click', cbi_browser_btnclick);
 }
 
-function cbi_dynlist_init(name, respath)
+function cbi_dynlist_init(name, respath, datatype, optional, choices)
 {
-	function cbi_dynlist_renumber(e)
-	{
-		/* in a perfect world, we could just getElementsByName() - but not if
-		 * MSIE is involved... */
-		var inputs = [ ]; // = document.getElementsByName(name);
-		for (var i = 0; i < e.parentNode.childNodes.length; i++)
-			if (e.parentNode.childNodes[i].name == name)
-				inputs.push(e.parentNode.childNodes[i]);
+	var input0 = document.getElementsByName(name)[0];
+	var prefix = input0.name;
+	var parent = input0.parentNode;
+	var holder = input0.placeholder;
 
-		for (var i = 0; i < inputs.length; i++)
+	var values;
+
+	function cbi_dynlist_redraw(focus, add, del)
+	{
+		values = [ ];
+
+		while (parent.firstChild)
 		{
-			inputs[i].id = name + '.' + (i + 1);
-			inputs[i].nextSibling.src = respath + (
-				(i+1) < inputs.length ? '/cbi/remove.gif' : '/cbi/add.gif'
-			);
+			var n = parent.firstChild;
+			var i = parseInt(n.index);
+
+			if (i != del)
+			{
+				if (n.nodeName.toLowerCase() == 'input')
+					values.push(n.value || '');
+				else if (n.nodeName.toLowerCase() == 'select')
+					values[values.length-1] = n.options[n.selectedIndex].value;
+			}
+
+			parent.removeChild(n);
 		}
 
-		e.focus();
+		if (add >= 0)
+		{
+			focus = add+1;
+			values.splice(focus, 0, '');
+		}
+		else if (values.length == 0)
+		{
+			focus = 0;
+			values.push('');
+		}
+
+		for (var i = 0; i < values.length; i++)
+		{
+			var t = document.createElement('input');
+				t.id = prefix + '.' + (i+1);
+				t.name = prefix;
+				t.value = values[i];
+				t.type = 'text';
+				t.index = i;
+				t.className = 'cbi-input-text';
+
+			if (i == 0 && holder)
+			{
+				t.placeholder = holder;
+			}
+
+			var b = document.createElement('img');
+				b.src = respath + ((i+1) < values.length ? '/cbi/remove.gif' : '/cbi/add.gif');
+				b.className = 'cbi-image-button';
+
+			parent.appendChild(t);
+			parent.appendChild(b);
+			parent.appendChild(document.createElement('br'));
+
+			if (datatype)
+			{
+				cbi_validate_field(t.id, ((i+1) == values.length) || optional, datatype);
+			}
+
+			if (choices)
+			{
+				cbi_combobox_init(t.id, choices[0], '', choices[1]);
+				t.nextSibling.index = i;
+
+				cbi_bind(t.nextSibling, 'keydown',  cbi_dynlist_keydown);
+				cbi_bind(t.nextSibling, 'keypress', cbi_dynlist_keypress);
+
+				if (i == focus || -i == focus)
+					t.nextSibling.focus();
+			}
+			else
+			{
+				cbi_bind(t, 'keydown',  cbi_dynlist_keydown);
+				cbi_bind(t, 'keypress', cbi_dynlist_keypress);
+
+				if (i == focus)
+				{
+					t.focus();
+				}
+				else if (-i == focus)
+				{
+					t.focus();
+
+					/* force cursor to end */
+					var v = t.value;
+					t.value = ' '
+					t.value = v;
+				}
+			}
+
+			cbi_bind(b, 'click', cbi_dynlist_btnclick);
+		}
 	}
 
 	function cbi_dynlist_keypress(ev)
@@ -544,27 +671,28 @@ function cbi_dynlist_init(name, respath)
 		while (next && next.name != name)
 			next = next.nextSibling;
 
+		/* advance one further in combobox case */
+		if (next && next.nextSibling.name == name)
+			next = next.nextSibling;
+
 		switch (ev.keyCode)
 		{
 			/* backspace, delete */
 			case 8:
 			case 46:
-				var jump = (ev.keyCode == 8)
-					? (prev || next) : (next || prev);
+				var del = (se.nodeName.toLowerCase() == 'select')
+					? true : (se.value.length == 0);
 
-				if (se.value.length == 0 && jump)
+				if (del)
 				{
-					se.parentNode.removeChild(se.nextSibling.nextSibling);
-					se.parentNode.removeChild(se.nextSibling);
-					se.parentNode.removeChild(se);
-
-					cbi_dynlist_renumber(jump);
-
 					if (ev.preventDefault)
 						ev.preventDefault();
 
-					/* IE Quirk, needs double focus somehow */
-					jump.focus();
+					var focus = se.index;
+					if (ev.keyCode == 8)
+						focus = -focus+1;
+
+					cbi_dynlist_redraw(focus, -1, se.index);
 
 					return false;
 				}
@@ -573,36 +701,7 @@ function cbi_dynlist_init(name, respath)
 
 			/* enter */
 			case 13:
-				var n = document.createElement('input');
-					n.name       = se.name;
-					n.type       = se.type;
-
-				var b = document.createElement('img');
-
-				cbi_bind(n, 'keydown',  cbi_dynlist_keydown);
-				cbi_bind(n, 'keypress', cbi_dynlist_keypress);
-				cbi_bind(b, 'click',    cbi_dynlist_btnclick);
-
-				if (next)
-				{
-					se.parentNode.insertBefore(n, next);
-					se.parentNode.insertBefore(b, next);
-					se.parentNode.insertBefore(document.createElement('br'), next);
-				}
-				else
-				{
-					se.parentNode.appendChild(n);
-					se.parentNode.appendChild(b);
-					se.parentNode.appendChild(document.createElement('br'));
-				}
-
-				var dt = se.getAttribute('cbi_datatype');
-				var op = se.getAttribute('cbi_optional') == 'true';
-
-				if (dt)
-					cbi_validate_field(n, op, dt);
-
-				cbi_dynlist_renumber(n);
+				cbi_dynlist_redraw(-1, se.index, -1);
 				break;
 
 			/* arrow up */
@@ -649,21 +748,7 @@ function cbi_dynlist_init(name, respath)
 		return false;
 	}
 
-	var inputs = document.getElementsByName(name);
-	for( var i = 0; i < inputs.length; i++ )
-	{
-		var btn = document.createElement('img');
-			btn.className = 'cbi-image-button';
-			btn.src = respath + (
-				(i+1) < inputs.length ? '/cbi/remove.gif' : '/cbi/add.gif'
-			);
-
-		inputs[i].parentNode.insertBefore(btn, inputs[i].nextSibling);
-
-		cbi_bind(inputs[i], 'keydown',  cbi_dynlist_keydown);
-		cbi_bind(inputs[i], 'keypress', cbi_dynlist_keypress);
-		cbi_bind(btn,       'click',    cbi_dynlist_btnclick);
-	}
+	cbi_dynlist_redraw(NaN, -1, -1);
 }
 
 //Hijacks the CBI form to send via XHR (requires Prototype)
@@ -781,20 +866,87 @@ function cbi_validate_reset(form)
 	return true;
 }
 
+function cbi_validate_compile(code)
+{
+	var pos = 0;
+	var esc = false;
+	var depth = 0;
+	var stack = [ ];
+
+	code += ',';
+
+	for (var i = 0; i < code.length; i++)
+	{
+		if (esc)
+		{
+			esc = false;
+			continue;
+		}
+
+		switch (code.charCodeAt(i))
+		{
+		case 92:
+			esc = true;
+			break;
+
+		case 40:
+		case 44:
+			if (depth <= 0)
+			{
+				if (pos < i)
+				{
+					var label = code.substring(pos, i);
+						label = label.replace(/\\(.)/g, '$1');
+						label = label.replace(/^[ \t]+/g, '');
+						label = label.replace(/[ \t]+$/g, '');
+
+					if (label && !isNaN(label))
+					{
+						stack.push(parseFloat(label));
+					}
+					else if (label.match(/^(['"]).*\1$/))
+					{
+						stack.push(label.replace(/^(['"])(.*)\1$/, '$2'));
+					}
+					else if (typeof cbi_validators[label] == 'function')
+					{
+						stack.push(cbi_validators[label]);
+						stack.push(null);
+					}
+					else
+					{
+						throw "Syntax error, unhandled token '"+label+"'";
+					}
+				}
+				pos = i+1;
+			}
+			depth += (code.charCodeAt(i) == 40);
+			break;
+
+		case 41:
+			if (--depth <= 0)
+			{
+				if (typeof stack[stack.length-2] != 'function')
+					throw "Syntax error, argument list follows non-function";
+
+				stack[stack.length-1] =
+					arguments.callee(code.substring(pos, i));
+
+				pos = i+1;
+			}
+			break;
+		}
+	}
+
+	return stack;
+}
+
 function cbi_validate_field(cbid, optional, type)
 {
 	var field = (typeof cbid == "string") ? document.getElementById(cbid) : cbid;
-	var vargs;
+	var vstack; try { vstack = cbi_validate_compile(type); } catch(e) { };
 
-	if( type.match(/^(\w+)\(([^\(\)]+)\)/) )
-	{
-		type  = RegExp.$1;
-		vargs = RegExp.$2.split(/\s*,\s*/);
-	}
-
-	var vldcb = cbi_validators[type];
-
-	if( field && vldcb )
+	if (field && vstack && typeof vstack[0] == "function")
 	{
 		var validator = function()
 		{
@@ -807,7 +959,7 @@ function cbi_validate_field(cbid, optional, type)
 				var value = (field.options && field.options.selectedIndex > -1)
 					? field.options[field.options.selectedIndex].value : field.value;
 
-				if( !(((value.length == 0) && optional) || vldcb(value, vargs)) )
+				if (!(((value.length == 0) && optional) || vstack[0].apply(value, vstack[1])))
 				{
 					// invalid
 					field.className += ' cbi-input-invalid';
