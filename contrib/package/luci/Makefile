@@ -408,6 +408,9 @@ $(eval $(call application,ahcp,LuCI Support for AHCPd,\
 
 $(eval $(call application,lqtapifoss,Lantiq voip))
 
+$(eval $(call application,flexibity,Flexibity Sensors Interface,\
+	+PACKAGE_luci-app-flexibity:flexibity))
+
 ### Server Gateway Interfaces ###
 define sgi
   define Package/luci-sgi-$(1)

@@ -1,0 +1,92 @@
+<%#
+LuCI - Lua Configuration Interface
+Copyright 2008-2009 Steven Barth <steven@midlink.org>
+Copyright 2008-2011 Jo-Philipp Wich <xm@subsignal.org>
+Copyright 2012 Maxim Osipov <maxim.osipov@gmail.com>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+-%>
+
+<%+header%>
+
+<script type="text/javascript" src="<%=resource%>/cbi.js"></script>
+<script type="text/javascript" src="<%=resource%>/smoothie.js"></script>
+
+<h2><a id="content" name="content"><%:Measurements%></a></h2>
+
+<div class="cbi-map" id="sensors">
+	<h2>Temperature (C)</h2>
+	<fieldset class="cbi-section">
+		<canvas id="plot_t" width="800" height="100"></canvas>
+		<font size="80" color="red" id="val_t">&nbsp;N/A</font>
+	</fieldset>
+	<h2>Humidity (%)</h2>
+	<fieldset class="cbi-section">
+		<canvas id="plot_h" width="800" height="100"></canvas>
+		<font size="80" color="green" id="val_h">&nbsp;N/A</font>
+	</fieldset>
+	<h2>Atmospheric Pressure (mbar)</h2>
+	<fieldset class="cbi-section">
+		<canvas id="plot_p" width="800" height="100"></canvas>
+		<font size="80" color="blue" id="val_p">&nbsp;N/A</font>
+	</fieldset>
+</div>
+
+<script type="text/javascript">//<![CDATA[
+	<%local path = luci.dispatcher.context.requestpath%>
+	<%local addr = path[#path]:gsub(":", "z")%>
+	var addr = <%luci.http.write_json(addr)%>
+	// Temperature
+	var smoothie_t = new SmoothieChart({
+		minValue: 20, maxValue: 30,
+		grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
+			lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
+		labels: { fillStyle:'rgb(60, 0, 0)' }
+	});
+	var canvas_t = document.getElementById("plot_t");
+	smoothie_t.streamTo(canvas_t, 2000);
+	var line_t = new TimeSeries({ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+	smoothie_t.addTimeSeries(line_t);
+	// Humidity
+	var smoothie_h = new SmoothieChart({
+		minValue: 0, maxValue: 100,
+		grid: { strokeStyle:'rgb(0, 125, 0)', fillStyle:'rgb(0, 60, 0)',
+			lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
+		labels: { fillStyle:'rgb(0, 60, 0)' }
+	});
+	var canvas_h = document.getElementById("plot_h");
+	smoothie_h.streamTo(canvas_h, 2000);
+	var line_h = new TimeSeries({ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+	smoothie_h.addTimeSeries(line_h);
+	// Pressure
+	var smoothie_p = new SmoothieChart({
+		minValue: 900, maxValue: 1100,
+		grid: { strokeStyle:'rgb(0, 0, 125)', fillStyle:'rgb(0, 0, 60)',
+			lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
+		labels: { fillStyle:'rgb(0, 0, 60)' }
+	});
+	var canvas_p = document.getElementById("plot_p");
+	smoothie_p.streamTo(canvas_p, 2000);
+	var line_p = new TimeSeries({ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+	smoothie_p.addTimeSeries(line_p);
+	// Actually add data
+	XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", addr)%>', null,
+		function(x, st) {
+			if (st) {
+				line_t.append(new Date().getTime(), st.temp);
+				document.getElementById("val_t").innerHTML = String.format('%s &#8451;', st.temp);
+				line_h.append(new Date().getTime(), st.hum);
+				document.getElementById("val_h").innerHTML = String.format('%s &#37;', st.hum);
+				line_p.append(new Date().getTime(), st.pres);
+				document.getElementById("val_p").innerHTML = String.format('%s mbar', st.pres);
+			}
+		}
+	);
+//]]></script>
+
+<%+footer%>
+

@@ -1,0 +1,87 @@
+<%#
+LuCI - Lua Configuration Interface
+Copyright 2008-2009 Steven Barth <steven@midlink.org>
+Copyright 2008-2011 Jo-Philipp Wich <xm@subsignal.org>
+Copyright 2012 Maxim Osipov <maxim.osipov@gmail.com>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+-%>
+
+<%+header%>
+
+<script type="text/javascript" src="<%=resource%>/cbi.js"></script>
+<script type="text/javascript">//<![CDATA[
+	<%local uci = require "luci.model.uci".cursor_state()%>
+	<%local router = uci:get(unpack({"sensors", "router", "ip6addr"})):gsub(":", "z")%>
+	XHR.poll(5, '<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", router)%>', null,
+		function(x, st) {
+			if (st) {
+				var ngs = document.getElementById('sens-neighbours');
+				if (ngs) {
+					while (ngs.rows.length > 1) {
+						ngs.rows[1].parentNode.removeChild(ngs.rows[1]);
+					}
+					for (var i = 0; i < st.neighbours.length; i++) {
+						var tr = ngs.insertRow(-1);
+						tr.className = 'cbi-section-table-row cbi-rowstyle-2';
+						tr.insertCell(-1).innerHTML = String.format('%s', st.neighbours[i].addr);
+						tr.insertCell(-1).innerHTML = String.format('%s', st.neighbours[i].state);
+					}
+				}
+				var rts = document.getElementById('sens-routes');
+				if (rts) {
+					while (rts.rows.length > 1) {
+						rts.rows[1].parentNode.removeChild(rts.rows[1]);
+					}
+					for (var i = 0; i < st.routes.length; i++) {
+						var tr = rts.insertRow(-1);
+						tr.className = 'cbi-section-table-row cbi-rowstyle-2';
+						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].addr);
+						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].hop);
+						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].life);
+					}
+				}
+			}
+		}
+	);
+//]]></script>
+
+<h2><a id="content" name="content"><%:Sensors%></a></h2>
+
+<div class="cbi-map">
+	<h2><a id="content" name="content"><%:Neighbours%></a></h2>
+	<fieldset class="cbi-section">
+		<table class="cbi-section-table" style="margin:10px" id="sens-neighbours">
+			<tr class="cbi-section-table-titles">
+				<th class="cbi-section-table-cell"><%:Address%></th>
+				<th class="cbi-section-table-cell"><%:State%></th>
+			</tr>
+			<tr class="cbi-section-table-row cbi-rowstyle-2">
+				<td class="cbi-value-field" colspan="2">
+					<em><%:Collecting data...%></em>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<h2><a id="content" name="content"><%:Routes%></a></h2>
+	<fieldset class="cbi-section">
+		<table class="cbi-section-table" style="margin:10px" id="sens-routes">
+			<tr class="cbi-section-table-titles">
+				<th class="cbi-section-table-cell"><%:Address%></th>
+				<th class="cbi-section-table-cell"><%:Next Hop%></th>
+				<th class="cbi-section-table-cell"><%:Lifetime%></th>
+			</tr>
+			<tr class="cbi-section-table-row cbi-rowstyle-2">
+				<td class="cbi-value-field" colspan="3">
+					<em><%:Collecting data...%></em>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<%+footer%>
