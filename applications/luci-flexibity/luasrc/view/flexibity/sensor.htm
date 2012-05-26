@@ -19,19 +19,24 @@ You may obtain a copy of the License at
 <h2><a id="content" name="content"><%:Measurements%></a></h2>
 
 <div class="cbi-map" id="sensors">
+	<h2>Battery (%)</h2>
+	<fieldset class="cbi-section">
+		<canvas id="plot_b" width="400" height="80"></canvas>
+		<font size="80" color="red" id="val_b">&nbsp;N/A</font>
+	</fieldset>
 	<h2>Temperature (C)</h2>
 	<fieldset class="cbi-section">
-		<canvas id="plot_t" width="800" height="100"></canvas>
+		<canvas id="plot_t" width="400" height="80"></canvas>
 		<font size="80" color="red" id="val_t">&nbsp;N/A</font>
 	</fieldset>
 	<h2>Humidity (%)</h2>
 	<fieldset class="cbi-section">
-		<canvas id="plot_h" width="800" height="100"></canvas>
+		<canvas id="plot_h" width="400" height="80"></canvas>
 		<font size="80" color="green" id="val_h">&nbsp;N/A</font>
 	</fieldset>
 	<h2>Atmospheric Pressure (mbar)</h2>
 	<fieldset class="cbi-section">
-		<canvas id="plot_p" width="800" height="100"></canvas>
+		<canvas id="plot_p" width="400" height="80"></canvas>
 		<font size="80" color="blue" id="val_p">&nbsp;N/A</font>
 	</fieldset>
 </div>
@@ -40,6 +45,17 @@ You may obtain a copy of the License at
 	<%local path = luci.dispatcher.context.requestpath%>
 	<%local addr = path[#path]:gsub(":", "z")%>
 	var addr = <%luci.http.write_json(addr)%>
+	// Battery
+	var smoothie_b = new SmoothieChart({
+		minValue: 20, maxValue: 30,
+		grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
+			lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
+		labels: { fillStyle:'rgb(60, 0, 0)' }
+	});
+	var canvas_b = document.getElementById("plot_b");
+	smoothie_b.streamTo(canvas_b, 2000);
+	var line_b = new TimeSeries({ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+	smoothie_b.addTimeSeries(line_b);
 	// Temperature
 	var smoothie_t = new SmoothieChart({
 		minValue: 20, maxValue: 30,
@@ -77,6 +93,8 @@ You may obtain a copy of the License at
 	XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", addr)%>', null,
 		function(x, st) {
 			if (st) {
+				line_b.append(new Date().getTime(), st.bat);
+				document.getElementById("val_b").innerHTML = String.format('%s &#37;', st.bat);
 				line_t.append(new Date().getTime(), st.temp);
 				document.getElementById("val_t").innerHTML = String.format('%s &#8451;', st.temp);
 				line_h.append(new Date().getTime(), st.hum);
