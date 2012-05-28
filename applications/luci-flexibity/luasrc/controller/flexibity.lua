@@ -46,8 +46,9 @@ end
 function action_poll()
 	local sys = require "luci.sys"
 	local path = luci.dispatcher.context.requestpath
-	local addr = path[#path]:gsub("z", ":")
-	local response = sys.httpget('http://'..addr..'/data')
+	local addr = path[#path-1]:gsub("z", ":")
+	local dir = path[#path]
+	local response = sys.httpget('http://'..addr..'/'..dir)
 
 	if response then
 		luci.http.prepare_content("application/json")
