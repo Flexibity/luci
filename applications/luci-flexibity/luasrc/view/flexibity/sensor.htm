@@ -14,7 +14,9 @@ You may obtain a copy of the License at
 <%+header%>
 
 <script type="text/javascript" src="<%=resource%>/cbi.js"></script>
-<script type="text/javascript" src="<%=resource%>/smoothie.js"></script>
+<script type="text/javascript" src="<%=resource%>/jquery.min.js"></script>
+<script type="text/javascript" src="<%=resource%>/highcharts.src.js"></script>
+<script type="text/javascript" src="<%=resource%>/exporting.js"></script>
 
 <h2><a id="content" name="content"><%:Measurements%></a></h2>
 
@@ -25,30 +27,47 @@ You may obtain a copy of the License at
 	<%local path = luci.dispatcher.context.requestpath%>
 	<%local addr = path[#path]:gsub(":", "z")%>
 	var addr = <%luci.http.write_json(addr)%>
-	var smoothie = new Object;
-	var line = new Object;
+	Highcharts.setOptions({global:{useUTC: false}});
+	var charts = new Array();
 	// Get data descriptor
 	XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", addr, "desc")%>', null,
 		function(x, st) {
 			if (st) {
 				document.getElementById('sensors').innerHTML = "";
 				for (var i in st.data) {
-					var str = '<h2>' + i + ' (' + st.data[i] + ')</h2>';
+					var str = '<h2>' + i.toUpperCase() + ': <font id="val_' + i + '">...</font> ' + st.data[i] + '</h2>';
 					str += '<fieldset class="cbi-section">';
-					str += '<canvas id="plot_' + i + '" width="400" height="80"></canvas>';
-					str += '<font size="80" color="red" id="val_' + i + '">...</font>';
-					str += '<font size="80" color="red">' + st.data[i] + '</font>';
+					str += '<div id="plot_' + i + '" style="min-width: 400px; height: 200px; margin: 0 auto"></div>';
 					str += '</fieldset>';
 					document.getElementById('sensors').innerHTML += str;
-					smoothie[i] = new SmoothieChart({
-						minValue: 20, maxValue: 30,
-						grid: { strokeStyle:'rgb(125, 0, 0)', fillStyle:'rgb(60, 0, 0)',
-							lineWidth: 1, millisPerLine: 250, verticalSections: 6, },
-						labels: { fillStyle:'rgb(60, 0, 0)' }
-					});
-					smoothie[i].streamTo(document.getElementById("plot_" + i), 2000);
-					line[i] = new TimeSeries({ strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
-					smoothie[i].addTimeSeries(line[i]);
+					charts.push(new Highcharts.Chart({
+						chart: { renderTo: 'plot_' + i, type: 'spline', marginRight: 10 },
+						title: { text: i.toUpperCase() },
+						xAxis: { type: 'datetime', tickPixelInterval: 150 },
+						yAxis: { title: { text: 'Value (' + st.data[i] + ')' },
+							plotLines: [{ value: 0, width: 1, color: '#808080' }] },
+						tooltip: {
+							formatter: function() {
+								return '<b>'+ this.series.name +'</b><br/>'+
+									Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+									Highcharts.numberFormat(this.y, 2);
+							}
+						},
+						legend: { enabled: false },
+						exporting: { enabled: false },
+						series: [{
+							name: i.toUpperCase(),
+							data: (function() {
+								var data = [],
+									time = (new Date()).getTime(),
+									i;
+								for (j = -19; j <= 0; j++) {
+									data.push({ x: time + j * 1000, y: 0 });
+								}
+								return data;
+							})()
+						}]
+					}));
 				}
 			}
 		}
@@ -57,9 +76,11 @@ You may obtain a copy of the License at
 	XHR.poll(1, '<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", addr, "data")%>', null,
 		function(x, st) {
 			if (st) {
+				var j = 0;
 				for (var i in st) {
-					line[i].append(new Date().getTime(), st[i]);
 					document.getElementById("val_" + i).innerHTML = String.format('%s ', st[i]);
+					charts[j].series[0].addPoint([new Date().getTime(), st[i]], true, true);
+					j++;
 				}
 			}
 		}
