@@ -21,6 +21,9 @@ You may obtain a copy of the License at
 <h2><a id="content" name="content"><%:Measurements%></a></h2>
 
 <div class="cbi-map" id="sensors">
+	<fieldset class="cbi-section">
+		<div id="plot" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+	</fieldset>
 </div>
 
 <script type="text/javascript">//<![CDATA[
@@ -28,47 +31,42 @@ You may obtain a copy of the License at
 	<%local addr = path[#path]:gsub(":", "z")%>
 	var addr = <%luci.http.write_json(addr)%>
 	Highcharts.setOptions({global:{useUTC: false}});
-	var charts = new Array();
+	var chart;
 	// Get data descriptor
 	XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sensors_poll", addr, "desc")%>', null,
 		function(x, st) {
 			if (st) {
-				document.getElementById('sensors').innerHTML = "";
-				for (var i in st.data) {
-					var str = '<h2>' + i.toUpperCase() + ': <font id="val_' + i + '">...</font> ' + st.data[i] + '</h2>';
-					str += '<fieldset class="cbi-section">';
-					str += '<div id="plot_' + i + '" style="min-width: 400px; height: 200px; margin: 0 auto"></div>';
-					str += '</fieldset>';
-					document.getElementById('sensors').innerHTML += str;
-					charts.push(new Highcharts.Chart({
-						chart: { renderTo: 'plot_' + i, type: 'spline', marginRight: 10 },
-						title: { text: i.toUpperCase() },
-						xAxis: { type: 'datetime', tickPixelInterval: 150 },
-						yAxis: { title: { text: 'Value (' + st.data[i] + ')' },
-							plotLines: [{ value: 0, width: 1, color: '#808080' }] },
-						tooltip: {
-							formatter: function() {
-								return '<b>'+ this.series.name +'</b><br/>'+
-									Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
-									Highcharts.numberFormat(this.y, 2);
-							}
-						},
-						legend: { enabled: false },
-						exporting: { enabled: false },
-						series: [{
-							name: i.toUpperCase(),
-							data: (function() {
-								var data = [],
-									time = (new Date()).getTime(),
-									i;
-								for (j = -19; j <= 0; j++) {
-									data.push({ x: time + j * 1000, y: 0 });
-								}
-								return data;
-							})()
-						}]
-					}));
+				var y_axis = new Array();
+				var series = new Array();
+				var series_data = new Array();
+				var time = (new Date()).getTime();
+				for (k = -29; k <= 0; k++) {
+					series_data.push({
+						x: time + k * 1000,
+						y: 0
+					});
 				}
+				for (var i in st.data) {
+					y_axis.push({
+						lables: { formatter: function() { return this.value + st.data[i]; } },
+						title: { text: i.toUpperCase() + ' (' + st.data[i] + ')' },
+                                                plotLines: [{ value: 0, width: 1, color: '#808080' }]
+					});
+					series.push({
+						name: i.toUpperCase(),
+						type: 'spline',
+						data: series_data
+					});
+				}
+				chart = new Highcharts.Chart({
+					title: { text: st.type + ' data' },
+					chart: { renderTo: 'plot', type: 'spline', marginRight: 10 },
+					xAxis: { type: 'datetime', tickPixelInterval: 150 },
+					yAxis: y_axis,
+					legend: { enabled: false },
+					exporting: { enabled: false },
+					series: series
+				});
 			}
 		}
 	);
@@ -78,8 +76,7 @@ You may obtain a copy of the License at
 			if (st) {
 				var j = 0;
 				for (var i in st) {
-					document.getElementById("val_" + i).innerHTML = String.format('%s ', st[i]);
-					charts[j].series[0].addPoint([new Date().getTime(), st[i]], true, true);
+					chart.series[j].addPoint([(new Date()).getTime(), st[i]], true, true);
 					j++;
 				}
 			}
