@@ -46,6 +46,7 @@ You may obtain a copy of the License at
 						y: 0
 					});
 				}
+				var j = 0;
 				for (var i in st.data) {
 					y_axis.push({
 						lables: { formatter: function() { return this.value + st.data[i]; } },
@@ -55,8 +56,10 @@ You may obtain a copy of the License at
 					series.push({
 						name: i.toUpperCase(),
 						type: 'spline',
+						yAxis: j,
 						data: series_data
 					});
+					j++;
 				}
 				chart = new Highcharts.Chart({
 					title: { text: st.type + ' data' },
