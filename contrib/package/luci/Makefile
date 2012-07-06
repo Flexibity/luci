@@ -621,8 +621,7 @@ $(eval $(call collection,flexibity,\
 	+motion-flexibity \
 	+px5g \
 	+libiwinfo \
-	+flexibity-connect \
-	+flexibity-sensors))
+	+flexibity))
 
 ### Compile ###
 PKG_CONFIG_DEPENDS=$(patsubst %,CONFIG_PACKAGE_%,$(LUCI_BUILD_PACKAGES))
