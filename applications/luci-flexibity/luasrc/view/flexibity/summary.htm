@@ -39,8 +39,12 @@ You may obtain a copy of the License at
 					}
 					for (var i = 0; i < st.routes.length; i++) {
 						var tr = rts.insertRow(-1);
+						var addr = st.routes[i].addr.replace(/\/128/, "");
 						tr.className = 'cbi-section-table-row cbi-rowstyle-2';
-						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].addr);
+						tr.insertCell(-1).innerHTML = String.format('<a href="%s">%s</a>',
+							'<%=luci.dispatcher.build_url("admin", "services", "sensors")%>' + '/' + addr,
+							addr
+						);
 						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].hop);
 						tr.insertCell(-1).innerHTML = String.format('%s', st.routes[i].life);
 					}

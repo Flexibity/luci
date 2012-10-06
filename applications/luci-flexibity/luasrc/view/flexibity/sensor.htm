@@ -15,10 +15,10 @@ You may obtain a copy of the License at
 
 <script type="text/javascript" src="<%=resource%>/cbi.js"></script>
 <script type="text/javascript" src="<%=resource%>/jquery.min.js"></script>
-<script type="text/javascript" src="<%=resource%>/highcharts.src.js"></script>
+<script type="text/javascript" src="<%=resource%>/highcharts.js"></script>
 <script type="text/javascript" src="<%=resource%>/exporting.js"></script>
 
-<h2><a id="content" name="content"><%:Measurements%></a></h2>
+<h2 id="content" name="content"><%:Measurements%></h2>
 
 <div class="cbi-map" id="sensors">
 	<fieldset class="cbi-section">
@@ -30,6 +30,8 @@ You may obtain a copy of the License at
 	<%local path = luci.dispatcher.context.requestpath%>
 	<%local addr = path[#path]:gsub(":", "z")%>
 	var addr = <%luci.http.write_json(addr)%>
+	var name = document.getElementById('content');
+	name.innerHTML = name.innerHTML + " (" + addr + ")";
 	Highcharts.setOptions({global:{useUTC: false}});
 	var chart;
 	// Get data descriptor
@@ -40,7 +42,7 @@ You may obtain a copy of the License at
 				var series = new Array();
 				var series_data = new Array();
 				var time = (new Date()).getTime();
-				for (k = -29; k <= 0; k++) {
+				for (k = -10; k <= 0; k++) {
 					series_data.push({
 						x: time + k * 1000,
 						y: 0

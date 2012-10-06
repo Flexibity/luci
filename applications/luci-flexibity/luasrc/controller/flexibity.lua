@@ -19,28 +19,10 @@ function index()
 	if not nixio.fs.access("/etc/config/sensors") then
 		return
 	end
-
 	local page = entry({"admin", "services", "sensors"}, arcombine(template("flexibity/summary"), template("flexibity/sensor")), _("Sensors"), 90)
 	page.leaf = true
 	page.subindex = true
         entry({"admin", "services", "sensors_poll"}, call("action_poll"), nil).leaf = true
-
-	local uci = require "luci.model.uci".cursor_state()
-	local router = uci:get(unpack({"sensors", "router", "ip6addr"}))
-	if not router then
-		return
-	end
-        local response = require "luci.sys".httpget('http://'..router..'/index.html')
-        if not response then
-                return
-        end
-        local data = require "luci.json".decode(response)
-        if data then
-                for i,v in ipairs(data.routes) do
-			local addr = v.addr:gsub("/.*", "")
-			entry({"admin", "services", "sensors", addr}, alias("admin", "services", "sensors"), addr).leaf = true
-                end
-        end
 end
 
 function action_poll()
