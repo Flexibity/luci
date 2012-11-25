@@ -19,10 +19,11 @@ function index()
 	if not nixio.fs.access("/etc/config/sensors") then
 		return
 	end
-	local page = entry({"admin", "services", "sensors"}, arcombine(template("flexibity/summary"), template("flexibity/sensor")), _("Sensors"), 90)
+	local page = entry({"admin", "services", "sensors"}, arcombine(cbi("flexibity/sensors"), template("flexibity/sensor")), _("Sensors"), 90)
 	page.leaf = true
 	page.subindex = true
         entry({"admin", "services", "sensors_poll"}, call("action_poll"), nil).leaf = true
+        entry({"admin", "services", "router_poll"}, call("action_routes"), nil).leaf = true
 end
 
 function action_poll()
@@ -39,5 +40,21 @@ function action_poll()
 	end
 
 	luci.http.status(404, "No such sensor")
+end
+
+function action_routes()
+	local sys = require "luci.sys"
+	local uci = require "uci"
+	local cursor = uci.cursor()
+	local addr = cursor:get("sensors", "router", "ip6addr")
+	local response = sys.httpget('http://'..addr..'/data')
+
+	if response then
+		luci.http.prepare_content("application/json")
+		luci.http.write(response)
+		return
+	end
+
+	luci.http.status(404, "No such router")
 end
 
